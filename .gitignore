@@ -1,0 +1,7 @@
+/test
+/.env
+/truffle-config.js
+/migrations
+/node_modules/*
+!node_modules/@openzeppelin/
+/node_modules
