@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import moment from "moment";
 import { Table, Row, Col, Card, Button } from "antd";
+import { PlusCircleFilled, MinusCircleFilled } from "@ant-design/icons";
 import Utils from "../common/Utils";
 
 const FarmingPoolBlock = (props) => {
     return (
         <>
-            <Card class="block">
+            <Card className="block">
                 <Row className="block-title no-margin" gutter={[30, 15]} type="flex">
                     <Col xs={24} md={24} className="gutter-row text-center no-padding">
                         <div class="pool-token-img">
@@ -34,8 +35,8 @@ const FarmingPoolBlock = (props) => {
                                     <label class="pool-text-value">{Utils.FormatMoney(props.locked)} {props.token1.toUpperCase()}-{props.token2.toUpperCase()} LP</label>
                                 </div>
                                 <div class="pool-text-group">
-                                    <Button className="btn margin-top-6 margin-bottom-6">Deposit</Button>
-                                    <Button className="btn margin-top-6 margin-bottom-6">Withdraw</Button>
+                                    <Button className="btn margin-top-6 margin-bottom-6"><PlusCircleFilled></PlusCircleFilled> Deposit</Button>
+                                    <Button className="btn margin-top-6 margin-bottom-6"><MinusCircleFilled></MinusCircleFilled> Withdraw</Button>
                                 </div>
                             </>
                             )}

@@ -390,6 +390,7 @@ section, main, footer {
 
 .block {
     min-width: 0px;
+    border: none;
     border-radius: 20px;
     padding: 8px;
     background-color: #272727;
@@ -430,6 +431,7 @@ section, main, footer {
     font-family: Karla, sans-serif;
     font-weight: normal;
     line-height: 1.235;
+    color: #ffffff;
 }
 
 .pool-token-img {

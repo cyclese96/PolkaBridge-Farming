@@ -24,10 +24,10 @@ const Farming = () => {
             <FarmingPoolBlock connected="true" approved="true" token1="pbr" token2="eth" description="Deposit PBR-WETH UNI-V2 Earn PBR" totallocked="270801" apy="168.68" earned="0" locked="0"></FarmingPoolBlock>
           </Col>
           <Col xs={24} md={8} className="gutter-row">
-            <FarmingPoolBlock connected="false" approved="false" token1="pbr" token2="eth" description="Deposit PBR-WETH UNI-V2 Earn PBR" totallocked="270801" apy="168.68" earned="0" locked="0"></FarmingPoolBlock>
+            <FarmingPoolBlock connected="false" approved="false" token1="pbr" token2="usdt" description="Deposit PBR-USDT UNI-V2 Earn PBR" totallocked="270801" apy="168.68" earned="0" locked="0"></FarmingPoolBlock>
           </Col>
           <Col xs={24} md={8} className="gutter-row">
-            <FarmingPoolBlock connected="true" approved="false" token1="pbr" token2="eth" description="Deposit PBR-WETH UNI-V2 Earn PBR" totallocked="270801" apy="168.68" earned="0" locked="0"></FarmingPoolBlock>
+            <FarmingPoolBlock connected="true" approved="false" token1="pbr" token2="usdc" description="Deposit PBR-USDC UNI-V2 Earn PBR" totallocked="270801" apy="168.68" earned="0" locked="0"></FarmingPoolBlock>
           </Col>
         </Row>
       </DefaultLayout>
