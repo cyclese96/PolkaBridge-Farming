@@ -21,13 +21,13 @@ const Farming = () => {
         </Row>
         <Row gutter={[30, 15]} type="flex">
           <Col xs={24} md={8} className="gutter-row">
-            <FarmingPoolBlock></FarmingPoolBlock>
+            <FarmingPoolBlock connected="true" approved="true" token1="pbr" token2="eth" description="Deposit PBR-WETH UNI-V2 Earn PBR" totallocked="270801" apy="168.68" earned="0" locked="0"></FarmingPoolBlock>
           </Col>
           <Col xs={24} md={8} className="gutter-row">
-            <FarmingPoolBlock></FarmingPoolBlock>
+            <FarmingPoolBlock connected="false" approved="false" token1="pbr" token2="eth" description="Deposit PBR-WETH UNI-V2 Earn PBR" totallocked="270801" apy="168.68" earned="0" locked="0"></FarmingPoolBlock>
           </Col>
           <Col xs={24} md={8} className="gutter-row">
-            <FarmingPoolBlock></FarmingPoolBlock>
+            <FarmingPoolBlock connected="true" approved="false" token1="pbr" token2="eth" description="Deposit PBR-WETH UNI-V2 Earn PBR" totallocked="270801" apy="168.68" earned="0" locked="0"></FarmingPoolBlock>
           </Col>
         </Row>
       </DefaultLayout>

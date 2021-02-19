@@ -358,6 +358,14 @@ section, main, footer {
     margin: 0 !important;
 }
 
+.margin-top-6 {
+    margin-top: 6px;
+}
+
+.margin-bottom-6 {
+    margin-bottom: 6px;
+}
+
 .margin-bottom-16 {
     margin-bottom: 16px;
 }
@@ -367,7 +375,7 @@ section, main, footer {
 }
 
 .btn, .btn:hover, .btn:focus {
-    border-radius: 15px;
+    border-radius: 8px;
     cursor: pointer;
     background: #e0077d;
     color: #fff;
