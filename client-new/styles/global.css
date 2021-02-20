@@ -374,7 +374,15 @@ section, main, footer {
     padding: 0 !important;
 }
 
-.btn, .btn:hover, .btn:focus {
+.ant-btn, .ant-btn:hover, .ant-btn:focus {
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid #e0077d;
+    color: #e0077d;
+}
+
+.ant-btn-primary, .ant-btn-primary:hover, .ant-btn-primary:focus, .btn, .btn:hover, .btn:focus {
     border-radius: 8px;
     cursor: pointer;
     background: #e0077d;
@@ -485,6 +493,73 @@ section, main, footer {
 
 .highlight {
     color: rgb(76, 175, 80);
+}
+
+.ant-modal-content {
+    background: #272727;
+    color: #ffffff;
+}
+
+.exchange-form__input-group {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.exchange-form__input {
+    font-size: 18px;
+    line-height: 24px;
+    width: 100%;
+    margin-right: 10px;
+    position: relative;
+}
+
+.exchange-form__input input {
+    border: none;
+    background-color: #151515;
+    color: #cdcdcd;
+    outline: none;
+    border-radius: 8px;
+    padding: 6px 62px 6px 12px;
+    width: 100%;
+}
+
+.exchange-form__input .exchange-form__max {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #a8a8b4;
+    border: 1px solid #a8a8b4;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 600;
+    background-color: transparent;
+    border-radius: 8px;
+    margin: 6px 12px;
+    padding: 2px 7px;
+    outline: none;
+    cursor: pointer;
+}
+
+.exchange-form__token {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    color: #e0077d;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
 }
 
 /* Icons */

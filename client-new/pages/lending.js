@@ -1,14 +1,8 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { useRouter } from "next/router";
+import React from "react";
 import DefaultLayout from "../layouts/layout_v1";
-import { useSelector, useDispatch } from 'react-redux';
-import { Col, Row, Avatar } from "antd";
+import { Col, Row } from "antd";
 
 const Lending = () => {
-  const [login, setLogin] = useState(false);
-  const router = useRouter();
-  const dispatch = useDispatch();
-  
   return (
     <>
       <DefaultLayout siteTitle="PolkaBridge Interface">
