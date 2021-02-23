@@ -11,7 +11,9 @@ interface ButtonProps {
   size?: 'sm' | 'md' | 'lg',
   text?: string,
   to?: string,
-  variant?: 'default' | 'secondary' | 'tertiary'
+  variant?: 'default' | 'secondary' | 'tertiary' | 'transparent',
+  margin?: string,
+  justify?: string
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,11 +25,14 @@ const Button: React.FC<ButtonProps> = ({
   text,
   to,
   variant,
+  margin,
+  justify
 }) => {
   const { color, spacing } = useContext(ThemeContext)
 
   let buttonColor: string
   let bgColor: string
+  let bdColor: string
   switch (variant) {
     case 'secondary':
       buttonColor = color.primary.main
@@ -36,6 +41,11 @@ const Button: React.FC<ButtonProps> = ({
     case 'tertiary':
       buttonColor = color.grey[500]
       bgColor = color.grey[400]
+      break
+    case 'transparent':
+      buttonColor = color.white
+      bgColor = "transparent"
+      bdColor = color.grey[400]
       break
     case 'default':
     default:
@@ -83,11 +93,14 @@ const Button: React.FC<ButtonProps> = ({
       boxShadow={boxShadow}
       color={buttonColor}
       bgColor = {bgColor}
+      bdColor = {bdColor}
       disabled={disabled}
       fontSize={fontSize}
       onClick={onClick}
       padding={buttonPadding}
       size={buttonSize}
+      margin={margin}
+      justify={justify}
     >
       {children}
       {ButtonChild}
@@ -99,16 +112,19 @@ interface StyledButtonProps {
   boxShadow: string,
   color: string,
   bgColor: string,
+  bdColor: string,
   disabled?: boolean,
   fontSize: number,
   padding: number,
-  size: number
+  size: number,
+  margin: string,
+  justify: string
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
   align-items: center;
   background-color: ${props => !props.disabled ? props.bgColor : `${props.bgColor}50`};
-  border: 0;
+  border: solid 1px;
   border-radius: 8px;
   box-shadow: ${props => props.boxShadow};
   color: ${props => props.color};
@@ -117,7 +133,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   font-size: ${props => props.fontSize}px;
   font-weight: 700;
   height: ${props => props.size}px;
-  justify-content: center;
+  justify-content: ${props => props.justify ? props.justify : 'center'};
   outline: none;
   padding-left: ${props => props.padding}px;
   padding-right: ${props => props.padding}px;
@@ -126,6 +142,8 @@ const StyledButton = styled.button<StyledButtonProps>`
   // &:hover {
   //   background-color: ${props => props.bgColor};
   // }
+  border-color: ${props => props.bdColor ? props.bdColor : props.bgColor};
+  margin: ${props => props.margin};
 `
 
 const StyledLink = styled(Link)`

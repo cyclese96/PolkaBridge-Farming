@@ -15,10 +15,10 @@ interface WalletCardProps {
 const WalletCard: React.FC<WalletCardProps> = ({ icon, onConnect, title }) => (
   <Card>
     <CardContentWallet>
-      <CardIcon>{icon}</CardIcon>
-      <CardTitle text={title} />
-      <Spacer />
-      <Button onClick={onConnect} text="Connect" />
+      <Button variant="transparent" onClick={onConnect} margin="5px 0" justify="space-between">
+        <CardTitle text={title} />
+        {icon}
+      </Button>
     </CardContentWallet>
   </Card>
 )

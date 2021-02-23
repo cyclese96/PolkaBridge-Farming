@@ -100,7 +100,7 @@ const Balances = memo(() => {
             </StyledBalance>
           </StyledBalances>
         </CardContent>
-        <Footnote>
+        {/* <Footnote>
           Pending harvest
           <FootnoteValue>
             <PendingRewards /> PBR
@@ -112,7 +112,7 @@ const Balances = memo(() => {
             {totalUserLocked ? `${parseFloat(getBalanceNumber(totalUserLocked).toFixed(2)).toLocaleString('en-US')} PBR` : '~'}
           </FootnoteValue>
         </Footnote>
-        <Spacer size="sm" />
+        <Spacer size="sm" /> */}
       </Card>
       <Spacer />
 
@@ -129,7 +129,7 @@ const Balances = memo(() => {
             </div>
           </StyledBalance>
         </CardContent>
-        <Footnote>
+        {/* <Footnote>
           Total burned amount
           <FootnoteValue>
             {currentBurned ? `${parseFloat(getBalanceNumber(currentBurned).toFixed(2)).toLocaleString('en-US')} PBR` : '~'}
@@ -141,7 +141,7 @@ const Balances = memo(() => {
             {totalLocked ? `${parseFloat(getBalanceNumber(totalLocked).toFixed(2)).toLocaleString('en-US')} PBR` : '~'}
           </FootnoteValue>
         </Footnote>
-        <Spacer size="sm" />
+        <Spacer size="sm" /> */}
       </Card>
     </StyledWrapper>
   )

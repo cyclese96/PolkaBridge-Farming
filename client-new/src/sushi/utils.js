@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { ethers } from 'ethers'
+// import { ethers } from 'ethers'
 import axios from 'axios'
 import config from '../config'
 import { supportedPools, START_NEW_POOL_AT } from './lib/constants'

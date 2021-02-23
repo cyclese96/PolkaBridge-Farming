@@ -29,6 +29,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
   }, [account, onDismiss])
 
   function tryConnect(type: any) {
+    debugger
     if (type == 'injected') {
       localStorage.useWalletConnectType = type
       localStorage.useWalletConnectStatus = 'pending'
@@ -49,7 +50,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
               title="Metamask"
             />
           </StyledWalletCard>
-          <Spacer size="sm" />
+          {/* <Spacer size="sm" /> */}
           <StyledWalletCard>
             <WalletCard
               icon={<img src={'https://nextyezpay.s3-ap-southeast-1.amazonaws.com/zd.svg'} style={{ height: 32 }} />}
@@ -57,7 +58,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
               title="ezDeFi"
             />
           </StyledWalletCard>
-          <Spacer size="sm" />
+          {/* <Spacer size="sm" /> */}
           <StyledWalletCard>
             <WalletCard
               icon={<img src={trustWalletLogo} style={{ height: 32 }} />}
@@ -90,7 +91,6 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 }
 
 const StyledWalletsWrapper = styled.div`
-  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
