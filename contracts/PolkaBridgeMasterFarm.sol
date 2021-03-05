@@ -30,7 +30,6 @@ contract PolkaBridgeMasterFarm is Ownable {
         uint256 stopDate;
         uint256 totalRewardClaimed;
         bool isActived;
-        bool isExist;
     }
 
     PolkaBridge public polkaBridge;
@@ -41,7 +40,6 @@ contract PolkaBridgeMasterFarm is Ownable {
     mapping(address => uint256) public poolId1;
     // Info of each user that stakes LP tokens. pid => user address => info
     mapping(uint256 => mapping(address => UserInfo)) public userInfo;
-   
 
     constructor(PolkaBridge _polkaBridge, uint256 _startBlock) public {
         polkaBridge = _polkaBridge;
@@ -72,8 +70,7 @@ contract PolkaBridgeMasterFarm is Ownable {
                 startDate: _startDate,
                 stopDate: 0,
                 totalRewardClaimed: 0,
-                isActived: true,
-                isExist: true
+                isActived: true
             })
         );
 
@@ -81,18 +78,20 @@ contract PolkaBridgeMasterFarm is Ownable {
     }
 
     function getChangePoolReward() public view returns (uint256) {
+        uint256 numberActivedPool = countActivePool();
         uint256 changePoolReward =
-            (poolBalance() - getTotalLastPoolReward()) / poolInfo.length;
+            (poolBalance() - getTotalLastPoolReward()) / numberActivedPool;
         if (changePoolReward <= 0) changePoolReward = 0;
         return changePoolReward;
     }
 
-    // Update reward variables for all pools. Be careful of gas spending!
     function massUpdatePools() public {
         uint256 length = poolInfo.length;
         uint256 changePoolReward = getChangePoolReward();
         for (uint256 pid = 0; pid < length; pid++) {
-            updatePool(pid, changePoolReward);
+            if (poolInfo[pid].isActived) {
+                updatePool(pid, changePoolReward);
+            }
         }
     }
 
@@ -100,7 +99,9 @@ contract PolkaBridgeMasterFarm is Ownable {
         uint256 total;
         uint256 length = poolInfo.length;
         for (uint256 pid = 0; pid < length; pid++) {
-            total += poolInfo[pid].lastPoolReward;
+            if (poolInfo[pid].isActived) {
+                total += poolInfo[pid].lastPoolReward;
+            }
         }
         return total;
     }
@@ -145,10 +146,10 @@ contract PolkaBridgeMasterFarm is Ownable {
         return user.amountLP.mul(temptAccPBRPerShare).sub(user.rewardDebt);
     }
 
-    function claimReward(uint256 _pid) public {
-        massUpdatePools();
-        _harvest(_pid);
-    }
+    // function claimReward(uint256 _pid) public {
+    //     massUpdatePools();
+    //     _harvest(_pid);
+    // }
 
     function _harvest(uint256 _pid) internal {
         PoolInfo storage pool = poolInfo[_pid];
@@ -182,14 +183,15 @@ contract PolkaBridgeMasterFarm is Ownable {
 
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
+
         massUpdatePools();
         _harvest(_pid);
-
         pool.lpToken.safeTransferFrom(
             address(msg.sender),
             address(this),
             _amount
         );
+
         if (user.amountLP == 0) {
             user.rewardDebtAtBlock = block.number;
         }
@@ -225,8 +227,42 @@ contract PolkaBridgeMasterFarm is Ownable {
         user.rewardDebt = 0;
     }
 
-    function getPoolInfo(uint256 _pid) public view returns (uint256) {
-        return poolInfo[_pid].startDate;
+    function getPoolInfo(uint256 _pid)
+        public
+        view
+        returns (
+            uint256,
+            address,
+            uint256,
+            uint256,
+            uint256,
+            bool,
+            uint256
+        )
+    {
+        return (
+            poolInfo[_pid].lastRewardBlock,
+            address(poolInfo[_pid].lpToken),
+            poolInfo[_pid].lastPoolReward,
+            poolInfo[_pid].startDate,
+            poolInfo[_pid].accPBRPerShare,
+            poolInfo[_pid].isActived,
+            poolInfo[_pid].lpToken.balanceOf(address(this))
+        );
+    }
+
+    function stopPool(uint256 pid) public onlyOwner {
+        PoolInfo storage pool = poolInfo[pid];
+        pool.isActived = false;
+        pool.stopDate = block.timestamp;
+    }
+
+    function countActivePool() public view returns (uint256) {
+        uint256 length = 0;
+        for (uint256 i = 0; i < poolInfo.length; i++) {
+            if (poolInfo[i].isActived) length++;
+        }
+        return length;
     }
 
     receive() external payable {}
