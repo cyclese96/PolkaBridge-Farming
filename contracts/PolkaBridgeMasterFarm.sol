@@ -177,7 +177,8 @@ contract PolkaBridgeMasterFarm is Ownable {
 
         //update pool
 
-        updatePool(_pid, _harvestReward, 2);
+        //updatePool(_pid, _harvestReward, 2);
+         poolInfo[_pid].lastPoolReward -= _harvestReward;
     }
 
     function _getRewardHarvest(uint256 _pid) public view returns (uint256) {

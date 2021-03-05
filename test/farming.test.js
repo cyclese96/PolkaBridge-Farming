@@ -154,8 +154,29 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
         console.log("pendingAcc1: " + web3.utils.fromWei(new BN(pendingAcc1)));
 
+        pendingAcc2 = await farming.pendingReward(0, acc2, { from: acc2 });
+        console.log("pendingAcc2: " + web3.utils.fromWei(new BN(pendingAcc2)));
 
+        var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
+        console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
 
+        //claim
+        await  farming.claimReward(0,{ from: acc1 });
+        console.log("===userInfo acc1 after claim======");
+        await getUserInfo(acc1);
+
+        await getPoolInfo();
+        pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
+        console.log("pendingAcc1: " + web3.utils.fromWei(new BN(pendingAcc1)));
+
+        pendingAcc2 = await farming.pendingReward(0, acc2, { from: acc2 });
+        console.log("pendingAcc2: " + web3.utils.fromWei(new BN(pendingAcc2)));
+
+        var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
+        console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
+        await getPoolPBRBalance();
+
+        
 
     });
 
