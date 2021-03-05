@@ -152,7 +152,7 @@ contract PolkaBridgeMasterFarm is Ownable {
         UserInfo storage user = userInfo[_pid][_user];
         uint256 accPBRPerShare = pool.accPBRPerShare;
         uint256 lpSupply = pool.lpToken.balanceOf(address(this));
-        uint256 temptAccPBRPerShare;
+        uint256 temptAccPBRPerShare = pool.accPBRPerShare;
 
         if (block.number > pool.lastRewardBlock && lpSupply > 0) {
             temptAccPBRPerShare = pool.accPBRPerShare.add(

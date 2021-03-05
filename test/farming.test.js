@@ -137,7 +137,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         await getUserInfo(acc1);
         var rewardClaimed = await farming._getRewardHarvest(0, { from: acc1 });
         console.log("rewardClaimed acc1: " + web3.utils.fromWei(new BN(rewardClaimed.toString())));
-        
+
         await farming.withdraw(0, tokens("217"), { from: acc1 });
 
         console.log("===userInfo acc1 after withdraw======");
@@ -148,6 +148,11 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         var balancePBR = await polkaBridge.balanceOf(acc1);
         console.log("balancePBR acc1: " + web3.utils.fromWei(new BN(balancePBR.toString())));
         await getPoolPBRBalance();
+
+
+        
+        pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
+        console.log("pendingAcc1: " + web3.utils.fromWei(new BN(pendingAcc1)));
 
 
 
