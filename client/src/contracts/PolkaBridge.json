@@ -445,7 +445,7 @@
         "id": 39,
         "nodeType": "ImportDirective",
         "scope": 87,
-        "sourceUnit": 1947,
+        "sourceUnit": 2171,
         "src": "26:55:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -456,7 +456,7 @@
         "id": 40,
         "nodeType": "ImportDirective",
         "scope": 87,
-        "sourceUnit": 1981,
+        "sourceUnit": 2205,
         "src": "83:63:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -467,7 +467,7 @@
         "id": 41,
         "nodeType": "ImportDirective",
         "scope": 87,
-        "sourceUnit": 2039,
+        "sourceUnit": 2263,
         "src": "148:63:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -478,7 +478,7 @@
         "id": 42,
         "nodeType": "ImportDirective",
         "scope": 87,
-        "sourceUnit": 2108,
+        "sourceUnit": 2332,
         "src": "213:56:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -493,10 +493,10 @@
               "id": 43,
               "name": "ERC20",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1946,
+              "referencedDeclaration": 2170,
               "src": "297:5:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20_$1946",
+                "typeIdentifier": "t_contract$_ERC20_$2170",
                 "typeString": "contract ERC20"
               }
             },
@@ -511,10 +511,10 @@
               "id": 45,
               "name": "ERC20Detailed",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2038,
+              "referencedDeclaration": 2262,
               "src": "304:13:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20Detailed_$2038",
+                "typeIdentifier": "t_contract$_ERC20Detailed_$2262",
                 "typeString": "contract ERC20Detailed"
               }
             },
@@ -529,10 +529,10 @@
               "id": 47,
               "name": "ERC20Burnable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1980,
+              "referencedDeclaration": 2204,
               "src": "319:13:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20Burnable_$1980",
+                "typeIdentifier": "t_contract$_ERC20Burnable_$2204",
                 "typeString": "contract ERC20Burnable"
               }
             },
@@ -542,11 +542,11 @@
           }
         ],
         "contractDependencies": [
-          867,
-          1946,
-          1980,
-          2038,
-          2107
+          1091,
+          2170,
+          2204,
+          2262,
+          2331
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -554,11 +554,11 @@
         "id": 86,
         "linearizedBaseContracts": [
           86,
-          1980,
-          2038,
-          1946,
-          2107,
-          867
+          2204,
+          2262,
+          2170,
+          2331,
+          1091
         ],
         "name": "PolkaBridge",
         "nodeType": "ContractDefinition",
@@ -653,7 +653,7 @@
                       "name": "_deploy",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1740,
+                      "referencedDeclaration": 1964,
                       "src": "456:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$_t_uint256_$returns$__$",
@@ -750,10 +750,10 @@
                   "name": "ERC20Detailed",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2038,
+                  "referencedDeclaration": 2262,
                   "src": "400:13:1",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_type$_t_contract$_ERC20Detailed_$2038_$",
+                    "typeIdentifier": "t_type$_t_contract$_ERC20Detailed_$2262_$",
                     "typeString": "type(contract ERC20Detailed)"
                   }
                 },
@@ -826,7 +826,7 @@
                         "name": "tokenOwner",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1216,
+                        "referencedDeclaration": 1440,
                         "src": "717:10:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -914,7 +914,7 @@
                             "referencedDeclaration": 68,
                             "src": "729:5:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_IERC20_$2107",
+                              "typeIdentifier": "t_contract$_IERC20_$2331",
                               "typeString": "contract IERC20"
                             }
                           },
@@ -925,7 +925,7 @@
                           "lValueRequested": false,
                           "memberName": "balanceOf",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 2052,
+                          "referencedDeclaration": 2276,
                           "src": "729:15:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_uint256_$",
@@ -968,7 +968,7 @@
                         "referencedDeclaration": 68,
                         "src": "702:5:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_IERC20_$2107",
+                          "typeIdentifier": "t_contract$_IERC20_$2331",
                           "typeString": "contract IERC20"
                         }
                       },
@@ -979,7 +979,7 @@
                       "lValueRequested": false,
                       "memberName": "transfer",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2061,
+                      "referencedDeclaration": 2285,
                       "src": "702:14:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
@@ -1031,7 +1031,7 @@
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_IERC20_$2107",
+                    "typeIdentifier": "t_contract$_IERC20_$2331",
                     "typeString": "contract IERC20"
                   },
                   "typeName": {
@@ -1039,10 +1039,10 @@
                     "id": 67,
                     "name": "IERC20",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 2107,
+                    "referencedDeclaration": 2331,
                     "src": "670:6:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_IERC20_$2107",
+                      "typeIdentifier": "t_contract$_IERC20_$2331",
                       "typeString": "contract IERC20"
                     }
                   },
@@ -1096,7 +1096,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 1947,
+          "SourceUnit": 2171,
           "absolutePath": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
           "file": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
           "scope": 87,
@@ -1111,7 +1111,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 1981,
+          "SourceUnit": 2205,
           "absolutePath": "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
           "file": "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
           "scope": 87,
@@ -1126,7 +1126,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 2039,
+          "SourceUnit": 2263,
           "absolutePath": "@openzeppelin/contracts/token/ERC20/ERC20Detailed.sol",
           "file": "@openzeppelin/contracts/token/ERC20/ERC20Detailed.sol",
           "scope": 87,
@@ -1141,7 +1141,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 2108,
+          "SourceUnit": 2332,
           "absolutePath": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
           "file": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
           "scope": 87,
@@ -1158,22 +1158,22 @@
         "attributes": {
           "abstract": false,
           "contractDependencies": [
-            867,
-            1946,
-            1980,
-            2038,
-            2107
+            1091,
+            2170,
+            2204,
+            2262,
+            2331
           ],
           "contractKind": "contract",
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
             86,
-            1980,
-            2038,
-            1946,
-            2107,
-            867
+            2204,
+            2262,
+            2170,
+            2331,
+            1091
           ],
           "name": "PolkaBridge",
           "scope": 87
@@ -1188,7 +1188,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "ERC20",
-                  "referencedDeclaration": 1946,
+                  "referencedDeclaration": 2170,
                   "type": "contract ERC20"
                 },
                 "id": 43,
@@ -1209,7 +1209,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "ERC20Detailed",
-                  "referencedDeclaration": 2038,
+                  "referencedDeclaration": 2262,
                   "type": "contract ERC20Detailed"
                 },
                 "id": 45,
@@ -1230,7 +1230,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "ERC20Burnable",
-                  "referencedDeclaration": 1980,
+                  "referencedDeclaration": 2204,
                   "type": "contract ERC20Burnable"
                 },
                 "id": 47,
@@ -1309,7 +1309,7 @@
                       "overloadedDeclarations": [
                         null
                       ],
-                      "referencedDeclaration": 2038,
+                      "referencedDeclaration": 2262,
                       "type": "type(contract ERC20Detailed)",
                       "value": "ERC20Detailed"
                     },
@@ -1412,7 +1412,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1740,
+                              "referencedDeclaration": 1964,
                               "type": "function (address,uint256,uint256)",
                               "value": "_deploy"
                             },
@@ -1539,7 +1539,7 @@
                         "attributes": {
                           "contractScope": null,
                           "name": "IERC20",
-                          "referencedDeclaration": 2107,
+                          "referencedDeclaration": 2331,
                           "type": "contract IERC20"
                         },
                         "id": 67,
@@ -1604,7 +1604,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "transfer",
-                              "referencedDeclaration": 2061,
+                              "referencedDeclaration": 2285,
                               "type": "function (address,uint256) external returns (bool)"
                             },
                             "children": [
@@ -1633,7 +1633,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1216,
+                              "referencedDeclaration": 1440,
                               "type": "address",
                               "value": "tokenOwner"
                             },
@@ -1670,7 +1670,7 @@
                                   "isPure": false,
                                   "lValueRequested": false,
                                   "member_name": "balanceOf",
-                                  "referencedDeclaration": 2052,
+                                  "referencedDeclaration": 2276,
                                   "type": "function (address) view external returns (uint256)"
                                 },
                                 "children": [
@@ -1798,7 +1798,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-03-04T11:20:50.705Z",
+  "updatedAt": "2021-03-05T13:26:43.001Z",
   "devdoc": {
     "methods": {}
   },
