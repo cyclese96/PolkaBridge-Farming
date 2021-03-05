@@ -26,7 +26,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         polkaBridge = await PolkaBridge.new(tokens(process.env.INITIAL_TOKENS));
         farming = await PolkaBridgeMasterFarm.new(polkaBridge.address, 1);
 
-       // polkaBridge.setBeginDeflationFarming(1514870015);
+        // polkaBridge.setBeginDeflationFarming(1514870015);
         polkaBridge.transfer(farming.address, tokens("1000"));
 
         await lpToken.transfer(acc1, tokens("500"));
@@ -131,18 +131,21 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
 
         //user1 withdraw
-        
+
         console.log("===userInfo acc1 before withdraw======");
         await getPoolInfo();
         await getUserInfo(acc1);
-         var dataa=await farming.withdraw(0, tokens("217"), { from: acc1 });
-         console.log("reward claimed: " + web3.utils.fromWei(new BN(dataa.toString())));
+        var rewardClaimed = await farming._getRewardHarvest(0, { from: acc1 });
+        console.log("rewardClaimed acc1: " + web3.utils.fromWei(new BN(rewardClaimed.toString())));
+        
+        await farming.withdraw(0, tokens("217"), { from: acc1 });
+
         console.log("===userInfo acc1 after withdraw======");
         await getUserInfo(acc1);
 
         await getPoolInfo();
 
-        var balancePBR=await polkaBridge.balanceOf(acc1);
+        var balancePBR = await polkaBridge.balanceOf(acc1);
         console.log("balancePBR acc1: " + web3.utils.fromWei(new BN(balancePBR.toString())));
         await getPoolPBRBalance();
 

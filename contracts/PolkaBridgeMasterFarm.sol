@@ -92,7 +92,7 @@ contract PolkaBridgeMasterFarm is Ownable {
         uint256 changePoolReward = getChangePoolReward();
         for (uint256 pid = 0; pid < length; pid++) {
             if (poolInfo[pid].isActived) {
-                updatePool(pid, changePoolReward,1);
+                updatePool(pid, changePoolReward, 1);
             }
         }
     }
@@ -109,7 +109,11 @@ contract PolkaBridgeMasterFarm is Ownable {
     }
 
     // Update reward variables of the given pool to be up-to-date.
-    function updatePool(uint256 _pid, uint256 _changePoolReward,int256 flag) internal {
+    function updatePool(
+        uint256 _pid,
+        uint256 _changePoolReward,
+        int256 flag
+    ) internal {
         PoolInfo storage pool = poolInfo[_pid];
         if (block.number <= pool.lastRewardBlock) {
             return;
@@ -130,14 +134,11 @@ contract PolkaBridgeMasterFarm is Ownable {
         }
         pool.lastRewardBlock = block.number;
 
-if(flag==1){
-pool.lastPoolReward += _changePoolReward;
-}
-else{
-pool.lastPoolReward -= _changePoolReward;
-}
-        
-
+        if (flag == 1) {
+            pool.lastPoolReward += _changePoolReward;
+        } else {
+            pool.lastPoolReward -= _changePoolReward;
+        }
 
         pool.lastLPBalance = pool.lpToken.balanceOf(address(this));
     }
@@ -170,24 +171,34 @@ pool.lastPoolReward -= _changePoolReward;
 
     function claimReward(uint256 _pid) public {
         massUpdatePools();
-        uint256 claimReward=_harvest(_pid);
+
+        uint256 _harvestReward = _getRewardHarvest(_pid);
+        _harvest(_pid);
 
         //update pool
-       
-        updatePool(_pid, claimReward,-1);
+
+        updatePool(_pid, _harvestReward, -1);
     }
 
-    function _harvest(uint256 _pid) internal returns(uint256){
-        PoolInfo storage pool = poolInfo[_pid];
-        UserInfo storage user = userInfo[_pid][msg.sender];
-        uint256 pending;
-        if (user.amountLP > 0) {
-            pending = (
+    function _getRewardHarvest(uint256 _pid) public view returns (uint256) {
+        UserInfo memory user = userInfo[_pid][msg.sender];
+         PoolInfo memory pool = poolInfo[_pid];
+        uint256 pending =
+            (
                 user.amountLP.mul(pool.accPBRPerShare).sub(
                     user.rewardDebt.mul(1e18)
                 )
             )
                 .div(1e18);
+        return pending;
+    }
+
+    function _harvest(uint256 _pid) internal {
+        PoolInfo storage pool = poolInfo[_pid];
+        UserInfo storage user = userInfo[_pid][msg.sender];
+
+        if (user.amountLP > 0) {
+            uint256 pending = _getRewardHarvest(_pid);
             uint256 masterBal = poolBalance();
 
             if (pending > masterBal) {
@@ -203,7 +214,6 @@ pool.lastPoolReward -= _changePoolReward;
             user.rewardDebt = user.amountLP.mul(pool.accPBRPerShare).div(1e18);
             user.rewardClaimed += pending;
         }
-        return pending;
     }
 
     function deposit(uint256 _pid, uint256 _amount) public {
@@ -232,7 +242,7 @@ pool.lastPoolReward -= _changePoolReward;
         user.rewardDebt = user.amountLP.mul(pool.accPBRPerShare).div(1e18);
     }
 
-    function withdraw(uint256 _pid, uint256 _amount) public returns(uint256) {
+    function withdraw(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         require(
@@ -240,22 +250,19 @@ pool.lastPoolReward -= _changePoolReward;
             "PolkaBridgeMasterFarmer::withdraw: not good"
         );
 
-
         if (_amount > 0) {
-           
-        massUpdatePools();
-        uint256 rewardClaimed=_harvest(_pid);
-          pool.lpToken.safeTransfer(address(msg.sender), _amount);
-               user.amountLP = user.amountLP.sub(_amount);
+            massUpdatePools();
+            uint256 _harvestReward = _getRewardHarvest(_pid);
+            _harvest(_pid);
+            pool.lpToken.safeTransfer(address(msg.sender), _amount);
+            user.amountLP = user.amountLP.sub(_amount);
 
-        user.rewardDebt = user.amountLP.mul(pool.accPBRPerShare).div(1e18);
+            user.rewardDebt = user.amountLP.mul(pool.accPBRPerShare).div(1e18);
 
-        //update pool
-        
-        updatePool(_pid, rewardClaimed,-1);
-        return rewardClaimed;
+            //update pool
+
+            updatePool(_pid, _harvestReward, -1);
         }
-        return 0;
     }
 
     function emergencyWithdraw(uint256 _pid) public {
@@ -278,8 +285,8 @@ pool.lastPoolReward -= _changePoolReward;
             uint256,
             bool,
             uint256
-            //uint256
         )
+    //uint256
     {
         return (
             poolInfo[_pid].lastRewardBlock,
