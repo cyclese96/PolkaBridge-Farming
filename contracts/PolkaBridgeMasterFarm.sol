@@ -112,10 +112,10 @@ contract PolkaBridgeMasterFarm is Ownable {
     function updatePool(
         uint256 _pid,
         uint256 _changePoolReward,
-        int256 flag
+        uint256 flag
     ) internal {
         PoolInfo storage pool = poolInfo[_pid];
-        if (block.number <= pool.lastRewardBlock) {
+        if (block.number <= pool.lastRewardBlock && flag==1) {
             return;
         }
         uint256 lpSupply = pool.lastLPBalance;
@@ -177,7 +177,7 @@ contract PolkaBridgeMasterFarm is Ownable {
 
         //update pool
 
-        updatePool(_pid, _harvestReward, -1);
+        updatePool(_pid, _harvestReward, 2);
     }
 
     function _getRewardHarvest(uint256 _pid) public view returns (uint256) {
@@ -258,10 +258,11 @@ contract PolkaBridgeMasterFarm is Ownable {
             user.amountLP = user.amountLP.sub(_amount);
 
             user.rewardDebt = user.amountLP.mul(pool.accPBRPerShare).div(1e18);
+            
 
             //update pool
 
-            updatePool(_pid, _harvestReward, -1);
+            updatePool(_pid, _harvestReward, 2);
         }
     }
 
