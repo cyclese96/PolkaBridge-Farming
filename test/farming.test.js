@@ -78,7 +78,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         //=================================================================
         //acc1 deposit
         console.log("----USER 1 DEPOSIT---")
-        await lpToken.approve(farming.address, tokens("500"), { from: acc1 });
+        await lpToken.approve(farming.address, tokens("999999999999999999"), { from: acc1 });
         await farming.deposit(0, tokens("500"), { from: acc1 });
         await getPoolInfo();
 
@@ -94,7 +94,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         //=================================================================
         //acc2 deposit
         console.log("----USER 2 DEPOSIT---")
-        await lpToken.approve(farming.address, tokens("410"), { from: acc2 });
+        await lpToken.approve(farming.address, tokens("999999999999999999"), { from: acc2 });
         await farming.deposit(0, tokens("410"), { from: acc2 });
         await getPoolInfo();
 
@@ -114,7 +114,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         //======================================================================
         //acc3 deposit
         console.log("----USER 3 DEPOSIT---")
-        await lpToken.approve(farming.address, tokens("310"), { from: acc3 });
+        await lpToken.approve(farming.address, tokens("999999999999999999"), { from: acc3 });
         await farming.deposit(0, tokens("310"), { from: acc3 });
         await getPoolInfo();
 
@@ -186,6 +186,20 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
 
         console.log("----MORE 1003 REWARD---")
         polkaBridge.transfer(farming.address, tokens("1003"));
+        await getPoolPBRBalance();
+        pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
+        console.log("pendingAcc1: " + web3.utils.fromWei(new BN(pendingAcc1)));
+
+        pendingAcc2 = await farming.pendingReward(0, acc2, { from: acc2 });
+        console.log("pendingAcc2: " + web3.utils.fromWei(new BN(pendingAcc2)));
+
+        var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
+        console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
+
+        //acc1 deposit
+        console.log("----USER 1 DEPOSIT---")
+        await farming.deposit(0, tokens("100"), { from: acc1 });
+        await getPoolInfo();
         await getPoolPBRBalance();
         pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
         console.log("pendingAcc1: " + web3.utils.fromWei(new BN(pendingAcc1)));

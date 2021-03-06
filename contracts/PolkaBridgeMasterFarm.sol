@@ -119,14 +119,8 @@ contract PolkaBridgeMasterFarm is Ownable {
             return;
         }
         uint256 lpSupply = pool.lastLPBalance;
-        if (lpSupply == 0) {
-            pool.accPBRPerShare = pool.accPBRPerShare.add(
-                (
-                    _changePoolReward.mul(1e18).div(
-                        pool.lpToken.balanceOf(address(this))
-                    )
-                )
-            );
+        if (lpSupply == 0) { // first deposit
+            pool.accPBRPerShare = 0;
         } else {
             pool.accPBRPerShare = pool.accPBRPerShare.add(
                 (_changePoolReward.mul(1e18).div(lpSupply))
@@ -144,7 +138,7 @@ contract PolkaBridgeMasterFarm is Ownable {
     }
 
     function pendingReward(uint256 _pid, address _user)
-        external
+        public
         view
         returns (uint256)
     {
@@ -169,22 +163,14 @@ contract PolkaBridgeMasterFarm is Ownable {
         return pending;
     }
 
-    function _getRewardHarvest(uint256 _pid) public view returns (uint256) {
-        UserInfo memory user = userInfo[_pid][msg.sender];
-         PoolInfo memory pool = poolInfo[_pid];
-        uint256 pending =
-            (
-                user.amountLP.mul(pool.accPBRPerShare).sub(
-                    user.rewardDebt.mul(1e18)
-                )
-            )
-                .div(1e18);
-        return pending;
-    }
-
     function claimReward(uint256 _pid) public {
+        PoolInfo storage pool = poolInfo[_pid];
+        UserInfo storage user = userInfo[_pid][msg.sender];
+
         massUpdatePools();
         _harvest(_pid);
+
+        user.rewardDebt = user.amountLP.mul(pool.accPBRPerShare).div(1e18);
     }
 
     function _harvest(uint256 _pid) internal {
@@ -192,7 +178,7 @@ contract PolkaBridgeMasterFarm is Ownable {
         UserInfo storage user = userInfo[_pid][msg.sender];
 
         if (user.amountLP > 0) {
-            uint256 pending = _getRewardHarvest(_pid);
+            uint256 pending = pendingReward(_pid, msg.sender);
             uint256 masterBal = poolBalance();
 
             if (pending > masterBal) {
@@ -201,11 +187,10 @@ contract PolkaBridgeMasterFarm is Ownable {
 
             if (pending > 0) {
                 polkaBridge.transfer(msg.sender, pending);
-                pool.lastPoolReward -= pending;
-                user.rewardDebtAtBlock = block.number;
+                pool.lastPoolReward = polkaBridge.balanceOf(address(this));
             }
 
-            user.rewardDebt = user.amountLP.mul(pool.accPBRPerShare).div(1e18);
+            user.rewardDebtAtBlock = block.number;
             user.rewardClaimed += pending;
         }
     }
@@ -246,13 +231,12 @@ contract PolkaBridgeMasterFarm is Ownable {
 
         if (_amount > 0) {
             massUpdatePools();
-            uint256 _harvestReward = _getRewardHarvest(_pid);
             _harvest(_pid);
             pool.lpToken.safeTransfer(address(msg.sender), _amount);
+            pool.lastLPBalance = pool.lpToken.balanceOf(address(this));
 
             // update pool
-            updatePool(_pid, 0, 1);
-
+            // updatePool(_pid, 0, 1);
             user.amountLP = user.amountLP.sub(_amount);
             user.rewardDebt = user.amountLP.mul(pool.accPBRPerShare).div(1e18);
         }
@@ -310,6 +294,12 @@ contract PolkaBridgeMasterFarm is Ownable {
         PoolInfo storage pool = poolInfo[pid];
         pool.isActived = false;
         pool.stopDate = block.timestamp;
+    }
+
+    function activePool(uint256 pid) public onlyOwner {
+        PoolInfo storage pool = poolInfo[pid];
+        pool.isActived = true;
+        pool.stopDate = 0;
     }
 
     function countActivePool() public view returns (uint256) {
