@@ -54,8 +54,10 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         }
 
         async function getPoolPBRBalance() {
+             console.log("====================================")
             var poolBalance = await farming.poolBalance();
             console.log("poolPBRBalance: " + web3.utils.fromWei(new BN(poolBalance)));
+             console.log("====================================")
 
         }
         async function getUserInfo(user) {
@@ -209,6 +211,77 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
 
         var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
         console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
+
+
+        console.log("----USER 3 DEPOSIT---")
+        await farming.deposit(0, tokens("39"), { from: acc3 });
+        await getPoolInfo();
+        await getPoolPBRBalance();
+        pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
+        console.log("pendingAcc1: " + web3.utils.fromWei(new BN(pendingAcc1)));
+
+        pendingAcc2 = await farming.pendingReward(0, acc2, { from: acc2 });
+        console.log("pendingAcc2: " + web3.utils.fromWei(new BN(pendingAcc2)));
+
+        var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
+        console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
+
+        console.log("----MORE 156 REWARD---")
+        polkaBridge.transfer(farming.address, tokens("156"));
+        await getPoolInfo();
+        await getPoolPBRBalance();
+        pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
+        console.log("pendingAcc1: " + web3.utils.fromWei(new BN(pendingAcc1)));
+
+        pendingAcc2 = await farming.pendingReward(0, acc2, { from: acc2 });
+        console.log("pendingAcc2: " + web3.utils.fromWei(new BN(pendingAcc2)));
+
+        var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
+        console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
+
+
+        console.log("----USER 4 DEPOSIT---")
+        await lpToken.approve(farming.address, tokens("999999999999999999"), { from: acc4 });
+        await farming.deposit(0, tokens("81"), { from: acc4 });
+        await getPoolInfo();
+        await getPoolPBRBalance();
+        pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
+        console.log("pendingAcc1: " + web3.utils.fromWei(new BN(pendingAcc1)));
+
+        pendingAcc2 = await farming.pendingReward(0, acc2, { from: acc2 });
+        console.log("pendingAcc2: " + web3.utils.fromWei(new BN(pendingAcc2)));
+
+        var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
+        console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
+
+         var pendingAcc4 = await farming.pendingReward(0, acc4, { from: acc4 });
+        console.log("pendingAcc4: " + web3.utils.fromWei(new BN(pendingAcc4)));
+
+
+
+        //deposit PBR reward
+        console.log("----MORE 99 REWARD---")
+        polkaBridge.transfer(farming.address, tokens("99"));
+         // user 4 claim reward
+        console.log("----USER 4 CLAIM---")
+      
+        await farming.claimReward(0, { from: acc4 });
+        await getPoolInfo();
+        var acc4Balance = await polkaBridge.balanceOf(acc4);
+        console.log("acc4Balance: " + web3.utils.fromWei(new BN(acc4Balance)));
+         pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
+        console.log("pendingAcc1: " + web3.utils.fromWei(new BN(pendingAcc1)));
+
+        pendingAcc2 = await farming.pendingReward(0, acc2, { from: acc2 });
+        console.log("pendingAcc2: " + web3.utils.fromWei(new BN(pendingAcc2)));
+
+        var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
+        console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
+
+         var pendingAcc4 = await farming.pendingReward(0, acc4, { from: acc4 });
+        console.log("pendingAcc4: " + web3.utils.fromWei(new BN(pendingAcc4)));
+
+
     });
 
 
