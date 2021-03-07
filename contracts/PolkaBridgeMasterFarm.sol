@@ -23,6 +23,7 @@ contract PolkaBridgeMasterFarm is Ownable {
 
     struct PoolInfo {
         IERC20 lpToken;
+        uint256 multiplier;
         uint256 lastPoolReward; //history pool reward
         uint256 lastRewardBlock;
         uint256 lastLPBalance;
@@ -52,7 +53,7 @@ contract PolkaBridgeMasterFarm is Ownable {
     }
 
     // Add a new lp to the pool. Can only be called by the owner.
-    function add(IERC20 _lpToken, uint256 _startDate) public onlyOwner {
+    function add(IERC20 _lpToken, uint256 _multiplier, uint256 _startDate) public onlyOwner {
         require(
             poolId1[address(_lpToken)] == 0,
             "PolkaBridgeMasterFarm::add: lp is already in pool"
@@ -65,6 +66,7 @@ contract PolkaBridgeMasterFarm is Ownable {
         poolInfo.push(
             PoolInfo({
                 lpToken: _lpToken,
+                multiplier: _multiplier,
                 lastRewardBlock: _lastRewardBlock,
                 lastPoolReward: 0,
                 lastLPBalance: 0,
@@ -79,19 +81,30 @@ contract PolkaBridgeMasterFarm is Ownable {
         massUpdatePools();
     }
 
-    function getChangePoolReward() public view returns (uint256) {
-        uint256 numberActivedPool = countActivePool();
-        uint256 changePoolReward =
-            (poolBalance() - getTotalLastPoolReward()) / numberActivedPool;
-        if (changePoolReward <= 0) changePoolReward = 0;
+    function getChangePoolReward(uint256 _pid, uint256 _totalMultiplier) public view returns (uint256) {
+        uint256 changePoolReward;
+        if (_totalMultiplier == 0) {
+            changePoolReward = 0;
+        }
+        else {
+            uint256 poolBalance = poolBalance();
+            uint256 totalLastPoolReward = getTotalLastPoolReward();
+            changePoolReward = ((poolBalance.sub(totalLastPoolReward)).mul(poolInfo[_pid].multiplier).mul(1e18)).div(_totalMultiplier);
+        }
+
+        if (changePoolReward <= 0) {
+            changePoolReward = 0;
+        }
+
         return changePoolReward;
     }
 
     function massUpdatePools() public {
         uint256 length = poolInfo.length;
-        uint256 changePoolReward = getChangePoolReward();
+        uint256 totalMultiplier = countTotalMultiplier();
         for (uint256 pid = 0; pid < length; pid++) {
             if (poolInfo[pid].isActived) {
+                uint256 changePoolReward = getChangePoolReward(pid, totalMultiplier);
                 updatePool(pid, changePoolReward, 1);
             }
         }
@@ -147,10 +160,11 @@ contract PolkaBridgeMasterFarm is Ownable {
         uint256 accPBRPerShare = pool.accPBRPerShare;
         uint256 lpSupply = pool.lpToken.balanceOf(address(this));
         uint256 temptAccPBRPerShare = pool.accPBRPerShare;
+        uint256 totalMultiplier = countTotalMultiplier();
 
         if (block.number > pool.lastRewardBlock && lpSupply > 0) {
             temptAccPBRPerShare = pool.accPBRPerShare.add(
-                (getChangePoolReward().mul(1e18).div(lpSupply))
+                (getChangePoolReward(_pid, totalMultiplier).mul(1e18).div(lpSupply))
             );
         }
 
@@ -256,22 +270,24 @@ contract PolkaBridgeMasterFarm is Ownable {
         view
         returns (
             uint256,
+            uint256,
             address,
             uint256,
             uint256,
             uint256,
-            bool,
+            // bool,
             uint256
         )
     //uint256
     {
         return (
             poolInfo[_pid].lastRewardBlock,
+            poolInfo[_pid].multiplier,
             address(poolInfo[_pid].lpToken),
             poolInfo[_pid].lastPoolReward,
             poolInfo[_pid].startDate,
             poolInfo[_pid].accPBRPerShare,
-            poolInfo[_pid].isActived,
+            // poolInfo[_pid].isActived,
             poolInfo[_pid].lpToken.balanceOf(address(this))
             //poolInfo[_pid].lastLPBalance
         );
@@ -302,12 +318,25 @@ contract PolkaBridgeMasterFarm is Ownable {
         pool.stopDate = 0;
     }
 
+    function changeMultiplier(uint256 pid, uint256 _multiplier) public onlyOwner {
+        PoolInfo storage pool = poolInfo[pid];
+        pool.multiplier = _multiplier;
+    }
+
     function countActivePool() public view returns (uint256) {
         uint256 length = 0;
         for (uint256 i = 0; i < poolInfo.length; i++) {
             if (poolInfo[i].isActived) length++;
         }
         return length;
+    }
+
+    function countTotalMultiplier() public view returns (uint256) {
+        uint256 totalMultiplier = 0;
+        for (uint256 i = 0; i < poolInfo.length; i++) {
+            if (poolInfo[i].isActived) totalMultiplier += poolInfo[i].multiplier;
+        }
+        return totalMultiplier.mul(1e18);
     }
 
     receive() external payable {}

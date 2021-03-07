@@ -44,10 +44,11 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
             console.log("============poolInfo=============")
             console.log("lastRewardBlock: " + poolInfo[0].toString() + "\n" +
                 "lpToken: " + poolInfo[1].toString() + "\n" +
-                "lastPoolReward: " + web3.utils.fromWei(new BN(poolInfo[2].toString())) + "\n" +
-                "startDate: " + poolInfo[3].toString() + "\n" +
-                "accPBRPerShare: " + web3.utils.fromWei(new BN(poolInfo[4].toString())) + "\n" +
-                "isActived: " + poolInfo[5].toString() + "\n" +
+                "lpToken: " + poolInfo[2].toString() + "\n" +
+                "lastPoolReward: " + web3.utils.fromWei(new BN(poolInfo[3].toString())) + "\n" +
+                "startDate: " + poolInfo[4].toString() + "\n" +
+                "accPBRPerShare: " + web3.utils.fromWei(new BN(poolInfo[5].toString())) + "\n" +
+                // "isActived: " + poolInfo[5].toString() + "\n" +
                 "lpBalance: " + web3.utils.fromWei(new BN(poolInfo[6].toString())) + "\n");
             console.log("====================================")
         }
@@ -68,12 +69,11 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         }
 
         //add pool
-        await farming.add(lpToken.address, 1614857133, { from: owner });
+        await farming.add(lpToken.address, 40, 1614857133, { from: owner });
         await getPoolInfo();
 
         //pool balance
         await getPoolPBRBalance();
-
 
         //=================================================================
         //acc1 deposit
