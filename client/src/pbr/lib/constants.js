@@ -53,8 +53,8 @@ export const contractAddresses = {
     4: '0xaE263b54D1118A8f0f8c769d443cB8154b91970e'
   },
   masterChef: {
-    1: '0x72c51Eb8a89F82456Bf7e480CD06044fd1ec6B6f',
-    4: '0x72c51Eb8a89F82456Bf7e480CD06044fd1ec6B6f' // farming contract
+    1: '0x08aD4931d659D9d17246AC30130453939f395F3d',
+    4: '0x08aD4931d659D9d17246AC30130453939f395F3d' // farming contract
   },
   weth: {
     1: '0xc778417e063141139fce010982780140aa0cd5ab',

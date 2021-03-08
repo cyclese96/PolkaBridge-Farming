@@ -28,8 +28,8 @@ contract PolkaBridgeMasterFarm is Ownable {
         uint256 lastRewardBlock;
         uint256 lastLPBalance;
         uint256 accPBRPerShare;
-        uint256 startDate;
-        uint256 stopDate;
+        uint256 startBlock;
+        uint256 stopBlock;
         uint256 totalRewardClaimed;
         bool isActived;
     }
@@ -53,7 +53,7 @@ contract PolkaBridgeMasterFarm is Ownable {
     }
 
     // Add a new lp to the pool. Can only be called by the owner.
-    function add(IERC20 _lpToken, uint256 _multiplier, uint256 _startDate) public onlyOwner {
+    function add(IERC20 _lpToken, uint256 _multiplier, uint256 _startBlock) public onlyOwner {
         require(
             poolId1[address(_lpToken)] == 0,
             "PolkaBridgeMasterFarm::add: lp is already in pool"
@@ -71,8 +71,8 @@ contract PolkaBridgeMasterFarm is Ownable {
                 lastPoolReward: 0,
                 lastLPBalance: 0,
                 accPBRPerShare: 0,
-                startDate: _startDate,
-                stopDate: 0,
+                startBlock: _startBlock > 0 ? _startBlock : block.number,
+                stopBlock: 0,
                 totalRewardClaimed: 0,
                 isActived: true
             })
@@ -87,9 +87,9 @@ contract PolkaBridgeMasterFarm is Ownable {
             changePoolReward = 0;
         }
         else {
-            uint256 poolBalance = poolBalance();
+            uint256 currentPoolBalance = poolBalance();
             uint256 totalLastPoolReward = getTotalLastPoolReward();
-            changePoolReward = ((poolBalance.sub(totalLastPoolReward)).mul(poolInfo[_pid].multiplier).mul(1e18)).div(_totalMultiplier);
+            changePoolReward = ((currentPoolBalance.sub(totalLastPoolReward)).mul(poolInfo[_pid].multiplier).mul(1e18)).div(_totalMultiplier);
         }
 
         if (changePoolReward <= 0) {
@@ -157,7 +157,6 @@ contract PolkaBridgeMasterFarm is Ownable {
     {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][_user];
-        uint256 accPBRPerShare = pool.accPBRPerShare;
         uint256 lpSupply = pool.lpToken.balanceOf(address(this));
         uint256 temptAccPBRPerShare = pool.accPBRPerShare;
         uint256 totalMultiplier = countTotalMultiplier();
@@ -202,6 +201,7 @@ contract PolkaBridgeMasterFarm is Ownable {
             if (pending > 0) {
                 polkaBridge.transfer(msg.sender, pending);
                 pool.lastPoolReward -= pending;
+                pool.totalRewardClaimed += pending;
             }
 
             user.rewardDebtAtBlock = block.number;
@@ -285,7 +285,7 @@ contract PolkaBridgeMasterFarm is Ownable {
             poolInfo[_pid].multiplier,
             address(poolInfo[_pid].lpToken),
             poolInfo[_pid].lastPoolReward,
-            poolInfo[_pid].startDate,
+            poolInfo[_pid].startBlock,
             poolInfo[_pid].accPBRPerShare,
             // poolInfo[_pid].isActived,
             poolInfo[_pid].lpToken.balanceOf(address(this))
@@ -309,13 +309,13 @@ contract PolkaBridgeMasterFarm is Ownable {
     function stopPool(uint256 pid) public onlyOwner {
         PoolInfo storage pool = poolInfo[pid];
         pool.isActived = false;
-        pool.stopDate = block.timestamp;
+        pool.stopBlock = block.number;
     }
 
     function activePool(uint256 pid) public onlyOwner {
         PoolInfo storage pool = poolInfo[pid];
         pool.isActived = true;
-        pool.stopDate = 0;
+        pool.stopBlock = 0;
     }
 
     function changeMultiplier(uint256 pid, uint256 _multiplier) public onlyOwner {
@@ -337,6 +337,25 @@ contract PolkaBridgeMasterFarm is Ownable {
             if (poolInfo[i].isActived) totalMultiplier += poolInfo[i].multiplier;
         }
         return totalMultiplier.mul(1e18);
+    }
+
+    function totalRewardClaimed(uint256 _pid) public view returns (uint256) {
+        return poolInfo[_pid].totalRewardClaimed;
+    }
+
+    function avgRewardPerBlock(uint256 _pid) public view returns (uint256) {
+        uint256 totalMultiplier = countTotalMultiplier();
+        uint256 changePoolReward = getChangePoolReward(_pid, totalMultiplier);
+        uint256 totalReward = poolInfo[_pid].totalRewardClaimed + poolInfo[_pid].lastPoolReward + changePoolReward;
+        uint256 changeBlock;
+        if (block.number <= poolInfo[_pid].lastRewardBlock){
+            changeBlock = poolInfo[_pid].lastRewardBlock.sub(poolInfo[_pid].startBlock);
+        }
+        else {
+            changeBlock = block.number.sub(poolInfo[_pid].startBlock);
+        }
+
+        return totalReward.div(changeBlock);
     }
 
     receive() external payable {}
