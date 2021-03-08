@@ -34,7 +34,7 @@ const Apy: React.FC<ApyProps> = ({ pid, lpTokenAddress, symbolShort, tokenSymbol
       return getContract(ethereum as provider, lpTokenAddress)
     }, [ethereum, lpTokenAddress])
 
-    const newReward = useNewReward(pid + 1)
+    const newReward = useNewReward(pid)
     const [totalStake, setTotalStake] = useState<BigNumber>()
 
     useEffect(() => {
