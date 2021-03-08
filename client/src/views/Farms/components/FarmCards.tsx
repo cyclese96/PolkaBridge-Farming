@@ -93,20 +93,19 @@ interface FarmCardProps {
 const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   let poolActive = usePoolActive(farm.pid)
   // poolActive = false
-
   const pbr = usePolkaBridge()
 
-  const [newReward, setNewRewad] = useState<BigNumber>()
+  const [newReward, setNewReward] = useState<BigNumber>()
 
   useEffect(() => {
     async function fetchData() {
-      const supply = await getNewRewardPerBlock(pbr, farm.pid + 1)
-      setNewRewad(supply)
+      const supply = await getNewRewardPerBlock(pbr, farm.pid)
+      setNewReward(supply)
     }
     if (pbr && poolActive) {
       fetchData()
     }
-  }, [pbr, setNewRewad, poolActive])
+  }, [pbr, setNewReward, poolActive])
 
   const renderer = (countdownProps: CountdownRenderProps) => {
     var { days, hours, minutes, seconds } = countdownProps
@@ -168,23 +167,23 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             </StyledInsight>
             {farm.isHot && <>
               <StyledInsight>
-                <span>Reward</span>
+                <span>Avg. reward</span>
                 <span>
                   {newReward &&
-                    <><b>{getBalanceNumber(newReward).toFixed(2)} PBR</b> / block</>
+                    <><b>{getBalanceNumber(newReward).toFixed(3)} PBR</b> / block</>
                   }
                 </span>
               </StyledInsight>
               <StyledInsight>
                 <span>APY</span>
                 <span style={{fontWeight: 'bold', color: '#4caf50'}}>
-                  {newReward && farm.poolWeight && farm.pbrPrice && farm.usdValue ?
+                  {newReward && farm.pbrPrice && farm.usdValue ?
                     `${parseFloat(farm.pbrPrice
                       .times(NUMBER_BLOCKS_PER_YEAR)
                       .times(newReward.div(10 ** 18))
                       .div(farm.usdValue)
                       .times(100)
-                      .toFixed(2)).toLocaleString('en-US')}%` : '~'
+                      .toFixed(3)).toLocaleString('en-US')}%` : '~'
                   }
                 </span>
               </StyledInsight>

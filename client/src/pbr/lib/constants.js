@@ -53,8 +53,8 @@ export const contractAddresses = {
     4: '0xaE263b54D1118A8f0f8c769d443cB8154b91970e'
   },
   masterChef: {
-    1: '0x08aD4931d659D9d17246AC30130453939f395F3d',
-    4: '0x08aD4931d659D9d17246AC30130453939f395F3d' // farming contract
+    1: '0xfEfD5a6aD8407a7582A7207E3095dBbcec7CBE9E',
+    4: '0xfEfD5a6aD8407a7582A7207E3095dBbcec7CBE9E' // farming contract
   },
   weth: {
     1: '0xc778417e063141139fce010982780140aa0cd5ab',
@@ -88,6 +88,7 @@ export const supportedPools = [
     isHot: true,
     isNew: true,
     isSoon: false,
+    isActived: true,
     protocal: 'Uniswap',
     iconProtocal: '/img/tokens/pbr.png',
     pairLink: '/',
@@ -119,6 +120,7 @@ export const supportedPools = [
     isHot: true,
     isNew: true,
     isSoon: false,
+    isActived: true,
     protocal: 'Uniswap',
     iconProtocal: '/img/tokens/pbr.png',
     pairLink: '/',
@@ -150,6 +152,7 @@ export const supportedPools = [
     isHot: true,
     isNew: false,
     isSoon: true,
+    isActived: false,
     protocal: 'PolkaBridge',
     iconProtocal: '/img/tokens/pbr.png',
     pairLink: '/',
