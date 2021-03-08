@@ -19,7 +19,7 @@ function delay(interval) {
 }
 contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) => {
 
-    let farming, polkaBridge, lpTokenm,lpToken2;
+    let farming, polkaBridge, lpToken;
 
     before(async () => {
         lpToken = await PolkaBridge.new(tokens(process.env.INITIAL_TOKENS));
@@ -27,11 +27,8 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         polkaBridge = await PolkaBridge.new(tokens(process.env.INITIAL_TOKENS));
         farming = await PolkaBridgeMasterFarm.new(polkaBridge.address, 1);
 
-        await polkaBridge.setBeginDeflationFarming(1514870015);
-        await  polkaBridge.addRewardPool(farming.address);
-        
-        await polkaBridge.transfer(farming.address, tokens("400"));
-
+        // polkaBridge.setBeginDeflationFarming(1514870015);
+        polkaBridge.transfer(farming.address, tokens("1000"));
 
         await lpToken.transfer(acc1, tokens("500"));
         await lpToken.transfer(acc2, tokens("425"));
@@ -58,10 +55,10 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         }
 
         async function getPoolPBRBalance() {
-            console.log("====================================")
+             console.log("====================================")
             var poolBalance = await farming.poolBalance();
             console.log("poolPBRBalance: " + web3.utils.fromWei(new BN(poolBalance)));
-            console.log("====================================")
+             console.log("====================================")
 
         }
         async function getUserInfo(user) {
@@ -76,7 +73,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
 
         //add pool
         await farming.add(lpToken.address, 40, 1614857133, { from: owner });
-        //await farming.add(lpToken2.address, 2, 1614857133, { from: owner });
+        await farming.add(lpToken2.address, 2, 1614857133, { from: owner });
         await getPoolInfo();
 
         //pool balance
@@ -86,7 +83,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         //acc1 deposit
         console.log("----USER 1 DEPOSIT---")
         await lpToken.approve(farming.address, tokens("999999999999999999"), { from: acc1 });
-        await farming.deposit(0, tokens("311.5"), { from: acc1 });
+        await farming.deposit(0, tokens("500"), { from: acc1 });
         await getPoolInfo();
 
         //depost PBR reward
@@ -187,7 +184,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
 
         var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
         console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
-
+        
         var acc2Balance = await polkaBridge.balanceOf(acc2);
         console.log("acc2Balance: " + web3.utils.fromWei(new BN(acc2Balance)));
 
@@ -259,7 +256,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
         console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
 
-        var pendingAcc4 = await farming.pendingReward(0, acc4, { from: acc4 });
+         var pendingAcc4 = await farming.pendingReward(0, acc4, { from: acc4 });
         console.log("pendingAcc4: " + web3.utils.fromWei(new BN(pendingAcc4)));
 
 
@@ -267,14 +264,14 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         //deposit PBR reward
         console.log("----MORE 99 REWARD---")
         polkaBridge.transfer(farming.address, tokens("99"));
-        // user 4 claim reward
+         // user 4 claim reward
         console.log("----USER 4 CLAIM---")
-
+      
         await farming.claimReward(0, { from: acc4 });
         await getPoolInfo();
         var acc4Balance = await polkaBridge.balanceOf(acc4);
         console.log("acc4Balance: " + web3.utils.fromWei(new BN(acc4Balance)));
-        pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
+         pendingAcc1 = await farming.pendingReward(0, acc1, { from: acc1 });
         console.log("pendingAcc1: " + web3.utils.fromWei(new BN(pendingAcc1)));
 
         pendingAcc2 = await farming.pendingReward(0, acc2, { from: acc2 });
@@ -283,7 +280,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         var pendingAcc3 = await farming.pendingReward(0, acc3, { from: acc3 });
         console.log("pendingAcc3: " + web3.utils.fromWei(new BN(pendingAcc3)));
 
-        var pendingAcc4 = await farming.pendingReward(0, acc4, { from: acc4 });
+         var pendingAcc4 = await farming.pendingReward(0, acc4, { from: acc4 });
         console.log("pendingAcc4: " + web3.utils.fromWei(new BN(pendingAcc4)));
 
 
