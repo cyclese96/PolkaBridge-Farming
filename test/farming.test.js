@@ -47,7 +47,7 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
                 "lpToken: " + poolInfo[1].toString() + "\n" +
                 "lpToken: " + poolInfo[2].toString() + "\n" +
                 "lastPoolReward: " + web3.utils.fromWei(new BN(poolInfo[3].toString())) + "\n" +
-                "startDate: " + poolInfo[4].toString() + "\n" +
+                "startBlock: " + poolInfo[4].toString() + "\n" +
                 "accPBRPerShare: " + web3.utils.fromWei(new BN(poolInfo[5].toString())) + "\n" +
                 // "isActived: " + poolInfo[5].toString() + "\n" +
                 "lpBalance: " + web3.utils.fromWei(new BN(poolInfo[6].toString())) + "\n");
@@ -72,8 +72,8 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         }
 
         //add pool
-        await farming.add(lpToken.address, 40, 1614857133, { from: owner });
-        await farming.add(lpToken2.address, 2, 1614857133, { from: owner });
+        await farming.add(lpToken.address, 40, 0, { from: owner });
+        await farming.add(lpToken2.address, 2, 0, { from: owner });
         await getPoolInfo();
 
         //pool balance
@@ -284,6 +284,8 @@ contract("Farming", async ([owner, acc1, acc2, acc3, acc4, acc5, acc6, acc7]) =>
         console.log("pendingAcc4: " + web3.utils.fromWei(new BN(pendingAcc4)));
 
 
+        var avgRewardPerBlock = await farming.avgRewardPerBlock(0);
+        console.log("avgRewardPerBlock: " + web3.utils.fromWei(new BN(avgRewardPerBlock)));
     });
 
 
