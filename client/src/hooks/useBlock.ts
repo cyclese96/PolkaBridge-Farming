@@ -13,35 +13,35 @@ var CACHE : any = {
 }
 
 const useBlock = () => {
-  const [block, setBlock] = useState(CACHE.value)
-  const getBlock = useCallback(async () => {
-    if (CACHE.time + CACHE.old <= new Date().getTime()) {
-      var { data } = await axios.get(`${config.api}/block`)
-      var latestBlockNumber = data.number
-      if (block !== latestBlockNumber) {
-        CACHE.time = new Date().getTime()
-        CACHE.value = block;
-        localStorage.setItem('CACHE_useBlock_time', CACHE.time)
-        localStorage.setItem('CACHE_useBlock_value', CACHE.value)
-        setBlock(latestBlockNumber)
-      }
-    }
-    else {
-      setBlock(CACHE.value)
-    }
-  }, [])
+  // const [block, setBlock] = useState(CACHE.value)
+  // const getBlock = useCallback(async () => {
+  //   if (CACHE.time + CACHE.old <= new Date().getTime()) {
+  //     var { data } = await axios.get(`${config.api}/block`)
+  //     var latestBlockNumber = data.number
+  //     if (block !== latestBlockNumber) {
+  //       CACHE.time = new Date().getTime()
+  //       CACHE.value = block;
+  //       localStorage.setItem('CACHE_useBlock_time', CACHE.time)
+  //       localStorage.setItem('CACHE_useBlock_value', CACHE.value)
+  //       setBlock(latestBlockNumber)
+  //     }
+  //   }
+  //   else {
+  //     setBlock(CACHE.value)
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      getBlock()
-    }, 6000)
+  // useEffect(() => {
+  //   const interval = setInterval(async () => {
+  //     getBlock()
+  //   }, 6000)
 
-    getBlock()
+  //   getBlock()
 
-    return () => clearInterval(interval)
-  }, [])
+  //   return () => clearInterval(interval)
+  // }, [])
 
-  return block
+  //return block
 }
 
 export default useBlock
