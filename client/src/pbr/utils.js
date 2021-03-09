@@ -18,16 +18,6 @@ const GAS_LIMIT = {
   },
 }
 
-export async function UnknownBlock(address, method, params, cache) {
-  var { data } = await axios.post(`${config.api}/read/${address}`, {
-      method,
-      params,
-      cache
-  })
-
-  return data.data
-}
-
 export const getMasterChefAddress = (pbr) => {
   return pbr && pbr.masterChefAddress
 }
@@ -58,60 +48,60 @@ export const getMakerAddress = (pbr) => {
 export const getFarms = (pbr) => {
   return pbr
     ? pbr.contracts.pools.map(
-        ({
-          pid,
-          name,
-          symbol,
-          icon,
-          icon2,
-          description,
-          tokenAddress,
-          tokenSymbol,
-          token2Symbol,
-          token2Address,
-          symbolShort,
-          tokenContract,
-          token2Contract,
-          isHot,
-          isNew,
-          isSoon,
-          lpAddress,
-          lpContract,
-          protocal,
-          iconProtocal,
-          pairLink,
-          addLiquidityLink,
-          removeLiquidityLink,
-        }) => ({
-          pid,
-          id: symbol,
-          name,
-          lpToken: symbol,
-          lpTokenAddress: lpAddress,
-          lpContract,
-          tokenAddress,
-          token2Address,
-          tokenSymbol,
-          token2Symbol,
-          token2Contract,
-          symbol,
-          symbolShort,
-          isHot,
-          isNew,
-          isSoon,
-          tokenContract,
-          earnToken: 'pbr',
-          earnTokenAddress: pbr.contracts.pbr.options.address,
-          icon,
-          icon2,
-          description,
-          protocal,
-          iconProtocal,
-          pairLink,
-          addLiquidityLink,
-          removeLiquidityLink,
-        }),
-      )
+      ({
+        pid,
+        name,
+        symbol,
+        icon,
+        icon2,
+        description,
+        tokenAddress,
+        tokenSymbol,
+        token2Symbol,
+        token2Address,
+        symbolShort,
+        tokenContract,
+        token2Contract,
+        isHot,
+        isNew,
+        isSoon,
+        lpAddress,
+        lpContract,
+        protocal,
+        iconProtocal,
+        pairLink,
+        addLiquidityLink,
+        removeLiquidityLink,
+      }) => ({
+        pid,
+        id: symbol,
+        name,
+        lpToken: symbol,
+        lpTokenAddress: lpAddress,
+        lpContract,
+        tokenAddress,
+        token2Address,
+        tokenSymbol,
+        token2Symbol,
+        token2Contract,
+        symbol,
+        symbolShort,
+        isHot,
+        isNew,
+        isSoon,
+        tokenContract,
+        earnToken: 'pbr',
+        earnTokenAddress: pbr.contracts.pbr.options.address,
+        icon,
+        icon2,
+        description,
+        protocal,
+        iconProtocal,
+        pairLink,
+        addLiquidityLink,
+        removeLiquidityLink
+      }),
+    )
     : []
 }
 
@@ -133,6 +123,17 @@ export const getTotalLocked = async (masterChefContract) => {
 
 export const getTotalUserLocked = async (masterChefContract, account) => {
   return masterChefContract.methods.lockOf(account).call()
+}
+
+export const getTotalLockedValue = async (tokenContract, lpContract, pbrPrice) => {
+  const tokenAmountWholeLP = await tokenContract.methods
+    .balanceOf(lpContract.options.address)
+    .call()
+  const tokenDecimals = await tokenContract.methods.decimals().call()
+  const tokenAmountTotal = new BigNumber(tokenAmountWholeLP)
+    .div(new BigNumber(10).pow(tokenDecimals))
+  var usdValue = tokenAmountTotal.times(pbrPrice).times(2);
+  return usdValue;
 }
 
 export const getLPValue = async (
@@ -174,7 +175,7 @@ export const getLPValue = async (
   const token2Amount = new BigNumber(lpContractToken2)
     .times(portionLp)
     .div(new BigNumber(10).pow(token2Decimals))
-   const tokenAmountTotal = new BigNumber(tokenAmountWholeLP)
+  const tokenAmountTotal = new BigNumber(tokenAmountWholeLP)
     .div(new BigNumber(10).pow(tokenDecimals))
 
   const token2AmountTotal = new BigNumber(lpContractToken2)
@@ -259,49 +260,32 @@ export const approve = async (lpContract, masterChefContract, account) => {
 
 export const approveAddress = async (lpContract, address, account) => {
   return lpContract.methods
-      .approve(address, MaxUint256)
-      .send({ from: account })
-}
-
-export const getPolkaBridgeSupply = async (pbr) => {
-  return new BigNumber(
-    await UnknownBlock(pbr.contracts.pbr._address, 'totalSupply():(uint256)', [], true)
-  )
-}
-
-export const getPBRCirculatingSupply = async (pbr) => {
-  var chef = getMasterChefContract(pbr)
-  var a = new BigNumber(
-    await UnknownBlock(pbr.contracts.pbr._address, 'circulatingSupply():(uint256)', [], true)
-  )
-
-  var b = new BigNumber(
-    await UnknownBlock(pbr.contracts.pbr._address, 'balanceOf(address):(uint256)', [chef._address], true)
-  )
-  return a.minus(b)
+    .approve(address, MaxUint256)
+    .send({ from: account })
 }
 
 export const checkPoolActive = async (pid) => {
   var p = supportedPools.find(e => e.pid === pid)
   if (p) {
-    if (p.startAt >= new Date().getTime() / 1000) {
-      return false
-    }
-    else if (!p.startAt) {
-      return true
-    }
-    else {
-      if (localStorage.getItem('POOLACTIVE' + pid + '-' + p.startAt)) {
-        return true
-      }
-      else {
-        var { data } = await axios.get(`${config.api}/poolActive/${pid}`)
-        if (data.active) {
-          localStorage.setItem('POOLACTIVE' + pid + '-' + p.startAt, true)
-        }
-        return data.active
-      }
-    }
+    return p.isActived;
+    // if (p.startAt >= new Date().getTime() / 1000) {
+    //   return false
+    // }
+    // else if (!p.startAt) {
+    //   return true
+    // }
+    // else {
+    //   if (localStorage.getItem('POOLACTIVE' + pid + '-' + p.startBlock)) {
+    //     return true
+    //   }
+    //   else {
+    //     var { data } = await axios.get(`${config.api}/poolActive/${pid}`)
+    //     if (data.isActived) {
+    //       localStorage.setItem('POOLACTIVE' + pid + '-' + p.startBlock, true)
+    //     }
+    //     return data.isActived
+    //   }
+    // }
   }
   else {
     return false
@@ -313,30 +297,12 @@ export const getNewRewardPerBlock = async (pbr, pid1 = 0) => {
   var chef = getMasterChefContract(pbr)
   try {
     const reward = await chef.methods
-      .getNewRewardPerBlock(pid1)
+      .avgRewardPerBlock(pid1)
       .call()
     return new BigNumber(reward)
   } catch (e) {
     return
   }
-
-  // if (pid1 === 0) {
-  //   var chef = getMasterChefContract(pbr)
-  //   return new BigNumber(
-  //     await UnknownBlock(chef._address, 'getNewRewardPerBlock(uint256):(uint256)', [pid1], true)
-  //   )
-  // }
-  // else {
-  //   if (await checkPoolActive(pid1 - 1)) {
-  //     var chef = getMasterChefContract(pbr)
-  //     return new BigNumber(
-  //       await UnknownBlock(chef._address, 'getNewRewardPerBlock(uint256):(uint256)', [pid1], true)
-  //     )
-  //   }
-  //   else {
-  //     return new BigNumber("0")
-  //   }
-  // }
 }
 
 export const stake = async (masterChefContract, pid, amount, account) => {
@@ -376,10 +342,10 @@ export const harvest = async (masterChefContract, pid, account) => {
 
 export const getStaked = async (masterChefContract, pid, account) => {
   try {
-    const { amount } = await masterChefContract.methods
+    const { amountLP } = await masterChefContract.methods
       .userInfo(pid, account)
       .call()
-    return new BigNumber(amount)
+    return new BigNumber(amountLP)
   } catch {
     return new BigNumber(0)
   }
@@ -428,37 +394,37 @@ export const unlock = async (pbr, account) => {
 }
 export const enter = async (contract, amount, account) => {
   return contract.methods
-      .enter(
-          new BigNumber(amount).times(new BigNumber(10).pow(18)).toString(),
-      )
-      .send({ from: account })
-      .on('transactionHash', (tx) => {
-        console.log(tx)
-        return tx.transactionHash
-      })
+    .enter(
+      new BigNumber(amount).times(new BigNumber(10).pow(18)).toString(),
+    )
+    .send({ from: account })
+    .on('transactionHash', (tx) => {
+      console.log(tx)
+      return tx.transactionHash
+    })
 }
 
 export const makerConvert = async (contract, token0, token1, account) => {
   return contract.methods
-      .convert(
-        token0,
-        token1,
-      )
-      .send({ from: account })
-      .on('transactionHash', (tx) => {
-        console.log(tx)
-        return tx.transactionHash
-      })
+    .convert(
+      token0,
+      token1,
+    )
+    .send({ from: account })
+    .on('transactionHash', (tx) => {
+      console.log(tx)
+      return tx.transactionHash
+    })
 }
 
 export const leave = async (contract, amount, account) => {
   return contract.methods
-      .leave(
-          new BigNumber(amount).times(new BigNumber(10).pow(18)).toString(),
-      )
-      .send({ from: account })
-      .on('transactionHash', (tx) => {
-        console.log(tx)
-        return tx.transactionHash
-      })
+    .leave(
+      new BigNumber(amount).times(new BigNumber(10).pow(18)).toString(),
+    )
+    .send({ from: account })
+    .on('transactionHash', (tx) => {
+      console.log(tx)
+      return tx.transactionHash
+    })
 }

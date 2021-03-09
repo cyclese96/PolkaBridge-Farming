@@ -17,7 +17,7 @@ const useNewReward = (pid1 = 0) => {
     value: new BigNumber(0)
   }
   const pbr = usePolkaBridge()
-  const [newReward, setNewRewad] = useState<BigNumber>(CACHE[pid1].value)
+  const [newReward, setNewReward] = useState<BigNumber>(CACHE[pid1].value)
   
   useEffect(() => {
     async function fetchData() {
@@ -27,13 +27,13 @@ const useNewReward = (pid1 = 0) => {
 
       localStorage.setItem(`CACHE_useNewReward${pid1}_time`, CACHE.time)
       localStorage.setItem(`CACHE_useNewReward${pid1}_value`, CACHE.value)
-      setNewRewad(v)
+      setNewReward(v)
     }
     if (pbr 
       && CACHE[pid1].time + CACHE[pid1].old <= new Date().getTime()) {
       fetchData()
     }
-  }, [pbr, setNewRewad])
+  }, [pbr, setNewReward])
 
   return newReward
 }

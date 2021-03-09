@@ -59,7 +59,6 @@ const useStakedValue = (pid: number) => {
           ),
       ),
     )
-    // const { data: balances } = await axios.get(`${config.api}/pools/${pid}`)
     setBalance(balances[0])
   }, [masterChefContract, block, pbr, pbrPrice])
 

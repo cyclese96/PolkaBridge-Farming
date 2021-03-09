@@ -71,8 +71,8 @@ const Apy: React.FC<ApyProps> = ({ pid, lpTokenAddress, symbolShort, tokenSymbol
             </StyledBox>
             <StyledBox className="col-3">
                 <StyledLabel>Avg. reward per block</StyledLabel>
-                <StyledContent>{newReward ? getBalanceNumber(newReward).toFixed(2) : '~'} PBR</StyledContent>
-                <StyledEquility>≈ {stakedValue && newReward && pbrPrice && pbrPrice.times(newReward).div(10 ** 18).toFixed(2)} USD</StyledEquility>
+                <StyledContent>{newReward ? getBalanceNumber(newReward).toFixed(3) : '~'} PBR</StyledContent>
+                <StyledEquility>≈ {stakedValue && newReward && pbrPrice && pbrPrice.times(newReward).div(10 ** 18).toFixed(3)} USD</StyledEquility>
             </StyledBox>
         </StyledApy>
     )
