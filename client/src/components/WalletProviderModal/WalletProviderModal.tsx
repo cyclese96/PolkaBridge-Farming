@@ -50,14 +50,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
               title="Metamask"
             />
           </StyledWalletCard>
-          {/* <Spacer size="sm" /> */}
-          <StyledWalletCard>
-            <WalletCard
-              icon={<img src={'https://nextyezpay.s3-ap-southeast-1.amazonaws.com/zd.svg'} style={{ height: 32 }} />}
-              onConnect={() => tryConnect('injected')}
-              title="ezDeFi"
-            />
-          </StyledWalletCard>
+
           {/* <Spacer size="sm" /> */}
           <StyledWalletCard>
             <WalletCard
@@ -73,13 +66,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
               title="Coin98 Wallet"
             />
           </StyledWalletCard>
-          <StyledWalletCard>
-            <WalletCard
-              icon={<img src={walletConnectLogo} style={{ height: 24 }} />}
-              onConnect={() => tryConnect('walletconnect')}
-              title="WalletConnect"
-            />
-          </StyledWalletCard>
+          
         </StyledWalletsWrapper>
       </ModalContent>
 

@@ -8,8 +8,7 @@ import {
 } from '../pbr/utils'
 import usePolkaBridge from './usePolkaBridge'
 import useBlock from './useBlock'
-import axios from 'axios'
-import config from '../config'
+
 
 export interface StakedValue {
   tokenAmount: BigNumber

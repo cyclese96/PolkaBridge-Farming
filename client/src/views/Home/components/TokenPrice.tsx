@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 import React, { memo, useEffect, useState } from 'react'
 import CountUp from 'react-countup'
-import useAllStakedValue from '../../../hooks/useAllStakedValue'
+
 import usePBRPrice from '../../../hooks/usePBRPrice'
 
 const TokenPrice = memo(() => {
