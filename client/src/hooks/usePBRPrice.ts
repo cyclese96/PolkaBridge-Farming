@@ -39,13 +39,13 @@ const usePBRPrice = () => {
       lpAddress
     )
     setPrice(price)
-  }, [price])
+  }, [])
 
   useEffect(() => {
     if (pbr) {
       fetchPBRPrice()
     }
-  }, [price, pbr])
+  }, [pbr])
 
   return price
 }

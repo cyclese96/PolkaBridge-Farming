@@ -240,13 +240,12 @@ export const getLPValuePrice = async (
 
 export const getPBRPrice = async (uniswapETHPBRPair, lpAddress) => {
   if (!uniswapETHPBRPair || !lpAddress) return new BigNumber(0);
-  console.log("uniswapETHPBRPair", uniswapETHPBRPair);
-  console.log("lpAddress", lpAddress)
+
   const amountPBRInPool = await uniswapETHPBRPair.methods
     .balanceOf(lpAddress)
     .call()
   console.log("amountPBRInPool", amountPBRInPool);
-  return amountPBRInPool;
+  return new BigNumber(amountPBRInPool);
 
   // const tokenDecimals = await tokenContract.methods.decimals().call()
   // const lpContractToken2 = await token2Contract.methods

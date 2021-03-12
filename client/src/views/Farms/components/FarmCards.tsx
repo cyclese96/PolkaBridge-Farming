@@ -123,9 +123,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const startTime = START_NEW_POOL_AT
 
   return (
+    
     <StyledCardWrapper>
       {farm.tokenSymbol === 'PBR' && <StyledCardAccent />}
       <Card>
+        
         <CardContent>
           <StyledContent>
             <StyledTopIcon>
@@ -175,9 +177,13 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                 </span>
               </StyledInsight>
               <StyledInsight>
+              
                 <span>APY</span>
                 <span style={{fontWeight: 'bold', color: '#4caf50'}}>
-                  {newReward && farm.pbrPrice && farm.usdValue ?
+                  {
+                    
+                  newReward && farm.pbrPrice && farm.usdValue ?
+                  
                     `${parseFloat(farm.pbrPrice
                       .times(NUMBER_BLOCKS_PER_YEAR)
                       .times(newReward.div(10 ** 18))
