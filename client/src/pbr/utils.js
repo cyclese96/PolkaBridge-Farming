@@ -32,18 +32,22 @@ export const getXPBRAddress = (pbr) => {
 export const getMasterChefContract = (pbr) => {
   return pbr && pbr.contracts && pbr.contracts.masterChef
 }
+
+export const getUniswapETHPBRPair = (pbr) => {
+
+  return pbr && pbr.contracts && pbr.contracts.pools[0].lpContract
+}
+export const getLPAddress = (pbr) => {
+  return pbr && pbr.contracts && pbr.contracts.pools[0].lpAddress
+}
+
 export const getPolkaBridgeContract = (pbr) => {
   return pbr && pbr.contracts && pbr.contracts.pbr
 }
 export const getXPolkaBridgeStakingContract = (pbr) => {
   return pbr && pbr.contracts && pbr.contracts.xPolkaBridgeStaking
 }
-export const getMakerContract = (pbr) => {
-  return pbr && pbr.contracts && pbr.contracts.maker
-}
-export const getMakerAddress = (pbr) => {
-  return pbr && pbr.makerAddress
-}
+
 
 export const getFarms = (pbr) => {
   return pbr
@@ -90,7 +94,7 @@ export const getFarms = (pbr) => {
         isNew,
         isSoon,
         tokenContract,
-        earnToken: 'pbr',
+        earnToken: 'PBR',
         earnTokenAddress: pbr.contracts.pbr.options.address,
         icon,
         icon2,
@@ -121,9 +125,7 @@ export const getTotalLocked = async (masterChefContract) => {
   return masterChefContract.methods.totalLock().call()
 }
 
-export const getTotalUserLocked = async (masterChefContract, account) => {
-  return masterChefContract.methods.lockOf(account).call()
-}
+
 
 export const getTotalLockedValue = async (tokenContract, lpContract, pbrPrice) => {
   const tokenAmountWholeLP = await tokenContract.methods
@@ -233,6 +235,34 @@ export const getLPValuePrice = async (
   return {
     price: token2AmountTotal.div(tokenAmountTotal)
   }
+}
+
+
+export const getPBRPrice = async (uniswapETHPBRPair, lpAddress) => {
+  if (!uniswapETHPBRPair || !lpAddress) return new BigNumber(0);
+  console.log("uniswapETHPBRPair", uniswapETHPBRPair);
+  console.log("lpAddress", lpAddress)
+  const amountPBRInPool = await uniswapETHPBRPair.methods
+    .balanceOf(lpAddress)
+    .call()
+  console.log("amountPBRInPool", amountPBRInPool);
+  return amountPBRInPool;
+
+  // const tokenDecimals = await tokenContract.methods.decimals().call()
+  // const lpContractToken2 = await token2Contract.methods
+  //   .balanceOf(lpContract.options.address)
+  //   .call()
+  // const token2Decimals = await token2Contract.methods.decimals().call()
+
+  // const tokenAmountTotal = new BigNumber(tokenAmountWholeLP)
+  //   .div(new BigNumber(10).pow(tokenDecimals))
+
+  // const token2AmountTotal = new BigNumber(lpContractToken2)
+  //   .div(new BigNumber(10).pow(token2Decimals))
+
+  // return {
+  //   price: token2AmountTotal.div(tokenAmountTotal)
+  // }
 }
 
 
@@ -366,11 +396,6 @@ export const redeem = async (masterChefContract, account) => {
   }
 }
 
-export const getCanUnlockPBR = async (pbr, account) => {
-  var pbr = getPolkaBridgeContract(pbr)
-
-  return new BigNumber(await pbr.methods.canUnlockAmount(account).call())
-}
 
 export const getXPolkaBridgeSupply = async (pbr) => {
   return new BigNumber(await pbr.contracts.xPolkaBridgeStaking.methods.totalSupply().call())
@@ -404,18 +429,7 @@ export const enter = async (contract, amount, account) => {
     })
 }
 
-export const makerConvert = async (contract, token0, token1, account) => {
-  return contract.methods
-    .convert(
-      token0,
-      token1,
-    )
-    .send({ from: account })
-    .on('transactionHash', (tx) => {
-      console.log(tx)
-      return tx.transactionHash
-    })
-}
+
 
 export const leave = async (contract, amount, account) => {
   return contract.methods

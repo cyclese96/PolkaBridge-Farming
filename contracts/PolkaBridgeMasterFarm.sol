@@ -23,6 +23,8 @@ contract PolkaBridgeMasterFarm is Ownable {
 
     struct PoolInfo {
         IERC20 lpToken;
+        IERC20 tokenA;
+        IERC20 tokenB;
         uint256 multiplier;
         uint256 lastPoolReward; //history pool reward
         uint256 lastRewardBlock;
@@ -53,7 +55,7 @@ contract PolkaBridgeMasterFarm is Ownable {
     }
 
     // Add a new lp to the pool. Can only be called by the owner.
-    function add(IERC20 _lpToken, uint256 _multiplier, uint256 _startBlock) public onlyOwner {
+    function add(IERC20 _lpToken,IERC20 _tokenA, IERC20 _tokenB, uint256 _multiplier, uint256 _startBlock) public onlyOwner {
         require(
             poolId1[address(_lpToken)] == 0,
             "PolkaBridgeMasterFarm::add: lp is already in pool"
@@ -66,6 +68,8 @@ contract PolkaBridgeMasterFarm is Ownable {
         poolInfo.push(
             PoolInfo({
                 lpToken: _lpToken,
+                tokenA: _tokenA,
+                tokenB: _tokenB,
                 multiplier: _multiplier,
                 lastRewardBlock: _lastRewardBlock,
                 lastPoolReward: 0,

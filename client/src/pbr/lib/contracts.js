@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js/bignumber'
 import ERC20Abi from './abi/erc20.json'
 import MasterChefAbi from './abi/masterchef.json'
-import makerAbi from './abi/maker.json'
 import PolkaBridgeAbi from './abi/pbr.json'
 import UNIV2PairAbi from './abi/uni_v2_lp.json'
 import WETHAbi from './abi/weth.json'
@@ -25,7 +24,6 @@ export class Contracts {
     this.pbr = new this.web3.eth.Contract(PolkaBridgeAbi)
     this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
     this.weth = new this.web3.eth.Contract(WETHAbi)
-    this.maker = new this.web3.eth.Contract(makerAbi)
 
     this.pools = supportedPools.map((pool) =>
       Object.assign(pool, {
@@ -44,19 +42,14 @@ export class Contracts {
 
   setProvider(provider, networkId) {
     const setProvider = (contract, address) => {
-      contract.setProvider(provider)
+
       if (address) contract.options.address = address
       else console.error('Contract address not found in network', networkId)
     }
 
     setProvider(this.pbr, contractAddresses.pbr[networkId])
     setProvider(this.masterChef, contractAddresses.masterChef[networkId])
-    setProvider(this.maker, contractAddresses.maker[networkId])
 
-
-    // setProvider(this.pbr, contractAddresses.pbr[networkId])
-    // setProvider(this.masterChef, contractAddresses.masterChef[networkId])
-    // setProvider(this.xPolkaBridgeStaking, contractAddresses.xPolkaBridge[networkId])
     setProvider(this.weth, contractAddresses.weth[networkId])
 
     this.pools.forEach(

@@ -4,10 +4,13 @@ import { Contract } from 'web3-eth-contract'
 import {
   getMasterChefContract,
   getFarms,
-  getLPValuePrice,
+  getPBRPrice,
+  getUniswapETHPBRPair,
+  getLPAddress
 } from '../pbr/utils'
 import usePolkaBridge from './usePolkaBridge'
 import useBlock from './useBlock'
+import { setInterval } from 'node:timers'
 
 
 export interface StakedValue {
@@ -24,44 +27,25 @@ export interface StakedValue {
 const DEFAULT_POOL_FOR_GET_PRICE = 0
 
 const usePBRPrice = () => {
-  const [price, setPrice] = useState(new BigNumber(0))
+  const [price, setPrice] = useState<BigNumber>(new BigNumber(0))
   const pbr = usePolkaBridge()
   const farms = getFarms(pbr)
-  const masterChefContract = getMasterChefContract(pbr)
-  const block = useBlock()
+  const uniswapETHPBRPair = getUniswapETHPBRPair(pbr);
+  const lpAddress = getLPAddress(pbr);
 
-  const fetchStakedValue = useCallback(async () => {
-    const balances: Array<StakedValue> = await Promise.all(
-      farms.filter((e: any) => e.pid == DEFAULT_POOL_FOR_GET_PRICE).map(
-        ({
-          pid,
-          lpContract,
-          tokenContract,
-          token2Contract
-        }: {
-          pid: number
-          lpContract: Contract
-          tokenContract: Contract
-          token2Contract: Contract
-        }) =>
-          getLPValuePrice(
-            masterChefContract,
-            lpContract,
-            tokenContract,
-            token2Contract,
-            pid,
-          ),
-      ),
+  const fetchPBRPrice = useCallback(async () => {
+    const price = await getPBRPrice(
+      uniswapETHPBRPair,
+      lpAddress
     )
-
-    setPrice(balances[0] && balances[0].price)
-  }, [masterChefContract, block, pbr])
+    setPrice(price)
+  }, [price])
 
   useEffect(() => {
-    if (masterChefContract && pbr) {
-      fetchStakedValue()
+    if (pbr) {
+      fetchPBRPrice()
     }
-  }, [masterChefContract, block, setPrice, pbr])
+  }, [price, pbr])
 
   return price
 }

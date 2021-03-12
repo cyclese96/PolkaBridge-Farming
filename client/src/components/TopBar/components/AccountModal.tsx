@@ -18,10 +18,10 @@ import qrCode from '../../../assets/img/qr-code.png'
 import IconView from '../../../assets/img/icon-view.svg'
 import useAllStakedFarms from '../../../hooks/useAllStakedFarms'
 import { Link, useHistory } from 'react-router-dom'
-import useCanUnlockAmount from '../../../hooks/useCanUnlockAmount'
+
 import useLockBalance from '../../../hooks/useLockBalance'
 import useUnlock from '../../../hooks/useUnlock'
-import useTotalLocked from '../../../hooks/useTotalLocked'
+
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { account, deactivate } = useWallet()
@@ -36,9 +36,9 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
   const pbr = usePolkaBridge()
   const pbrBalance = useTokenBalance(getPolkaBridgeAddress(pbr))
-  const canUnlock = useCanUnlockAmount()
-  const lockAmount = useLockBalance()
-  const totalUserLocked = useTotalLocked()
+  
+  
+  
   const stakedFarms = useAllStakedFarms();
   const history = useHistory();
 
@@ -68,7 +68,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
                                 </BoxItem>
                                 <BoxItem>
                                     <Row>
-                                        <Col className="col-5">
+                                        <Col className="col-12">
                                             <TextMin>
                                                 Balance <img src={IconView} alt="View"/>
                                             </TextMin>
@@ -76,34 +76,9 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
                                                 <strong>{parseFloat(getBalanceNumber(pbrBalance).toFixed(4)).toLocaleString('en-US')}</strong>
                                                 <span>PBR</span>
                                             </TextMedium>
-                                            {/* <TextMin2>
-                                                ~795,6 $
-                                            </TextMin2> */}
+                                          
                                         </Col>
-                                        <Col className="col-7">
-                                            <TextMin>
-                                                Released/Locked
-                                            </TextMin>
-                                            {!totalUserLocked.isGreaterThan(0) &&
-                                                <TextMedium>
-                                                    <div><i>no lock</i></div>
-                                                </TextMedium>
-                                            }
-                                            {totalUserLocked.isGreaterThan(0) &&
-                                                <TextMedium>
-                                                    <strong>{parseFloat(getBalanceNumber(canUnlock).toFixed(4)).toLocaleString('en-US')}</strong>
-                                                    <span>/{parseFloat(getBalanceNumber(totalUserLocked).toFixed(4)).toLocaleString('en-US')}</span>
-                                                    {/*<ReleaseButton
-                                                        disabled={!canUnlock.isGreaterThan(0) || pendingTx}
-                                                        onClick={async () => {
-                                                            setPendingTx(true)
-                                                            await onUnlock()
-                                                            setPendingTx(false)
-                                                        }}
-                                                    >{pendingTx ? 'Releasing' : 'Release'}</ReleaseButton>*/}
-                                                </TextMedium>
-                                            }
-                                        </Col>
+                                       
                                     </Row>
                                 </BoxItem>
                             </Col>

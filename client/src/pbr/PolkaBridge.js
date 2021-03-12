@@ -39,8 +39,8 @@ export class PolkaBridge {
     this.pbrAddress = contractAddresses.pbr[networkId]
     // this.masterChefAddress = contractAddresses.masterChef[networkId]
     this.wethAddress = contractAddresses.weth[networkId]
-    // this.xPolkaBridgeAddress = contractAddresses.xPolkaBridge[networkId]
-    this.makerAddress = contractAddresses.maker[networkId]
+
+
   }
 
   async resetEVM() {
@@ -75,9 +75,8 @@ export class PolkaBridge {
         account.address.toLowerCase() !== newAccount.address.toLowerCase())
     ) {
       throw new Error(`Loaded account address mismatch.
-        Expected ${account.address}, got ${
-        newAccount ? newAccount.address : null
-      }`)
+        Expected ${account.address}, got ${newAccount ? newAccount.address : null
+        }`)
     }
   }
 

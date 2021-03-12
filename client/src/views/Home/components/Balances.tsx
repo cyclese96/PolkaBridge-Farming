@@ -14,7 +14,7 @@ import useFarms from '../../../hooks/useFarms'
 import useTokenBalance from '../../../hooks/useTokenBalance'
 import useTokenSupply from '../../../hooks/useTokenSupply'
 import useTokenLocked from '../../../hooks/useTokenLocked'
-import useTotalLocked from '../../../hooks/useTotalLocked'
+
 import useTokenBalanceOf from '../../../hooks/useTokenBalanceOf'
 import useTokenTotalSupply from '../../../hooks/useTokenTotalSupply'
 import usePolkaBridge from '../../../hooks/usePolkaBridge'

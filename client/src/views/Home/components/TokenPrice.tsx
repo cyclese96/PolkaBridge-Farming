@@ -5,23 +5,17 @@ import CountUp from 'react-countup'
 import usePBRPrice from '../../../hooks/usePBRPrice'
 
 const TokenPrice = memo(() => {
-  // const stakedValue = useAllStakedValue()
+  
   const [start, setStart] = useState(0)
   const [end, setEnd] = useState(0)
   const [scale, setScale] = useState(1)
   const pbrPrice = usePBRPrice()
-  const stakedValue = [pbrPrice]
-
-  let sumEarning = 0
-  // console.log('stakedValue: ', stakedValue)
-  for (let e of stakedValue) {
-    sumEarning += (e as any)
-  }
+  const afterPrice=0;
 
   useEffect(() => {
-    setStart(end)
-    setEnd(sumEarning)
-  }, [sumEarning])
+    setStart(start)
+    setEnd(afterPrice)
+  }, [pbrPrice])
 
   return (
     <span
