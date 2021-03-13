@@ -2,15 +2,11 @@ import { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { Contract } from 'web3-eth-contract'
 import {
-  getMasterChefContract,
-  getFarms,
   getPBRPrice,
-  getUniswapETHPBRPair,
-  getLPAddress
+  getFarms
 } from '../pbr/utils'
 import usePolkaBridge from './usePolkaBridge'
-import useBlock from './useBlock'
-import { setInterval } from 'node:timers'
+
 
 
 export interface StakedValue {
@@ -24,27 +20,30 @@ export interface StakedValue {
   price: BigNumber
 }
 
-const DEFAULT_POOL_FOR_GET_PRICE = 0
 
 const usePBRPrice = () => {
   const [price, setPrice] = useState<BigNumber>(new BigNumber(0))
   const pbr = usePolkaBridge()
   const farms = getFarms(pbr)
-  const uniswapETHPBRPair = getUniswapETHPBRPair(pbr);
-  const lpAddress = getLPAddress(pbr);
+
 
   const fetchPBRPrice = useCallback(async () => {
     const price = await getPBRPrice(
-      uniswapETHPBRPair,
-      lpAddress
+
+      farms
     )
+
     setPrice(price)
-  }, [])
+  }, [pbr, price])
 
   useEffect(() => {
-    if (pbr) {
+    const interval = setInterval(async () => {
       fetchPBRPrice()
-    }
+
+    }, 60000)
+    fetchPBRPrice()
+    return () => clearInterval(interval)
+
   }, [pbr])
 
   return price

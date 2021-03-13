@@ -40,6 +40,12 @@ export const getUniswapETHPBRPair = (pbr) => {
 export const getLPAddress = (pbr) => {
   return pbr && pbr.contracts && pbr.contracts.pools[0].lpAddress
 }
+export const getWETHAddress = (pbr) => {
+  return pbr && pbr.contracts && pbr.contracts.pools[0].token2Address
+}
+export const getPBRAddress = (pbr) => {
+  return pbr && pbr.contracts && pbr.contracts.pools[0].tokenAddress
+}
 
 export const getPolkaBridgeContract = (pbr) => {
   return pbr && pbr.contracts && pbr.contracts.pbr
@@ -238,30 +244,32 @@ export const getLPValuePrice = async (
 }
 
 
-export const getPBRPrice = async (uniswapETHPBRPair, lpAddress) => {
-  if (!uniswapETHPBRPair || !lpAddress) return new BigNumber(0);
+export const getPBRPrice = async (farms) => {
 
-  const amountPBRInPool = await uniswapETHPBRPair.methods
-    .balanceOf(lpAddress)
+  if (!farms || !farms[0] || !farms[0].lpContract) {
+
+    return new BigNumber(0);
+  }
+
+  const amountPBRInPool = await farms[0].tokenContract.methods
+    .balanceOf(farms[0].lpTokenAddress)
     .call()
-  console.log("amountPBRInPool", amountPBRInPool);
-  return new BigNumber(amountPBRInPool);
+  //console.log("amountPBRInPool", amountPBRInPool);
+  const amountETHInPool = await farms[0].token2Contract.methods
+    .balanceOf(farms[0].lpTokenAddress)
+    .call()
+  // console.log("amountETHInPool", amountETHInPool);
 
-  // const tokenDecimals = await tokenContract.methods.decimals().call()
-  // const lpContractToken2 = await token2Contract.methods
-  //   .balanceOf(lpContract.options.address)
-  //   .call()
-  // const token2Decimals = await token2Contract.methods.decimals().call()
+  const { data } = await axios.get(config.coingecko + "/v3/simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false");
+  var ethprice = 0;
 
-  // const tokenAmountTotal = new BigNumber(tokenAmountWholeLP)
-  //   .div(new BigNumber(10).pow(tokenDecimals))
+  if (data) {
+    ethprice = data.ethereum.usd;
+  }
+  return new BigNumber((new BigNumber(amountETHInPool).dividedBy(amountPBRInPool)).times(ethprice))
 
-  // const token2AmountTotal = new BigNumber(lpContractToken2)
-  //   .div(new BigNumber(10).pow(token2Decimals))
 
-  // return {
-  //   price: token2AmountTotal.div(tokenAmountTotal)
-  // }
+
 }
 
 

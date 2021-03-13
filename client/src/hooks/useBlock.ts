@@ -6,7 +6,7 @@ import config from '../config'
 import axios from 'axios'
 // import debounce from 'debounce'
 
-var CACHE : any = {
+var CACHE: any = {
   time: parseInt(localStorage.getItem('CACHE_useBlock_time') || '0'),
   old: 6 * 1000,
   value: parseInt(localStorage.getItem('CACHE_useBlock_value') || '0')

@@ -156,19 +156,3 @@ export const supportedPools = [
     removeLiquidityLink: 'https://app.uniswap.org/#//remove/0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f/0x5Ac52EE5b2a633895292Ff6d8A89bB9190451587'
   },
 ]
-  // .map(e => {
-  //   if (
-  //     ['0x239E37485B13F873ac9D5D8D7eC3C8cC1b3Ab0C7']
-  //     .indexOf(e.lpAddresses[97].toLowerCase()) >= 0)
-  //     {
-  //       e.isHot = false
-  //       e.isNew = true
-  //     }
-  //     else {
-  //       e.isHot = true
-  //       e.isNew = false
-  //     }
-
-  //     return e;
-  // })
-  .sort((a, b) => (a.isNew ? -1 : 1) - (b.isNew ? -1 : 1))
