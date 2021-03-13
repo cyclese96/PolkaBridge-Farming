@@ -10,12 +10,17 @@ const TokenPrice = memo(() => {
   const [end, setEnd] = useState(0)
   const [scale, setScale] = useState(1)
   const pbrPrice = usePBRPrice()
-  const afterPrice=0;
 
+  const convertPrice = [pbrPrice]
+
+  let finalPrice = 0
+  for (let e of convertPrice) {
+    finalPrice += (e as any)
+  }
   useEffect(() => {
     setStart(start)
-    setEnd(afterPrice)
-  }, [pbrPrice])
+    setEnd(finalPrice)
+  }, [finalPrice])
 
   return (
     <span

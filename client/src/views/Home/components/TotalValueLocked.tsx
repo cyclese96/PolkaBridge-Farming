@@ -13,7 +13,6 @@ const TotalValueLocked = memo(() => {
   const stakedValue = [pbrPrice]
 
   let sumEarning = 0
-  // console.log('stakedValue: ', stakedValue)
   for (let e of stakedValue) {
     sumEarning += (e as any)
   }
