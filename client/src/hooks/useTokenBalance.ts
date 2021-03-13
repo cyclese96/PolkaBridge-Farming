@@ -5,7 +5,6 @@ import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
 import { getBalance } from '../utils/erc20'
-import useBlock from './useBlock'
 
 
 const useTokenBalance = (tokenAddress: string) => {
@@ -14,7 +13,6 @@ const useTokenBalance = (tokenAddress: string) => {
     account,
     ethereum,
   }: { account: string; ethereum: provider } = useWallet()
-  const block = useBlock()
 
   const fetchBalance = useCallback(async () => {
     const balance = await getBalance(ethereum, tokenAddress, account)
@@ -22,10 +20,18 @@ const useTokenBalance = (tokenAddress: string) => {
   }, [account, ethereum, tokenAddress])
 
   useEffect(() => {
+    const interval = setInterval(async () => {
+      if (account) {
+        fetchBalance()
+      }
+
+    }, 30000)
     if (account) {
       fetchBalance()
     }
-  }, [account, ethereum, setBalance, block, tokenAddress])
+    return () => clearInterval(interval)
+
+  }, [account, ethereum, setBalance, tokenAddress])
 
   return balance
 }

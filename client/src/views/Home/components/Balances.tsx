@@ -12,8 +12,6 @@ import PolkaBridgeIcon from '../../../components/PolkaBridgeIcon'
 import useAllEarnings from '../../../hooks/useAllEarnings'
 import useFarms from '../../../hooks/useFarms'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import useTokenSupply from '../../../hooks/useTokenSupply'
-import useTokenLocked from '../../../hooks/useTokenLocked'
 
 import useTokenBalanceOf from '../../../hooks/useTokenBalanceOf'
 import useTokenTotalSupply from '../../../hooks/useTokenTotalSupply'
@@ -95,19 +93,7 @@ const Balances = memo(() => {
             </StyledBalance>
           </StyledBalances>
         </CardContent>
-        {/* <Footnote>
-          Pending harvest
-          <FootnoteValue>
-            <PendingRewards /> PBR
-          </FootnoteValue>
-        </Footnote>
-        <Footnote>
-          Total locked amount
-          <FootnoteValue>
-            {totalUserLocked ? `${parseFloat(getBalanceNumber(totalUserLocked).toFixed(2)).toLocaleString('en-US')} PBR` : '~'}
-          </FootnoteValue>
-        </Footnote>
-        <Spacer size="sm" /> */}
+     
       </Card>
       <Spacer />
 
@@ -124,19 +110,7 @@ const Balances = memo(() => {
             </div>
           </StyledBalance>
         </CardContent>
-        {/* <Footnote>
-          Total burned amount
-          <FootnoteValue>
-            {currentBurned ? `${parseFloat(getBalanceNumber(currentBurned).toFixed(2)).toLocaleString('en-US')} PBR` : '~'}
-          </FootnoteValue>
-        </Footnote>
-        <Footnote>
-          Total locked amount
-          <FootnoteValue>
-            {totalLocked ? `${parseFloat(getBalanceNumber(totalLocked).toFixed(2)).toLocaleString('en-US')} PBR` : '~'}
-          </FootnoteValue>
-        </Footnote>
-        <Spacer size="sm" /> */}
+        
       </Card>
     </StyledWrapper>
   )

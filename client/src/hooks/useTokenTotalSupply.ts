@@ -22,7 +22,12 @@ const useTokenTotalSupply = (tokenAddress: string) => {
   }, [account, ethereum, tokenAddress])
 
   useEffect(() => {
+    const interval = setInterval(async () => {
+      fetchBalance()
+    }, 30000)
     fetchBalance()
+    return () => clearInterval(interval)
+
   }, [account, ethereum, setTotalSupply, block, tokenAddress])
 
   return totalSupply

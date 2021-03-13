@@ -26,7 +26,7 @@ export interface StakedValue {
   pid: string
 }
 
-var CACHE : {time: any, old: any, value: any} = {
+var CACHE: { time: any, old: any, value: any } = {
   time: 0,
   old: 0,
   value: []
@@ -39,8 +39,8 @@ const useAllStakedValue = () => {
   const farms = getFarms(pbr)
   const pbrPrice = usePBRPrice()
   const masterChefContract = getMasterChefContract(pbr)
-  const block = 0//useBlock()
-  // console.log('pbrPrice: ', pbrPrice.toString())
+
+  //console.log('pbrPrice: ', pbrPrice.toString())
 
   const fetchAllStakedValue = useCallback(async () => {
     const balances: Array<StakedValue> = await Promise.all(
@@ -49,12 +49,16 @@ const useAllStakedValue = () => {
           pid,
           lpContract,
           tokenContract,
-          token2Contract
+          token2Contract,
+          tokenSymbol,
+          token2Symbol,
         }: {
           pid: number
           lpContract: Contract
           tokenContract: Contract
-          token2Contract: Contract
+          token2Contract: Contract,
+          tokenSymbol: any
+          token2Symbol: any
         }) =>
           getLPValue(
             masterChefContract,
@@ -62,7 +66,9 @@ const useAllStakedValue = () => {
             tokenContract,
             token2Contract,
             pid,
-            pbrPrice
+            pbrPrice,
+            tokenSymbol,
+            token2Symbol,
           ),
       ),
     )
@@ -73,7 +79,7 @@ const useAllStakedValue = () => {
     if (masterChefContract && pbr && pbrPrice) {
       fetchAllStakedValue()
     }
-  }, [block, masterChefContract, setBalance, pbr, pbrPrice])
+  }, [masterChefContract, setBalance, pbr, pbrPrice])
 
   return balances
 }

@@ -26,7 +26,7 @@ const FarmsContainer: React.FC = () => {
       <PageHeader
         icon={<img src={Logo} height="120" />}
         subtitle="Earn PBR tokens by staking PolkaBridge SPL Tokens."
-        title="Select Your Favorite Dishes"
+        title="Select Your Favorite Pool"
       />
       <FarmCards />
     </Route>

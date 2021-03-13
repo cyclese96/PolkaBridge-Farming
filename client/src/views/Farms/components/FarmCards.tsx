@@ -79,7 +79,7 @@ const FarmCards: React.FC = () => {
         ))
       ) : (
         <StyledLoadingWrapper>
-          <Loader text="Cooking the rice ..." />
+          <Loader text="Fly on the sky ..." />
         </StyledLoadingWrapper>
       )}
     </StyledCards>

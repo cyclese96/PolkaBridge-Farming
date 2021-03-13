@@ -3,7 +3,8 @@ import BigNumber from 'bignumber.js'
 import axios from 'axios'
 import config from '../config'
 import { supportedPools, START_NEW_POOL_AT } from './lib/constants'
-
+import { pbr, pbrAddress, pbrAddressMainnet } from '../constants/tokenAddresses'
+import Web3 from 'web3'
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
@@ -144,103 +145,136 @@ export const getTotalLockedValue = async (tokenContract, lpContract, pbrPrice) =
   return usdValue;
 }
 
+
+
 export const getLPValue = async (
   masterChefContract,
   lpContract,
-  tokenContract,
-  token2Contract,
+  tokenAContract,
+  tokenBContract,
   pid,
   pbrPrice,
+  tokenASymbol,
+  tokenBSymbol,
 ) => {
-  var usdtAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'
-  var usdcAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-  var wethAddress = '0xc778417e063141139fce010982780140aa0cd5ab'
+  var usdtAddress;
+  var usdcAddress;
+  var daiAddress;
+  var wethAddress;
+  var finalpbrAddress;
+  if (config.chainId == 1) {//mainnet{
+    usdtAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'
+    usdcAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+    daiAddress = '0x6b175474e89094c44da98b954eedeac495271d0f';
+    wethAddress = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+    finalpbrAddress = pbrAddressMainnet;
+  }
+  else {//rinkeby =4
+    usdtAddress = '0xd9ba894e0097f8cc2bbc9d24d308b98e36dc6d02'
+    usdcAddress = '0x4dbcdf9b62e891a7cec5a2568c3f4faf9e8abe2b'
+    daiAddress = '0xc7ad46e0b8a400bb3c915120d284aafba8fc4735';
+    wethAddress = "0xc778417e063141139fce010982780140aa0cd5ab";
+    finalpbrAddress = pbrAddress;
+  }
+
+  // // Convert that into the portion of total lpContract = p1
+
+  // // Get total token2 value for the lpContract = w1
+  // const lpContractToken2 = await token2Contract.methods
+  //   .balanceOf(lpContract.options.address)
+  //   .call()
+
+  // const token2Decimals = await token2Contract.methods.decimals().call()
+  // // Return p1 * w1 * 2
+  // const portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
+  // const totalLpToken2Value = portionLp.times(lpContractToken2).times(new BigNumber(2))
+  // // Calculate
+  // const tokenAmount = new BigNumber(tokenAmountWholeLP)
+  //   .times(portionLp)
+  //   .div(new BigNumber(10).pow(tokenDecimals))
+
+  // const token2Amount = new BigNumber(lpContractToken2)
+  //   .times(portionLp)
+  //   .div(new BigNumber(10).pow(token2Decimals))
+  // const tokenAmountTotal = new BigNumber(tokenAmountWholeLP)
+  //   .div(new BigNumber(10).pow(tokenDecimals))
+
+  // const token2AmountTotal = new BigNumber(lpContractToken2)
+  //   .div(new BigNumber(10).pow(token2Decimals))
+  // // console.log('pbrPrice: ', pbrPrice.toString())
+  // var tokenPriceInToken2 = pbrPrice
+  // // var tokenPriceInToken2 = tokenAmountTotal.div(token2AmountTotal)
+  // var totalToken2Value = totalLpToken2Value.div(new BigNumber(10).pow(token2Decimals))
+  // var usdValue = tokenAmountTotal.times(pbrPrice).times(2);
+  // if (token2Contract._address.toLowerCase() == usdtAddress
+  //   || token2Contract._address.toLowerCase() == usdcAddress) {
+  //   // usdValue = totalToken2Value
+  // }
+  // else if (token2Contract._address.toLowerCase() == wethAddress) {
+  //   // var { data } = await axios.get(`${config.api}/price/ETH`)
+  //   // usdValue = totalToken2Value.times(data.usdPrice)
+  // }
+
+  //value LP=totalvalue of liquidity pool/ciculatung supply LP token
+  //        =(token1.balanceof(lpcontract)*pricetoken1 + token2.balanceof(lpcontract).pricetoken2)/ciculating lp supply
+
+
   // Get balance of the token address
-  const tokenAmountWholeLP = await tokenContract.methods
+  const balanceTokenA = await tokenAContract.methods
     .balanceOf(lpContract.options.address)
     .call()
-  const tokenDecimals = await tokenContract.methods.decimals().call()
-  // Get the share of lpContract that masterChefContract owns
-  const balance = await lpContract.methods
-    .balanceOf(masterChefContract.options.address)
-    .call()
-  // Convert that into the portion of total lpContract = p1
-  const totalSupply = await lpContract.methods.totalSupply().call()
-  // Get total token2 value for the lpContract = w1
-  const lpContractToken2 = await token2Contract.methods
+  console.log("balanceTokenA ", tokenASymbol, balanceTokenA);
+
+  const tokenADecimals = await tokenAContract.methods.decimals().call()
+  // const balance = await lpContract.methods
+  //   .balanceOf(masterChefContract.options.address)
+  //   .call()
+
+  const balanceTokenB = await tokenBContract.methods
     .balanceOf(lpContract.options.address)
     .call()
+  console.log("balanceTokenB ", tokenBSymbol, balanceTokenB);
 
-  const token2Decimals = await token2Contract.methods.decimals().call()
-  // Return p1 * w1 * 2
-  const portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
-  const totalLpToken2Value = portionLp.times(lpContractToken2).times(new BigNumber(2))
-  // Calculate
-  const tokenAmount = new BigNumber(tokenAmountWholeLP)
-    .times(portionLp)
-    .div(new BigNumber(10).pow(tokenDecimals))
+  const tokenBDecimals = await tokenBContract.methods.decimals().call()
 
-  const token2Amount = new BigNumber(lpContractToken2)
-    .times(portionLp)
-    .div(new BigNumber(10).pow(token2Decimals))
-  const tokenAmountTotal = new BigNumber(tokenAmountWholeLP)
-    .div(new BigNumber(10).pow(tokenDecimals))
 
-  const token2AmountTotal = new BigNumber(lpContractToken2)
-    .div(new BigNumber(10).pow(token2Decimals))
-  // console.log('pbrPrice: ', pbrPrice.toString())
-  var tokenPriceInToken2 = pbrPrice
-  // var tokenPriceInToken2 = tokenAmountTotal.div(token2AmountTotal)
-  var totalToken2Value = totalLpToken2Value.div(new BigNumber(10).pow(token2Decimals))
-  var usdValue = tokenAmountTotal.times(pbrPrice).times(2);
-  if (token2Contract._address.toLowerCase() == usdtAddress
-    || token2Contract._address.toLowerCase() == usdcAddress) {
-    // usdValue = totalToken2Value
+  const totalSupplyLPToken = await lpContract.methods.totalSupply().call()
+  var priceTokenA, priceTokenB;
+  if (tokenBContract._address.toLowerCase() == usdtAddress
+    || tokenBContract._address.toLowerCase() == usdcAddress
+    || tokenBContract._address.toLowerCase() == daiAddress) {
+    priceTokenB = 1;
   }
-  else if (token2Contract._address.toLowerCase() == wethAddress) {
-    // var { data } = await axios.get(`${config.api}/price/ETH`)
-    // usdValue = totalToken2Value.times(data.usdPrice)
+  else if (tokenBContract._address.toLowerCase() == wethAddress) {
+    const { data } = await axios.get(config.coingecko + "/v3/simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false");
+    priceTokenB = data.ethereum.usd;
+  }
+  else {
+    priceTokenB = 0;
+  }
+  console.log("priceTokenB ", tokenBSymbol, priceTokenB)
+  //price tokenA
+  if (tokenAContract._address.toLowerCase() == finalpbrAddress) {
+    priceTokenA = pbrPrice;
+  }
+  else {
+    priceTokenA = 0;
   }
 
+  var usdValue = ((new BigNumber(balanceTokenA).times(priceTokenA)) +
+    (new BigNumber(balanceTokenB).times(priceTokenB))) / new BigNumber(totalSupplyLPToken);
+  console.log("usdValue", usdValue)
   return {
     pid,
-    tokenAmount,
-    token2Amount,
-    totalToken2Value,
-    tokenPriceInToken2,
+    tokenAmount: new BigNumber(0),
+    token2Amount: new BigNumber(0),
+    totalToken2Value: new BigNumber(0),
+    tokenPriceInToken2: new BigNumber(0),
     usdValue,
-    // poolWeight: await getPoolWeight(masterChefContract, pid),
-    tokenAmountTotal,
-    token2AmountTotal
+    tokenAmountTotal: new BigNumber(0),
+    token2AmountTotal: new BigNumber(0)
   }
-}
 
-export const getLPValuePrice = async (
-  masterChefContract,
-  lpContract,
-  tokenContract,
-  token2Contract,
-  pid,
-) => {
-
-  const tokenAmountWholeLP = await tokenContract.methods
-    .balanceOf(lpContract.options.address)
-    .call()
-  const tokenDecimals = await tokenContract.methods.decimals().call()
-  const lpContractToken2 = await token2Contract.methods
-    .balanceOf(lpContract.options.address)
-    .call()
-  const token2Decimals = await token2Contract.methods.decimals().call()
-
-  const tokenAmountTotal = new BigNumber(tokenAmountWholeLP)
-    .div(new BigNumber(10).pow(tokenDecimals))
-
-  const token2AmountTotal = new BigNumber(lpContractToken2)
-    .div(new BigNumber(10).pow(token2Decimals))
-
-  return {
-    price: token2AmountTotal.div(tokenAmountTotal)
-  }
 }
 
 
@@ -305,24 +339,7 @@ export const checkPoolActive = async (pid) => {
   var p = supportedPools.find(e => e.pid === pid)
   if (p) {
     return p.isActived;
-    // if (p.startAt >= new Date().getTime() / 1000) {
-    //   return false
-    // }
-    // else if (!p.startAt) {
-    //   return true
-    // }
-    // else {
-    //   if (localStorage.getItem('POOLACTIVE' + pid + '-' + p.startBlock)) {
-    //     return true
-    //   }
-    //   else {
-    //     var { data } = await axios.get(`${config.api}/poolActive/${pid}`)
-    //     if (data.isActived) {
-    //       localStorage.setItem('POOLACTIVE' + pid + '-' + p.startBlock, true)
-    //     }
-    //     return data.isActived
-    //   }
-    // }
+
   }
   else {
     return false

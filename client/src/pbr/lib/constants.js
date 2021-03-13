@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js/bignumber'
 
 export const SUBTRACT_GAS_LIMIT = 100000
 export const START_REWARD_AT_BLOCK = 3525595 // TODO
-export const NUMBER_BLOCKS_PER_YEAR = 10512000
+export const NUMBER_BLOCKS_PER_YEAR = 2800000 // ~7500 block/day
 
 export const START_NEW_POOL_AT = 1609255800 // 2020/12/29 22h30
 

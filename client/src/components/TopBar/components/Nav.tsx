@@ -9,7 +9,7 @@ interface NavProp {
 const Nav: React.FC<NavProp> = ({showMenu}) => {
   return (
     <StyledNav showMenu={showMenu}>
-      <StyledAbsoluteLink href="https://farm.polkabridge.org">
+      <StyledAbsoluteLink href="/farms">
         Farm
       </StyledAbsoluteLink>
       <StyledAbsoluteLink href="https://swap.polkabridge.org">
