@@ -182,17 +182,18 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
               <StyledInsight>
               
                 <span>APY</span>
+                { console.log(newReward , farm.pbrPrice , farm.usdValue)}
                 <span style={{fontWeight: 'bold', color: '#4caf50'}}>
                   {
-                    
+                   
                   newReward && farm.pbrPrice && farm.usdValue ?
                   
-                    `${parseFloat(farm.pbrPrice
-                      .times(NUMBER_BLOCKS_PER_YEAR)
-                      .times(newReward.div(10 ** 18))
+                    `${farm.pbrPrice
+                      .times(new BigNumber(NUMBER_BLOCKS_PER_YEAR))
+                      .times(newReward)
                       .div(farm.usdValue)
                       .times(100)
-                      .toFixed(3)).toLocaleString('en-US')}%` : '~'
+                      .toFixed(3).toLocaleString()}%` : '~'
                   }
                 </span>
               </StyledInsight>
