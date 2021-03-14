@@ -5,6 +5,7 @@ import config from '../config'
 import { supportedPools, START_NEW_POOL_AT } from './lib/constants'
 import { pbr, pbrAddress, pbrAddressMainnet } from '../constants/tokenAddresses'
 import Web3 from 'web3'
+import { createAwait } from 'typescript'
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
@@ -83,6 +84,7 @@ export const getFarms = (pbr) => {
         pairLink,
         addLiquidityLink,
         removeLiquidityLink,
+        isActived
       }) => ({
         pid,
         id: symbol,
@@ -110,7 +112,8 @@ export const getFarms = (pbr) => {
         iconProtocal,
         pairLink,
         addLiquidityLink,
-        removeLiquidityLink
+        removeLiquidityLink,
+        isActived
       }),
     )
     : []
@@ -156,6 +159,7 @@ export const getLPValue = async (
   pbrPrice,
   tokenASymbol,
   tokenBSymbol,
+  isActived
 ) => {
   var usdtAddress;
   var usdcAddress;
@@ -176,104 +180,85 @@ export const getLPValue = async (
     wethAddress = "0xc778417e063141139fce010982780140aa0cd5ab";
     finalpbrAddress = pbrAddress;
   }
+  var tokenAmount = new BigNumber(0)
+  var token2Amount = new BigNumber(0)
+  var totalToken2Value = new BigNumber(0)
+  var tokenPriceInToken2 = new BigNumber(0)
+  var tokenAmountTotal = new BigNumber(0)
+  var token2AmountTotal = new BigNumber(0)
+  var usdValue = new BigNumber(0);
 
-  // // Convert that into the portion of total lpContract = p1
-
-  // // Get total token2 value for the lpContract = w1
-  // const lpContractToken2 = await token2Contract.methods
-  //   .balanceOf(lpContract.options.address)
-  //   .call()
-
-  // const token2Decimals = await token2Contract.methods.decimals().call()
-  // // Return p1 * w1 * 2
-  // const portionLp = new BigNumber(balance).div(new BigNumber(totalSupply))
-  // const totalLpToken2Value = portionLp.times(lpContractToken2).times(new BigNumber(2))
-  // // Calculate
-  // const tokenAmount = new BigNumber(tokenAmountWholeLP)
-  //   .times(portionLp)
-  //   .div(new BigNumber(10).pow(tokenDecimals))
-
-  // const token2Amount = new BigNumber(lpContractToken2)
-  //   .times(portionLp)
-  //   .div(new BigNumber(10).pow(token2Decimals))
-  // const tokenAmountTotal = new BigNumber(tokenAmountWholeLP)
-  //   .div(new BigNumber(10).pow(tokenDecimals))
-
-  // const token2AmountTotal = new BigNumber(lpContractToken2)
-  //   .div(new BigNumber(10).pow(token2Decimals))
-  // // console.log('pbrPrice: ', pbrPrice.toString())
-  // var tokenPriceInToken2 = pbrPrice
-  // // var tokenPriceInToken2 = tokenAmountTotal.div(token2AmountTotal)
-  // var totalToken2Value = totalLpToken2Value.div(new BigNumber(10).pow(token2Decimals))
-  // var usdValue = tokenAmountTotal.times(pbrPrice).times(2);
-  // if (token2Contract._address.toLowerCase() == usdtAddress
-  //   || token2Contract._address.toLowerCase() == usdcAddress) {
-  //   // usdValue = totalToken2Value
-  // }
-  // else if (token2Contract._address.toLowerCase() == wethAddress) {
-  //   // var { data } = await axios.get(`${config.api}/price/ETH`)
-  //   // usdValue = totalToken2Value.times(data.usdPrice)
-  // }
-
-  //value LP=totalvalue of liquidity pool/ciculatung supply LP token
-  //        =(token1.balanceof(lpcontract)*pricetoken1 + token2.balanceof(lpcontract).pricetoken2)/ciculating lp supply
+  if (isActived == true) {
 
 
-  // Get balance of the token address
-  const balanceTokenA = await tokenAContract.methods
-    .balanceOf(lpContract.options.address)
-    .call()
-  console.log("balanceTokenA ", tokenASymbol, balanceTokenA);
+    // Get balance of the token address
+    const balanceTokenA = await tokenAContract.methods
+      .balanceOf(lpContract.options.address)
+      .call()
+    //console.log("balanceTokenA ", tokenASymbol, pid, balanceTokenA);
 
-  const tokenADecimals = await tokenAContract.methods.decimals().call()
-  // const balance = await lpContract.methods
-  //   .balanceOf(masterChefContract.options.address)
-  //   .call()
+    const tokenADecimals = await tokenAContract.methods.decimals().call()
+    // const balance = await lpContract.methods
+    //   .balanceOf(masterChefContract.options.address)
+    //   .call()
 
-  const balanceTokenB = await tokenBContract.methods
-    .balanceOf(lpContract.options.address)
-    .call()
-  console.log("balanceTokenB ", tokenBSymbol, balanceTokenB);
+    const balanceTokenB = await tokenBContract.methods
+      .balanceOf(lpContract.options.address)
+      .call()
+    //console.log("balanceTokenB ", tokenBSymbol, pid, balanceTokenB);
 
-  const tokenBDecimals = await tokenBContract.methods.decimals().call()
+    const tokenBDecimals = await tokenBContract.methods.decimals().call()
 
 
-  const totalSupplyLPToken = await lpContract.methods.totalSupply().call()
-  var priceTokenA, priceTokenB;
-  if (tokenBContract._address.toLowerCase() == usdtAddress
-    || tokenBContract._address.toLowerCase() == usdcAddress
-    || tokenBContract._address.toLowerCase() == daiAddress) {
-    priceTokenB = 1;
-  }
-  else if (tokenBContract._address.toLowerCase() == wethAddress) {
-    const { data } = await axios.get(config.coingecko + "/v3/simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false");
-    priceTokenB = data.ethereum.usd;
-  }
-  else {
-    priceTokenB = 0;
-  }
-  console.log("priceTokenB ", tokenBSymbol, priceTokenB)
-  //price tokenA
-  if (tokenAContract._address.toLowerCase() == finalpbrAddress) {
-    priceTokenA = pbrPrice;
-  }
-  else {
-    priceTokenA = 0;
+    const totalSupplyLPToken = await lpContract.methods.totalSupply().call()
+    var priceTokenA, priceTokenB;
+    if (tokenBContract._address.toLowerCase() == usdtAddress
+      || tokenBContract._address.toLowerCase() == usdcAddress
+      || tokenBContract._address.toLowerCase() == daiAddress) {
+      priceTokenB = 1;
+    }
+    else if (tokenBContract._address.toLowerCase() == wethAddress) {
+      const { data } = await axios.get(config.coingecko + "/v3/simple/price?ids=ethereum&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false");
+      priceTokenB = data.ethereum.usd;
+    }
+    else {
+      priceTokenB = 1;
+    }
+    //console.log("priceTokenB ", tokenBSymbol, pid, priceTokenB)
+    //price tokenA
+    if (tokenAContract._address.toLowerCase() == finalpbrAddress) {
+      priceTokenA = pbrPrice;
+    }
+    else {
+      priceTokenA = new BigNumber(1);
+    }
+    //console.log("totalSupplyLPToken", pid, Web3.utils.fromWei(totalSupplyLPToken, 'ether'));
+
+    var lpValuce = (new BigNumber((new BigNumber(balanceTokenA).times(priceTokenA))).plus(
+      (new BigNumber(new BigNumber(balanceTokenB).times(new BigNumber(priceTokenB)))))).dividedBy(new BigNumber(totalSupplyLPToken));
+    //console.log("lpValuce", pid, lpValuce.toString());
+
+    //total locked value=lpvalue*totalLPLockedPool
+    var totalLpInFarmPool = await lpContract.methods.balanceOf(masterChefContract._address).call()
+    //console.log("totalLpInFarmPool", pid, totalLpInFarmPool.toString());
+
+    usdValue = new BigNumber(totalLpInFarmPool).times(lpValuce);
+    //console.log("usdValue", pid, usdValue.toString());
+
   }
 
-  var usdValue = ((new BigNumber(balanceTokenA).times(priceTokenA)) +
-    (new BigNumber(balanceTokenB).times(priceTokenB))) / new BigNumber(totalSupplyLPToken);
-  console.log("usdValue", usdValue)
-  return {
+  var finaldata = {
     pid,
-    tokenAmount: new BigNumber(0),
-    token2Amount: new BigNumber(0),
-    totalToken2Value: new BigNumber(0),
-    tokenPriceInToken2: new BigNumber(0),
+    tokenAmount,
+    token2Amount,
+    totalToken2Value,
+    tokenPriceInToken2,
     usdValue,
-    tokenAmountTotal: new BigNumber(0),
-    token2AmountTotal: new BigNumber(0)
+    tokenAmountTotal,
+    token2AmountTotal
   }
+
+  return finaldata
 
 }
 

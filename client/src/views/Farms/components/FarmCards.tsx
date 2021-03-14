@@ -22,7 +22,7 @@ import { NUMBER_BLOCKS_PER_YEAR, START_NEW_POOL_AT } from '../../../pbr/lib/cons
 import { getEarned, getMasterChefContract, getNewRewardPerBlock } from '../../../pbr/utils'
 import { bnToDec } from '../../../utils'
 import { getBalanceNumber } from '../../../utils/formatBalance'
-
+import Web3 from 'web3'
 interface FarmWithStakedValue extends Farm {
   tokenAmount: BigNumber
   token2Amount: BigNumber
@@ -37,12 +37,14 @@ const FarmCards: React.FC = () => {
   const [farms] = useFarms()
   const stakedValue = useAllStakedValue()
   const pbrPrice = usePBRPrice()
-
+  
+ 
   const rows = farms.reduce<FarmWithStakedValue[][]>(
     (farmRows, farm, i) => {
       var sv = (stakedValue || []).find(e => {
         return parseInt(e.pid) == farm.pid
       })
+     
       const farmWithStakedValue : FarmWithStakedValue = {
         ...farm,
         tokenAmount: (sv || {}).tokenAmount || new BigNumber(0),
@@ -160,9 +162,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             <br/>
             <StyledInsight>
               <span>Total Locked Value</span>
+              
               <span>
                 {farm.usdValue &&
-                  <><b>{parseFloat(farm.usdValue.toFixed(0)).toLocaleString('en-US')} USD</b></>
+                  <><b>{parseFloat(Web3.utils.fromWei(farm.usdValue.toNumber().toString(),'ether')).toFixed(0).toLocaleString()} USD</b></>
 
                 }
               </span>

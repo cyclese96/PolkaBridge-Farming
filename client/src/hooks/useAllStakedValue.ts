@@ -34,7 +34,7 @@ var CACHE: { time: any, old: any, value: any } = {
 
 
 const useAllStakedValue = () => {
-  const [balances, setBalance] = useState(CACHE.value as Array<StakedValue>)
+  const [balances, setBalance] = useState<Array<StakedValue>>([])
   const pbr = usePolkaBridge()
   const farms = getFarms(pbr)
   const pbrPrice = usePBRPrice()
@@ -52,13 +52,15 @@ const useAllStakedValue = () => {
           token2Contract,
           tokenSymbol,
           token2Symbol,
+          isActived
         }: {
           pid: number
           lpContract: Contract
           tokenContract: Contract
           token2Contract: Contract,
           tokenSymbol: any
-          token2Symbol: any
+          token2Symbol: any,
+          isActived: any
         }) =>
           getLPValue(
             masterChefContract,
@@ -69,15 +71,19 @@ const useAllStakedValue = () => {
             pbrPrice,
             tokenSymbol,
             token2Symbol,
-          ),
+            isActived
+          )
       ),
     )
+
     setBalance(balances)
+
   }, [masterChefContract, pbr, pbrPrice])
 
   useEffect(() => {
     if (masterChefContract && pbr && pbrPrice) {
       fetchAllStakedValue()
+
     }
   }, [masterChefContract, setBalance, pbr, pbrPrice])
 
