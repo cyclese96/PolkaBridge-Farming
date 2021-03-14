@@ -182,7 +182,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
               <StyledInsight>
               
                 <span>APY</span>
-                { console.log(newReward , farm.pbrPrice , farm.usdValue)}
+               
                 <span style={{fontWeight: 'bold', color: '#4caf50'}}>
                   {
                    

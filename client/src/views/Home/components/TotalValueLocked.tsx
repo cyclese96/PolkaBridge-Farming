@@ -3,24 +3,24 @@ import React, { memo, useEffect, useState } from 'react'
 import CountUp from 'react-countup'
 import useAllStakedValue from '../../../hooks/useAllStakedValue'
 import usePBRPrice from '../../../hooks/usePBRPrice'
+import Web3 from 'web3'
 
 const TotalValueLocked = memo(() => {
-  // const stakedValue = useAllStakedValue()
+  const stakedValue = useAllStakedValue()
   const [start, setStart] = useState(0)
   const [end, setEnd] = useState(0)
   const [scale, setScale] = useState(1)
   const pbrPrice = usePBRPrice()
-  const stakedValue = [pbrPrice]
-
-  let sumEarning = 0
+  
+  let totalLocked = 0
   for (let e of stakedValue) {
-    sumEarning += (e as any)
+    totalLocked += (parseFloat(Web3.utils.fromWei(e.usdValue.toNumber().toString(),'ether')))
   }
 
   useEffect(() => {
     setStart(end)
-    setEnd(sumEarning)
-  }, [sumEarning])
+    setEnd(totalLocked)
+  }, [totalLocked])
 
   return (
     <span
@@ -34,7 +34,7 @@ const TotalValueLocked = memo(() => {
       <CountUp
         start={start}
         end={end}
-        decimals={end < 0 ? 4 : end > 1e5 ? 0 : 3}
+        decimals={end < 0 ? 1 : end > 1e5 ? 0 : 1}
         duration={1}
         onStart={() => {
           setScale(1.05)
