@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { provider } from 'web3-core'
 
 import BigNumber from 'bignumber.js'
-import { useWallet } from 'use-wallet'
 import { Contract } from 'web3-eth-contract'
 
 import {
@@ -11,9 +9,7 @@ import {
   getLPValue,
 } from '../pbr/utils'
 import usePolkaBridge from './usePolkaBridge'
-import useBlock from './useBlock'
-import axios from 'axios'
-import config from '../config'
+
 import usePBRPrice from './usePBRPrice'
 
 export interface StakedValue {
@@ -31,9 +27,8 @@ const useStakedValue = (pid: number) => {
   const pbr = usePolkaBridge()
   const farms = getFarms(pbr)
   const pbrPrice = usePBRPrice()
-  // console.log('pbrPrice22: ', pbrPrice.toString())
+
   const masterChefContract = getMasterChefContract(pbr)
-  const block = 0//useBlock()
 
   const fetchStakedValue = useCallback(async () => {
     const balances: Array<StakedValue> = await Promise.all(
@@ -42,12 +37,18 @@ const useStakedValue = (pid: number) => {
           pid,
           lpContract,
           tokenContract,
-          token2Contract
+          token2Contract,
+          tokenASymbol,
+          tokenBSymbol,
+          isActived
         }: {
           pid: number
           lpContract: Contract
           tokenContract: Contract
           token2Contract: Contract
+          tokenASymbol: any
+          tokenBSymbol: any
+          isActived: any
         }) =>
           getLPValue(
             masterChefContract,
@@ -56,17 +57,20 @@ const useStakedValue = (pid: number) => {
             token2Contract,
             pid,
             pbrPrice,
+            tokenASymbol,
+            tokenBSymbol,
+            isActived
           ),
       ),
     )
     setBalance(balances[0])
-  }, [masterChefContract, block, pbr, pbrPrice])
+  }, [masterChefContract, pbr, pbrPrice])
 
   useEffect(() => {
     if (masterChefContract && pbr && pbrPrice) {
       fetchStakedValue()
     }
-  }, [masterChefContract, block, setBalance, pbr, pbrPrice])
+  }, [masterChefContract, setBalance, pbr, pbrPrice])
   return balance
 }
 

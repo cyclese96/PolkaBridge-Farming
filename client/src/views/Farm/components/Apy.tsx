@@ -13,7 +13,7 @@ import useStakedValue from '../../../hooks/useStakedValue'
 import { NUMBER_BLOCKS_PER_YEAR } from '../../../pbr/lib/constants'
 import usePBRPrice from '../../../hooks/usePBRPrice'
 import useNewReward from '../../../hooks/useNewReward'
-
+import Web3 from "web3"
 interface ApyProps {
     pid: number
     lpTokenAddress: string
@@ -26,7 +26,7 @@ const Apy: React.FC<ApyProps> = ({ pid, lpTokenAddress, symbolShort, tokenSymbol
     const pbr = usePolkaBridge()
     const { ethereum } = useWallet()
 
-    // const block = useBlock()
+  
     const stakedValue = useStakedValue(pid)
     const pbrPrice = usePBRPrice()
 
@@ -52,21 +52,20 @@ const Apy: React.FC<ApyProps> = ({ pid, lpTokenAddress, symbolShort, tokenSymbol
             <StyledBox className="col-3">
                 <StyledLabel>APY</StyledLabel>
                 <StyledContent>{
-                newReward && stakedValue && pbrPrice && stakedValue.usdValue && stakedValue.totalToken2Value && stakedValue.poolWeight ?
-                  `${parseFloat(pbrPrice
-                    .times(NUMBER_BLOCKS_PER_YEAR)
-                    .times(newReward.div(10 ** 18))
-                    .div(stakedValue.usdValue)
-                    .times(100)
-                    .toFixed(2)).toLocaleString('en-US')}%` : 'loading'
+                     newReward && pbrPrice && stakedValue && stakedValue.usdValue ?
+                  
+                     `${pbrPrice
+                       .times(new BigNumber(NUMBER_BLOCKS_PER_YEAR))
+                       .times(newReward)
+                       .div(stakedValue.usdValue)
+                       .times(100)
+                       .toFixed(1).toLocaleString()}%` : 'loading'
                 }</StyledContent>
             </StyledBox>
             <StyledBox className="col-7">
-                <StyledLabel>Total Staked LP Token</StyledLabel>
+                <StyledLabel>Total Value Locked</StyledLabel>
                 <StyledContent>
-                    {stakedValue && stakedValue.tokenAmount ? (stakedValue.tokenAmount as any).toFixed(2).toLocaleString('en-US'): '~'} <span style={{fontSize: 10}}>{tokenSymbol}</span>
-                    &nbsp; + &nbsp;
-                    {stakedValue && stakedValue.token2Amount ? (stakedValue.token2Amount as any).toFixed(2).toLocaleString('en-US'): '~'} <span style={{fontSize: 10}}>{token2Symbol}</span></StyledContent>
+                    {stakedValue && stakedValue.usdValue ? parseFloat(Web3.utils.fromWei(stakedValue.usdValue.toNumber().toString(),'ether')).toFixed(0).toLocaleString(): '~'} <span style={{fontSize: 10}}>USD</span></StyledContent>
                 <StyledEquility>{totalStake  ? getBalanceNumber(totalStake) : '~'} <span style={{fontSize: 10}}>{symbolShort} LP</span></StyledEquility>
             </StyledBox>
             <StyledBox className="col-3">
