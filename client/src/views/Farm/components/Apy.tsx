@@ -52,21 +52,21 @@ const Apy: React.FC<ApyProps> = ({ pid, lpTokenAddress, symbolShort, tokenSymbol
             <StyledBox className="col-3">
                 <StyledLabel>APY</StyledLabel>
                 <StyledContent>{
-                     newReward && pbrPrice && stakedValue && stakedValue.usdValue ?
+                     newReward && pbrPrice && stakedValue && stakedValue.usdValue &&!stakedValue.usdValue.isZero()  ?
                   
                      `${pbrPrice
                        .times(new BigNumber(NUMBER_BLOCKS_PER_YEAR))
                        .times(newReward)
                        .div(stakedValue.usdValue)
                        .times(100)
-                       .toFixed(1).toLocaleString()}%` : 'loading'
+                       .toFixed(1).toLocaleString()}%` : '+∞'
                 }</StyledContent>
             </StyledBox>
             <StyledBox className="col-7">
                 <StyledLabel>Total Value Locked</StyledLabel>
                 <StyledContent>
-                    {stakedValue && stakedValue.usdValue ? parseFloat(Web3.utils.fromWei(stakedValue.usdValue.toNumber().toString(),'ether')).toFixed(0).toLocaleString(): '~'} <span style={{fontSize: 10}}>USD</span></StyledContent>
-                <StyledEquility>{totalStake  ? getBalanceNumber(totalStake) : '~'} <span style={{fontSize: 10}}>{symbolShort} LP</span></StyledEquility>
+                    {stakedValue && stakedValue.usdValue ? parseFloat(Web3.utils.fromWei(stakedValue.usdValue.toFixed(0).toString(),'ether')).toFixed(0).toLocaleString(): '~'} <span style={{fontSize: 10}}>USD</span></StyledContent>
+                <StyledEquility>{totalStake  ? getBalanceNumber(totalStake).toFixed(2) : '~'} <span style={{fontSize: 10}}>{symbolShort} LP</span></StyledEquility>
             </StyledBox>
             <StyledBox className="col-3">
                 <StyledLabel>Avg. reward per block</StyledLabel>

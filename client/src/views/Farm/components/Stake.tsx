@@ -112,7 +112,7 @@ const Stake: React.FC<StakeProps> = ({ lpContract, pid, tokenName, tokenSymbol, 
             <StyledValue>
               <Label text={`Tokens Staked`} />
               <br/>
-              <ValueStyled>{getBalanceNumber(stakedBalance).toFixed(8)}</ValueStyled>
+              <ValueStyled>{getBalanceNumber(stakedBalance).toFixed(2)}</ValueStyled>
               <br/>
               {/*<StyledContent>
                 <div>{totalToken.toLocaleString('en-US')}<span style={{fontSize: 10}}> {tokenSymbol}</span></div>
@@ -123,7 +123,7 @@ const Stake: React.FC<StakeProps> = ({ lpContract, pid, tokenName, tokenSymbol, 
           {totalStake && stakedBalance &&
             <div style={{marginTop: 10}}>
               <span style={{color: '#fff'}}>Share of Pool: <span style={{fontSize: 18}}>
-                {shareOfPool ? (shareOfPool * 100).toFixed(5) : "~"}%
+                {shareOfPool ? (shareOfPool * 100).toFixed(2) : "~"}%
               </span></span>
             </div>
           }

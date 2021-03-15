@@ -30,7 +30,7 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
             <StyledValue>
               <Label text="PBR Reward" />
               <br/>
-              <Value value={getBalanceNumber(earnings)}/>
+              <Value value={getBalanceNumber(earnings).toFixed(2)}/>
               {/* <br/>
               {earnings &&
                 <div style={{marginTop: 0}}>

@@ -165,7 +165,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
               
               <span>
                 {farm.usdValue &&
-                  <><b>{parseFloat(Web3.utils.fromWei(farm.usdValue.toNumber().toString(),'ether')).toFixed(0).toLocaleString()} USD</b></>
+                  <><b>{parseFloat(Web3.utils.fromWei(farm.usdValue.toFixed(0).toString(),'ether')).toFixed(0).toLocaleString()} USD</b></>
 
                 }
               </span>
@@ -186,14 +186,15 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                 <span style={{fontWeight: 'bold', color: '#4caf50'}}>
                   {
                    
-                  newReward && farm.pbrPrice && farm.usdValue ?
+                  newReward && farm.pbrPrice && farm.usdValue 
+                  && !farm.usdValue.isZero()?
                   
                     `${farm.pbrPrice
                       .times(new BigNumber(NUMBER_BLOCKS_PER_YEAR))
                       .times(newReward)
                       .div(farm.usdValue)
                       .times(100)
-                      .toFixed(3).toLocaleString()}%` : '~'
+                      .toFixed(3).toLocaleString()}%` : '+∞'
                   }
                 </span>
               </StyledInsight>
