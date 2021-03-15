@@ -66,7 +66,7 @@ export const supportedPools = [
       4: '0x4105b114634dd5ac07a4fbf5bd3925932fcc6e0d',
     },
     tokenAddresses: {
-      1: '0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f',
+      1: '0x1a5f432D94F5317e2D29A432cf30d51f4aa58094',
       4: '0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f',
     },
     token2Addresses: {
@@ -92,14 +92,14 @@ export const supportedPools = [
     removeLiquidityLink: 'https://app.uniswap.org/#/remove/0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f/ETH'
   },
   {
-    pid: 1,
+    pid: 2,
     lpAddresses: {
       1: '0xdaef1026b0c63eed3b2b86af396d724ddb9dcd18',
-      4: '0xdaef1026b0c63eed3b2b86af396d724ddb9dcd18',
+      4: '0xa53b0f8ff7e9c9d7b8382ee3501a08b50ab43e9f',
     },
     tokenAddresses: {
       1: '0x44f262622248027f8E2a8Fb1090c4Cf85072392C',
-      4: '0x44f262622248027f8E2a8Fb1090c4Cf85072392C',
+      4: '0x2bd3c79908cdf4657136c52f9dca3f1d7e81dd9e',
     },
     token2Addresses: {
       1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
@@ -124,14 +124,14 @@ export const supportedPools = [
     removeLiquidityLink: 'https://app.uniswap.org/#/remove/0x44f262622248027f8E2a8Fb1090c4Cf85072392C/ETH'
   },
   {
-    pid: 2,
+    pid: 3,
     lpAddresses: {
-      1: '0x20781bc3701c5309ac75291f5d09bdc23d7b7fa8',
-      4: '0xfbAC427F266dcd0d963c080d9Eb1149B5dD28aeC',
+      1: '0x2d9fd51e896ff0352cb6d697d13d04c2cb85ca83',
+      4: '0x7afc6660cb9f889893dd4482a8b5fb8b2f10cc2b',
     },
     tokenAddresses: {
-      1: '0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f',
-      4: '0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f',
+      1: '0x8b0e42f366ba502d787bb134478adfae966c8798',
+      4: '0x0dea042152bd61d49d64f307e9ef6f66ee424b9c',
     },
     token2Addresses: {
       1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
