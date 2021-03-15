@@ -53,7 +53,7 @@ export const contractAddresses = {
     4: '0xfEfD5a6aD8407a7582A7207E3095dBbcec7CBE9E' // farming contract
   },
   weth: {
-    1: '0xc778417e063141139fce010982780140aa0cd5ab',
+    1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
     4: '0xc778417e063141139fce010982780140aa0cd5ab' // weth
   }
 }
@@ -70,15 +70,15 @@ export const supportedPools = [
       4: '0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f',
     },
     token2Addresses: {
-      1: '0xc778417e063141139fce010982780140aa0cd5ab',
+      1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
       4: '0xc778417e063141139fce010982780140aa0cd5ab'
     },
     name: 'PBR - ETH',
-    symbol: 'PBR-WETH LP',
-    symbolShort: 'PBR-WETH',
-    description: `Deposit PBR-WETH LP Earn PBR`,
+    symbol: 'PBR-ETH LP',
+    symbolShort: 'PBR-ETH',
+    description: `Deposit PBR-ETH LP Earn PBR`,
     tokenSymbol: 'PBR',
-    token2Symbol: 'WETH',
+    token2Symbol: 'ETH',
     icon: '/img/tokens/pbr.png',
     icon2: '/img/tokens/eth.png',
     isHot: true,
@@ -94,24 +94,24 @@ export const supportedPools = [
   {
     pid: 1,
     lpAddresses: {
-      1: '0x03e6c12ef405ac3f642b9184eded8e1322de1a9e',
-      4: '0x03e6c12ef405ac3f642b9184eded8e1322de1a9e',
+      1: '0xdaef1026b0c63eed3b2b86af396d724ddb9dcd18',
+      4: '0xdaef1026b0c63eed3b2b86af396d724ddb9dcd18',
     },
     tokenAddresses: {
-      1: '0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea',
-      4: '0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea',
+      1: '0x44f262622248027f8E2a8Fb1090c4Cf85072392C',
+      4: '0x44f262622248027f8E2a8Fb1090c4Cf85072392C',
     },
     token2Addresses: {
-      1: '0xc778417e063141139fce010982780140aa0cd5ab',
+      1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
       4: '0xc778417e063141139fce010982780140aa0cd5ab'
     },
-    name: 'DAI - ETH',
-    symbol: 'DAI-ETH LP',
-    symbolShort: 'DAI-ETH',
-    description: `Deposit DAI-ETH LP Earn PBR`,
-    tokenSymbol: 'DAI',
+    name: 'XIV - ETH',
+    symbol: 'XIV-ETH LP',
+    symbolShort: 'XIV-ETH',
+    description: `Deposit XIV-ETH LP Earn PBR`,
+    tokenSymbol: 'XIV',
     token2Symbol: 'ETH',
-    icon: '/img/tokens/dai.png',
+    icon: '/img/tokens/xiv.png',
     icon2: '/img/tokens/eth.png',
     isHot: true,
     isNew: true,
@@ -120,8 +120,8 @@ export const supportedPools = [
     protocal: 'Uniswap',
     iconProtocal: '/img/tokens/pbr.png',
     pairLink: '/',
-    addLiquidityLink: 'https://app.uniswap.org/#/add/0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea/0xc778417e063141139fce010982780140aa0cd5ab',
-    removeLiquidityLink: 'https://app.uniswap.org/#/remove/0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea/0xc778417e063141139fce010982780140aa0cd5ab'
+    addLiquidityLink: 'https://app.uniswap.org/#/add/0x44f262622248027f8E2a8Fb1090c4Cf85072392C/ETH',
+    removeLiquidityLink: 'https://app.uniswap.org/#/remove/0x44f262622248027f8E2a8Fb1090c4Cf85072392C/ETH'
   },
   {
     pid: 2,
@@ -134,25 +134,25 @@ export const supportedPools = [
       4: '0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f',
     },
     token2Addresses: {
-      1: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
-      4: '0xae13d989dac2f0debff460ac112a837c89baa7cd'
+      1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+      4: '0xc778417e063141139fce010982780140aa0cd5ab'
     },
-    name: 'PBR - USDT',
-    symbol: 'PBR-USDT LP',
-    symbolShort: 'PBR-USDT',
-    description: `Deposit PBR-USDT LP Earn PBR`,
-    tokenSymbol: 'PBR',
-    token2Symbol: 'USDT',
-    icon: '/img/tokens/pbr.png',
-    icon2: '/img/tokens/usdt.png',
+    name: 'LABS - ETH',
+    symbol: 'LABS-ETH LP',
+    symbolShort: 'LABS-ETH',
+    description: `Deposit LABS-ETH LP Earn PBR`,
+    tokenSymbol: 'LABS',
+    token2Symbol: 'ETH',
+    icon: '/img/tokens/labs.png',
+    icon2: '/img/tokens/eth.png',
     isHot: true,
-    isNew: false,
-    isSoon: true,
-    isActived: false,
-    protocal: 'PolkaBridge',
+    isNew: true,
+    isSoon: false,
+    isActived: true,
+    protocal: 'Uniswap',
     iconProtocal: '/img/tokens/pbr.png',
     pairLink: '/',
-    addLiquidityLink: 'https://app.uniswap.org/#//add/0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f/0x5Ac52EE5b2a633895292Ff6d8A89bB9190451587',
-    removeLiquidityLink: 'https://app.uniswap.org/#//remove/0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f/0x5Ac52EE5b2a633895292Ff6d8A89bB9190451587'
+    addLiquidityLink: 'https://app.uniswap.org/#//add/0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f/ETH',
+    removeLiquidityLink: 'https://app.uniswap.org/#//remove/0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f/ETH'
   },
 ]
