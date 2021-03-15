@@ -68,6 +68,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
                 else {
                   onDismiss()
                 }
+                window.location.reload()
               }
             }}
           />
