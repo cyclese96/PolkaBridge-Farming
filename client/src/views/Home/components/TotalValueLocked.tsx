@@ -14,8 +14,14 @@ const TotalValueLocked = memo(() => {
   
   let totalLocked = 0
   for (let e of stakedValue) {
-    //console.log(e.pid,parseFloat(Web3.utils.fromWei(e.usdValue.toFixed(0).toString(),'ether')))
+    // try{
+    //   console.log(e.pid,parseFloat(Web3.utils.fromWei(e.usdValue.toNumber().toString(),'ether')))
     
+    // }
+    // catch(err){
+    //   throw new Error(err)
+    // }
+   
     totalLocked += (parseFloat(Web3.utils.fromWei(e.usdValue.toFixed(0).toString(),'ether')))
   }
 
