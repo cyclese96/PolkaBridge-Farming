@@ -26,11 +26,7 @@ export interface StakedValue {
   pid: string
 }
 
-var CACHE: { time: any, old: any, value: any } = {
-  time: 0,
-  old: 0,
-  value: []
-}
+
 
 
 const useAllStakedValue = () => {
@@ -52,7 +48,8 @@ const useAllStakedValue = () => {
           token2Contract,
           tokenSymbol,
           token2Symbol,
-          isActived
+          isActived,
+          poolWeight
         }: {
           pid: number
           lpContract: Contract
@@ -60,7 +57,8 @@ const useAllStakedValue = () => {
           token2Contract: Contract,
           tokenSymbol: any
           token2Symbol: any,
-          isActived: any
+          isActived: any,
+          poolWeight: BigNumber
         }) =>
           getLPValue(
             masterChefContract,
@@ -71,7 +69,8 @@ const useAllStakedValue = () => {
             pbrPrice,
             tokenSymbol,
             token2Symbol,
-            isActived
+            isActived,
+            poolWeight
           )
       ),
     )

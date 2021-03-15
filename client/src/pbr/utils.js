@@ -84,7 +84,8 @@ export const getFarms = (pbr) => {
         pairLink,
         addLiquidityLink,
         removeLiquidityLink,
-        isActived
+        isActived,
+        poolWeight
       }) => ({
         pid,
         id: symbol,
@@ -113,7 +114,8 @@ export const getFarms = (pbr) => {
         pairLink,
         addLiquidityLink,
         removeLiquidityLink,
-        isActived
+        isActived,
+        poolWeight: new BigNumber(poolWeight)
       }),
     )
     : []
@@ -159,7 +161,8 @@ export const getLPValue = async (
   pbrPrice,
   tokenASymbol,
   tokenBSymbol,
-  isActived
+  isActived,
+  poolWeight
 ) => {
   var usdtAddress;
   var usdcAddress;
@@ -255,7 +258,8 @@ export const getLPValue = async (
     tokenPriceInToken2,
     usdValue,
     tokenAmountTotal,
-    token2AmountTotal
+    token2AmountTotal,
+    poolWeight
   }
 
   return finaldata
