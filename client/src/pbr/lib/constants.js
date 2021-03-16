@@ -93,7 +93,7 @@ export const supportedPools = [
     poolWeight: 40
   },
   {
-    pid: 2,
+    pid: 1,
     lpAddresses: {
       1: '0xdaef1026b0c63eed3b2b86af396d724ddb9dcd18',
       4: '0xa53b0f8ff7e9c9d7b8382ee3501a08b50ab43e9f',
@@ -126,7 +126,7 @@ export const supportedPools = [
     poolWeight: 2
   },
   {
-    pid: 3,
+    pid: 2,
     lpAddresses: {
       1: '0x3041cbd36888becc7bbcbc0045e3b1f144466f5f',
       4: '0x3041cbd36888becc7bbcbc0045e3b1f144466f5f',
