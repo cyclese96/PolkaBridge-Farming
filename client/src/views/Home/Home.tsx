@@ -40,6 +40,8 @@ const Home: React.FC = () => {
             <Spacer size="md" />
             <div>
                 <ReadMore href="https://t.me/polkabridge" target="__blank"> Read The Announcement</ReadMore>
+                <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Audit is still on progress, please use at your own risk. Check audit progress <a href="https://certik.org/projects/polkabridge" target="_blank">here</a>.</div>
+                <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Please access <a href="https://polkabridge.org/migrate" target="_blank">here</a> to migrate old PBR tokens to the new ones.</div>
             </div>
             <Spacer size="lg" />
             </>
@@ -53,6 +55,7 @@ const Home: React.FC = () => {
             <div style={{textAlign: 'center'}}>
                 <ReadMore href="https://t.me/polkabridge" target="__blank"> Read The Announcement </ReadMore>
                 <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Audit is still on progress, please use at your own risk. Check audit progress <a href="https://certik.org/projects/polkabridge" target="_blank">here</a>.</div>
+                <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Please access <a href="https://polkabridge.org/migrate" target="_blank">here</a> to migrate old PBR tokens to the new ones.</div>
             </div>
             {/*<Spacer size="lg" />*/}
             </>
