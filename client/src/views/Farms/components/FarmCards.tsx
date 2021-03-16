@@ -180,10 +180,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                 </span>
               </StyledInsight>
               <StyledInsight>
-                <span>Pool Weight</span>
+                <span>Multiplier</span>
                 <span>
                   {newReward &&
-                    <><b>{farm.poolWeight.toFixed(0)}</b></>
+                    <><b>{farm.poolWeight.toFixed(0)}x</b></>
                   }
                 </span>
               </StyledInsight>

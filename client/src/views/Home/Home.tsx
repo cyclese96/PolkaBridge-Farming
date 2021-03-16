@@ -50,9 +50,9 @@ const Home: React.FC = () => {
                 <Balances />
             </Container>
             <Spacer size="md" />
-            <div>
+            <div style={{textAlign: 'center'}}>
                 <ReadMore href="https://t.me/polkabridge" target="__blank"> Read The Announcement </ReadMore>
-                {/* <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Do not complain if you don't</div> */}
+                <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Audit is still on progress, please use at your own risk. Check audit progress <a href="https://certik.org/projects/polkabridge" target="_blank">here</a>.</div>
             </div>
             {/*<Spacer size="lg" />*/}
             </>

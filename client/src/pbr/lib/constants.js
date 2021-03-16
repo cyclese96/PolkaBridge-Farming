@@ -45,7 +45,7 @@ export const addressMap = {
 // TODO: change the address & set LP pool
 export const contractAddresses = {
   pbr: {
-    1: '0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f', // pbr token
+    1: '0x298d492e8c1d909d3f63bc4a36c66c64acb3d695', // pbr token
     4: '0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f'
   },
   masterChef: {
@@ -62,11 +62,11 @@ export const supportedPools = [
   {
     pid: 0,
     lpAddresses: {
-      1: '0x4105b114634dd5ac07a4fbf5bd3925932fcc6e0d',
+      1: '0xCb37b0027858796ce60ECCe4B54C45afdfF02Aca',
       4: '0x4105b114634dd5ac07a4fbf5bd3925932fcc6e0d',
     },
     tokenAddresses: {
-      1: '0x1a5f432D94F5317e2D29A432cf30d51f4aa58094',
+      1: '0x298d492e8c1d909d3f63bc4a36c66c64acb3d695',
       4: '0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f',
     },
     token2Addresses: {
@@ -88,8 +88,8 @@ export const supportedPools = [
     protocal: 'Uniswap',
     iconProtocal: '/img/tokens/pbr.png',
     pairLink: '/',
-    addLiquidityLink: 'https://app.uniswap.org/#/add/0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f/ETH',
-    removeLiquidityLink: 'https://app.uniswap.org/#/remove/0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f/ETH',
+    addLiquidityLink: 'https://app.uniswap.org/#/add/0x298d492e8c1d909d3f63bc4a36c66c64acb3d695/ETH',
+    removeLiquidityLink: 'https://app.uniswap.org/#/remove/0x298d492e8c1d909d3f63bc4a36c66c64acb3d695/ETH',
     poolWeight: 40
   },
   {
@@ -128,25 +128,25 @@ export const supportedPools = [
   {
     pid: 3,
     lpAddresses: {
-      1: '0x2d9fd51e896ff0352cb6d697d13d04c2cb85ca83',
-      4: '0x7afc6660cb9f889893dd4482a8b5fb8b2f10cc2b',
+      1: '0x3041cbd36888becc7bbcbc0045e3b1f144466f5f',
+      4: '0x3041cbd36888becc7bbcbc0045e3b1f144466f5f',
     },
     tokenAddresses: {
-      1: '0x8b0e42f366ba502d787bb134478adfae966c8798',
-      4: '0x0dea042152bd61d49d64f307e9ef6f66ee424b9c',
+      1: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+      4: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
     },
     token2Addresses: {
-      1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-      4: '0xc778417e063141139fce010982780140aa0cd5ab'
+      1: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+      4: '0xdac17f958d2ee523a2206206994597c13d831ec7'
     },
-    name: 'LABS - ETH',
-    symbol: 'LABS-ETH LP',
-    symbolShort: 'LABS-ETH',
-    description: `Deposit LABS-ETH LP Earn PBR`,
-    tokenSymbol: 'LABS',
-    token2Symbol: 'ETH',
-    icon: '/img/tokens/labs.png',
-    icon2: '/img/tokens/eth.png',
+    name: 'USDC - USDT',
+    symbol: 'USDC-USDT LP',
+    symbolShort: 'USDC-USDT',
+    description: `Deposit USDC-USDT LP Earn PBR`,
+    tokenSymbol: 'USDC',
+    token2Symbol: 'USDT',
+    icon: '/img/tokens/usdc.png',
+    icon2: '/img/tokens/usdt.png',
     isHot: true,
     isNew: true,
     isSoon: false,
@@ -154,8 +154,8 @@ export const supportedPools = [
     protocal: 'Uniswap',
     iconProtocal: '/img/tokens/pbr.png',
     pairLink: '/',
-    addLiquidityLink: 'https://app.uniswap.org/#//add/0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f/ETH',
-    removeLiquidityLink: 'https://app.uniswap.org/#//remove/0xebca1a8010c16cdc4a10c7f3035b709cb992cd1f/ETH',
+    addLiquidityLink: 'https://app.uniswap.org/#//add/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/0xdac17f958d2ee523a2206206994597c13d831ec7',
+    removeLiquidityLink: 'https://app.uniswap.org/#//remove/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/0xdac17f958d2ee523a2206206994597c13d831ec7',
     poolWeight: 2
   },
 ]
