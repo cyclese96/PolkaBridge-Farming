@@ -190,6 +190,7 @@ export const getLPValue = async (
   var tokenAmountTotal = new BigNumber(0)
   var token2AmountTotal = new BigNumber(0)
   var usdValue = new BigNumber(0);
+  var totalRewardsClaimed = new BigNumber(0);
 
   if (isActived == true) {
 
@@ -248,6 +249,10 @@ export const getLPValue = async (
     usdValue = new BigNumber(totalLpInFarmPool).times(lpValuce);
     //console.log("usdValue", pid, usdValue.toString());
 
+
+    var dataClaimed = await masterChefContract.methods.totalRewardClaimed(pid).call()
+    totalRewardsClaimed = new BigNumber(dataClaimed)
+
   }
 
   var finaldata = {
@@ -259,7 +264,8 @@ export const getLPValue = async (
     usdValue,
     tokenAmountTotal,
     token2AmountTotal,
-    poolWeight
+    poolWeight,
+    totalRewardsClaimed
   }
 
   return finaldata

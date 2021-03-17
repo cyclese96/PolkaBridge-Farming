@@ -11,6 +11,7 @@ import { START_REWARD_AT_BLOCK } from '../../pbr/lib/constants'
 import PolkaBridgeLogo from '../../assets/img/logo-icon.svg'
 import FarmCards from '../Farms/components/FarmCards'
 import TotalValueLocked from './components/TotalValueLocked';
+import TotalClaimReward from './components/TotalClaimReward';
 import TokenPrice from './components/TokenPrice';
 
 const Home: React.FC = () => {
@@ -32,6 +33,10 @@ const Home: React.FC = () => {
         </div>
         <div style={{fontWeight: 'bold', fontSize: 22, color: '#ffffff', textAlign: 'center'}}>
             Total Value Locked (TVL): <span style={{color: '#e0077d', fontSize: 30}}>$<TotalValueLocked /></span>
+        </div>
+
+        <div style={{fontWeight: 'bold', fontSize: 22, color: '#ffffff', textAlign: 'center'}}>
+            Total Claimed Rewards: <span style={{color: '#e0077d', fontSize: 30}}><TotalClaimReward /> PBR</span>
         </div>
 
         {block < launchBlock && atDate && <>

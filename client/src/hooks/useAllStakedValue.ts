@@ -24,6 +24,7 @@ export interface StakedValue {
   poolWeight: BigNumber
   usdValue: BigNumber
   pid: string
+  totalRewardsClaimed: BigNumber
 }
 
 
