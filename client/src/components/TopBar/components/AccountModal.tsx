@@ -24,11 +24,11 @@ import useUnlock from '../../../hooks/useUnlock'
 
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
-  const { account, deactivate } = useWallet()
+  const { account, reset } = useWallet()
 
   const handleSignOutClick = useCallback(() => {
     onDismiss!()
-    deactivate()
+    reset()
     localStorage.useWalletConnectStatus = 'disconnected'
     localStorage.useWalletConnectType = ''
     localStorage.removeItem('walletconnect')

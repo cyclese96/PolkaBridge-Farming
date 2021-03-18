@@ -15,7 +15,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
     'provider',
   )
 
-  const { account, activate: connect } = useWallet()
+  const { account, connect } = useWallet()
 
   useEffect(() => {
     if (localStorage.useWalletConnectStatus === 'connected' && localStorage.useWalletConnectType) {
