@@ -45,34 +45,34 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
         <StyledWalletsWrapper>
           <StyledWalletCard>
             <WalletCard
-              icon={<img src={metamaskLogo} style={{ height: 32 }} />}
+              icon={<img src={metamaskLogo} style={{ width: 32 }} />}
               onConnect={() => tryConnect('injected')}
               title="Metamask"
             />
           </StyledWalletCard>
           <StyledWalletCard>
             <WalletCard
-              icon={<img src={walletConnectLogo} style={{ height: 32 }} />}
+              icon={<img src={walletConnectLogo} style={{ width: 32 }} />}
               onConnect={() => tryConnect('walletconnect')}
               title="WalletConnect"
             />
           </StyledWalletCard>
 
           {/* <Spacer size="sm" /> */}
-          {/* <StyledWalletCard>
+          <StyledWalletCard>
             <WalletCard
-              icon={<img src={trustWalletLogo} style={{ height: 32 }} />}
+              icon={<img src={trustWalletLogo} style={{ width: 32 }} />}
               onConnect={() => tryConnect('injected')}
               title="Trust Wallet"
             />
           </StyledWalletCard>
           <StyledWalletCard>
             <WalletCard
-              icon={<img src={coin98Logo} style={{ height: 32 }} />}
+              icon={<img src={coin98Logo} style={{ width: 32 }} />}
               onConnect={() => tryConnect('injected')}
               title="Coin98 Wallet"
             />
-          </StyledWalletCard> */}
+          </StyledWalletCard>
           
         </StyledWalletsWrapper>
       </ModalContent>
