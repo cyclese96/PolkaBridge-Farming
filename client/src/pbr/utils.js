@@ -236,17 +236,24 @@ export const getLPValue = async (
     else {
       priceTokenA = new BigNumber(1);
     }
-    //console.log("totalSupplyLPToken", pid, Web3.utils.fromWei(totalSupplyLPToken, 'ether'));
+    //console.log("totalSupplyLPToken", pid, totalSupplyLPToken.toString());
 
     var lpValuce = (new BigNumber((new BigNumber(balanceTokenA).times(priceTokenA))).plus(
-      (new BigNumber(new BigNumber(balanceTokenB).times(new BigNumber(priceTokenB)))))).dividedBy(new BigNumber(totalSupplyLPToken));
+      (new BigNumber(new BigNumber(balanceTokenB).times(new BigNumber(priceTokenB)))))).dividedBy(new BigNumber(totalSupplyLPToken.toString()));
     //console.log("lpValuce", pid, lpValuce.toString());
 
     //total locked value=lpvalue*totalLPLockedPool
     var totalLpInFarmPool = await lpContract.methods.balanceOf(masterChefContract._address).call()
     //console.log("totalLpInFarmPool", pid, totalLpInFarmPool.toString());
 
-    usdValue = new BigNumber(totalLpInFarmPool).times(lpValuce);
+    if (pid == 2)//usdc,usdt
+    {
+      usdValue = new BigNumber(totalLpInFarmPool).times(lpValuce).times(new BigNumber(1e12));
+    }
+    else {
+      usdValue = new BigNumber(totalLpInFarmPool).times(lpValuce);
+    }
+
     //console.log("usdValue", pid, usdValue.toString());
 
 
