@@ -212,7 +212,7 @@ contract PolkaBridgeMasterFarm is Ownable, ReentrancyGuard {
         user.rewardDebt = user.amountLP.mul(pool.accPBRPerShare).div(1e18);
     }
 
-    function _harvest(uint256 _pid) internal {
+    function _harvest(uint256 _pid) internal nonReentrant {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
 
@@ -225,9 +225,9 @@ contract PolkaBridgeMasterFarm is Ownable, ReentrancyGuard {
             }
 
             if (pending > 0) {
-                polkaBridge.transfer(msg.sender, pending);
                 pool.lastPoolReward = pool.lastPoolReward.sub(pending);
                 pool.totalRewardClaimed = pool.totalRewardClaimed.add(pending);
+                polkaBridge.transfer(msg.sender, pending);
             }
 
             user.rewardDebtAtBlock = block.number;
