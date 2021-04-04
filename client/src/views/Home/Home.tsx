@@ -45,8 +45,8 @@ const Home: React.FC = () => {
             <Spacer size="md" />
             <div>
                 <ReadMore href="https://t.me/polkabridge" target="__blank"> Read The Announcement</ReadMore>
-                <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Contracts was fully audited by CertiK. Check report <a href="https://certik.org/projects/polkabridge" target="_blank">here</a>.</div>
-                <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Please access <a href="https://polkabridge.org/migrate" target="_blank">here</a> to migrate old PBR tokens to the new ones.</div>
+                <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Contract was fully audited by CertiK. Check report <a href="https://certik.org/projects/polkabridge" target="_blank">here</a>.</div>
+             
             </div>
             <Spacer size="lg" />
             </>
@@ -59,8 +59,8 @@ const Home: React.FC = () => {
             <Spacer size="md" />
             <div style={{textAlign: 'center'}}>
                 <ReadMore href="https://t.me/polkabridge" target="__blank"> Read The Announcement </ReadMore>
-                <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Contracts was fully audited by CertiK. Check report <a href="https://certik.org/projects/polkabridge" target="_blank">here</a>.</div>
-                <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Please access <a href="https://polkabridge.org/migrate" target="_blank">here</a> to migrate old PBR tokens to the new ones.</div>
+                <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Contract was fully audited by CertiK. Check report <a href="https://certik.org/projects/polkabridge" target="_blank">here</a>.</div>
+              
             </div>
             {/*<Spacer size="lg" />*/}
             </>
