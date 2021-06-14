@@ -9,6 +9,9 @@ interface NavProp {
 const Nav: React.FC<NavProp> = ({showMenu}) => {
   return (
     <StyledNav showMenu={showMenu}>
+      <StyledAbsoluteLink href="https://stake.polkabridge.org">
+        Staking
+      </StyledAbsoluteLink> 
       <StyledAbsoluteLink href="/">
         Farm
       </StyledAbsoluteLink>
@@ -24,6 +27,9 @@ const Nav: React.FC<NavProp> = ({showMenu}) => {
       </StyledAbsoluteLink>
       <StyledAbsoluteLink href="https://prediction.polkabridge.org">
         Prediction
+      </StyledAbsoluteLink>
+      <StyledAbsoluteLink href="https://corgib.polkabridge.org/bet">
+        Betting
       </StyledAbsoluteLink>
     </StyledNav>
   )
