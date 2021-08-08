@@ -77,39 +77,39 @@ export const supportedPools = [
     removeLiquidityLink: 'https://app.uniswap.org/#/remove/0x298d492e8c1d909d3f63bc4a36c66c64acb3d695/ETH',
     poolWeight: 40
   },
-  {
-    pid: 1,
-    lpAddresses: {
-      1: '0xdaef1026b0c63eed3b2b86af396d724ddb9dcd18',
-      4: '0xa53b0f8ff7e9c9d7b8382ee3501a08b50ab43e9f',
-    },
-    tokenAddresses: {
-      1: '0x44f262622248027f8E2a8Fb1090c4Cf85072392C',
-      4: '0x2bd3c79908cdf4657136c52f9dca3f1d7e81dd9e',
-    },
-    token2Addresses: {
-      1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-      4: '0xc778417e063141139fce010982780140aa0cd5ab'
-    },
-    name: 'XIV - ETH',
-    symbol: 'XIV-ETH LP',
-    symbolShort: 'XIV-ETH',
-    description: `Deposit XIV-ETH LP Earn PBR`,
-    tokenSymbol: 'XIV',
-    token2Symbol: 'ETH',
-    icon: '/img/tokens/xiv.png',
-    icon2: '/img/tokens/eth.png',
-    isHot: true,
-    isNew: true,
-    isSoon: false,
-    isActived: true,
-    protocal: 'Uniswap',
-    iconProtocal: '/img/tokens/pbr.png',
-    pairLink: '/',
-    addLiquidityLink: 'https://app.uniswap.org/#/add/0x44f262622248027f8E2a8Fb1090c4Cf85072392C/ETH',
-    removeLiquidityLink: 'https://app.uniswap.org/#/remove/0x44f262622248027f8E2a8Fb1090c4Cf85072392C/ETH',
-    poolWeight: 2
-  },
+  // {
+  //   pid: 1,
+  //   lpAddresses: {
+  //     1: '0xdaef1026b0c63eed3b2b86af396d724ddb9dcd18',
+  //     4: '0xa53b0f8ff7e9c9d7b8382ee3501a08b50ab43e9f',
+  //   },
+  //   tokenAddresses: {
+  //     1: '0x44f262622248027f8E2a8Fb1090c4Cf85072392C',
+  //     4: '0x2bd3c79908cdf4657136c52f9dca3f1d7e81dd9e',
+  //   },
+  //   token2Addresses: {
+  //     1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+  //     4: '0xc778417e063141139fce010982780140aa0cd5ab'
+  //   },
+  //   name: 'XIV - ETH',
+  //   symbol: 'XIV-ETH LP',
+  //   symbolShort: 'XIV-ETH',
+  //   description: `Deposit XIV-ETH LP Earn PBR`,
+  //   tokenSymbol: 'XIV',
+  //   token2Symbol: 'ETH',
+  //   icon: '/img/tokens/xiv.png',
+  //   icon2: '/img/tokens/eth.png',
+  //   isHot: true,
+  //   isNew: true,
+  //   isSoon: false,
+  //   isActived: true,
+  //   protocal: 'Uniswap',
+  //   iconProtocal: '/img/tokens/pbr.png',
+  //   pairLink: '/',
+  //   addLiquidityLink: 'https://app.uniswap.org/#/add/0x44f262622248027f8E2a8Fb1090c4Cf85072392C/ETH',
+  //   removeLiquidityLink: 'https://app.uniswap.org/#/remove/0x44f262622248027f8E2a8Fb1090c4Cf85072392C/ETH',
+  //   poolWeight: 2
+  // },
   {
     pid: 2,
     lpAddresses: {
@@ -142,5 +142,5 @@ export const supportedPools = [
     addLiquidityLink: 'https://app.uniswap.org/#/add/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/0xdAC17F958D2ee523a2206206994597C13D831ec7',
     removeLiquidityLink: 'https://app.uniswap.org/#//remove/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/0xdAC17F958D2ee523a2206206994597C13D831ec7',
     poolWeight: 2
-  },
+  }
 ]
