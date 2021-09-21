@@ -14,6 +14,7 @@ import TotalValueLocked from './components/TotalValueLocked';
 import TotalClaimReward from './components/TotalClaimReward';
 import TokenPrice from './components/TokenPrice';
 
+
 const Home: React.FC = () => {
   var block = 99999999999
   const launchBlock = START_REWARD_AT_BLOCK
