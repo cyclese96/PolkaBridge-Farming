@@ -18,8 +18,15 @@ import usePBRPrice from '../../../hooks/usePBRPrice'
 import usePoolActive from '../../../hooks/usePoolActive'
 import useStakedValue from '../../../hooks/useStakedValue'
 import usePolkaBridge from '../../../hooks/usePolkaBridge'
-import { NUMBER_BLOCKS_PER_YEAR, START_NEW_POOL_AT } from '../../../pbr/lib/constants'
-import { getEarned, getMasterChefContract, getNewRewardPerBlock } from '../../../pbr/utils'
+import {
+  NUMBER_BLOCKS_PER_YEAR,
+  START_NEW_POOL_AT,
+} from '../../../pbr/lib/constants'
+import {
+  getEarned,
+  getMasterChefContract,
+  getNewRewardPerBlock,
+} from '../../../pbr/utils'
 import { bnToDec } from '../../../utils'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 import Web3 from 'web3'
@@ -37,15 +44,14 @@ const FarmCards: React.FC = () => {
   const [farms] = useFarms()
   const stakedValue = useAllStakedValue()
   const pbrPrice = usePBRPrice()
-  
- 
+
   const rows = farms.reduce<FarmWithStakedValue[][]>(
     (farmRows, farm, i) => {
-      var sv = (stakedValue || []).find(e => {
+      var sv = (stakedValue || []).find((e) => {
         return parseInt(e.pid) == farm.pid
       })
-     
-      const farmWithStakedValue : FarmWithStakedValue = {
+
+      const farmWithStakedValue: FarmWithStakedValue = {
         ...farm,
         tokenAmount: (sv || {}).tokenAmount || new BigNumber(0),
         token2Amount: (sv || {}).token2Amount || new BigNumber(0),
@@ -53,7 +59,7 @@ const FarmCards: React.FC = () => {
         tokenPriceInToken2: (sv || {}).tokenPriceInToken2 || new BigNumber(0),
         poolWeight: (sv || {}).poolWeight || new BigNumber(0),
         usdValue: (sv || {}).usdValue || new BigNumber(0),
-        pbrPrice
+        pbrPrice,
       }
       const newFarmRows = [...farmRows]
       if (newFarmRows[newFarmRows.length - 1].length === 3) {
@@ -125,11 +131,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const startTime = START_NEW_POOL_AT
 
   return (
-    
     <StyledCardWrapper>
       {farm.tokenSymbol === 'PBR' && <StyledCardAccent />}
       <Card>
-        
         <CardContent>
           <StyledContent>
             <StyledTopIcon>
@@ -137,10 +141,14 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
               {farm.isNew && <StyledNewIcon>NEW</StyledNewIcon>}
               {/* {!farm.isHot && <StyledHotIcon>NO REWARD</StyledHotIcon>} */}
             </StyledTopIcon>
-            <div style={{display: 'flex'}}>
-              <CardIcon><img src={farm.icon} alt="" height="60"/></CardIcon>
+            <div style={{ display: 'flex' }}>
+              <CardIcon>
+                <img src={farm.icon} alt="" height="60" />
+              </CardIcon>
               <span>&nbsp;&nbsp;</span>
-              <CardIcon><img src={farm.icon2} alt=""  height="60"/></CardIcon>
+              <CardIcon>
+                <img src={farm.icon2} alt="" height="60" />
+              </CardIcon>
             </div>
             <StyledTitle>{farm.name}</StyledTitle>
             <StyledDetails>
@@ -159,55 +167,71 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                 />
               )}
             </Button>
-            <br/>
+            <br />
             <StyledInsight>
               <span>Total Locked Value</span>
-              
-              <span>
-                {farm.usdValue &&
-                  <><b>{parseFloat(Web3.utils.fromWei(farm.usdValue.toFixed(0).toString(),'ether')).toFixed(0).toLocaleString()} USD</b></>
 
-                }
+              <span>
+                {farm.usdValue && (
+                  <>
+                    <b>
+                      {parseFloat(
+                        Web3.utils.fromWei(
+                          farm.usdValue.toFixed(0).toString(),
+                          'ether',
+                        ),
+                      )
+                        .toFixed(0)
+                        .toLocaleString()}{' '}
+                      USD
+                    </b>
+                  </>
+                )}
               </span>
             </StyledInsight>
-            {farm.isHot && <>
-              <StyledInsight>
-                <span>Avg. reward</span>
-                <span>
-                  {newReward &&
-                    <><b>{getBalanceNumber(newReward).toFixed(3)} PBR</b> / block</>
-                  }
-                </span>
-              </StyledInsight>
-              <StyledInsight>
-                <span>Multiplier</span>
-                <span>
-                  {newReward &&
-                    <><b>{farm.poolWeight.toFixed(0)}x</b></>
-                  }
-                </span>
-              </StyledInsight>
-              <StyledInsight>
-              
-                <span>APY</span>
-               
-                <span style={{fontWeight: 'bold', color: '#4caf50'}}>
-                  {
-                   
-                  newReward && farm.pbrPrice && farm.usdValue 
-                  && !farm.usdValue.isZero()?
-                  
-                    `${farm.pbrPrice
-                      .times(new BigNumber(NUMBER_BLOCKS_PER_YEAR))
-                      .times(newReward)
-                      .div(farm.usdValue)
-                      .times(100)
-                      .toFixed(3).toLocaleString()}%` : '+∞'
-                  }
-                </span>
-              </StyledInsight>
-            </>
-            }
+            {farm.isHot && (
+              <>
+                <StyledInsight>
+                  <span>Avg. reward</span>
+                  <span>
+                    {newReward && (
+                      <>
+                        <b>{getBalanceNumber(newReward).toFixed(3)} PBR</b> /
+                        block
+                      </>
+                    )}
+                  </span>
+                </StyledInsight>
+                <StyledInsight>
+                  <span>Multiplier</span>
+                  <span>
+                    {newReward && (
+                      <>
+                        <b>{farm.poolWeight.toFixed(0)}x</b>
+                      </>
+                    )}
+                  </span>
+                </StyledInsight>
+                <StyledInsight>
+                  <span>APY</span>
+
+                  <span style={{ fontWeight: 'bold', color: '#4caf50' }}>
+                    {newReward &&
+                    farm.pbrPrice &&
+                    farm.usdValue &&
+                    !farm.usdValue.isZero()
+                      ? `${farm.pbrPrice
+                          .times(new BigNumber(NUMBER_BLOCKS_PER_YEAR))
+                          .times(newReward)
+                          .div(farm.usdValue)
+                          .times(100)
+                          .toFixed(3)
+                          .toLocaleString()}%`
+                      : '+∞'}
+                  </span>
+                </StyledInsight>
+              </>
+            )}
           </StyledContent>
         </CardContent>
       </Card>
@@ -354,7 +378,7 @@ const StyledInsight = styled.div`
   box-sizing: border-box;
   border-radius: 8px;
   background: transparent;
-  color: #9E9E9E;
+  color: #9e9e9e;
   width: 100%;
   line-height: 25px;
   font-size: 13px;

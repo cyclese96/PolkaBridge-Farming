@@ -23,16 +23,17 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
   },
   title: {
-    textAlign: 'center',
-    fontSize: 22,
-    color: 'white',
-    display: 'flex',
-    justifyContent: 'flex-start',
+    color: '#e5e5e5',
+    fontSize: 24,
+    fontWeight: 600,
+    textAlign: 'left',
   },
+
   desktop: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
+    alignItems: 'space-around',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
@@ -63,9 +64,9 @@ const useStyles = makeStyles((theme) => ({
     color: '#bdbdbd',
   },
   card: {
-    minHeight: 300,
-    width: '100%',
-
+    height: 350,
+    width: 700,
+    padding: 20,
     borderRadius: 30,
     backgroundColor: 'rgba(41, 42, 66, 0.3)',
     border: '1px solid #212121',
@@ -112,8 +113,8 @@ const useStyles = makeStyles((theme) => ({
   },
   background: {
     paddingTop: 50,
-    paddingLeft: 80,
-    paddingRight: 80,
+    paddingLeft: 50,
+    paddingRight: 50,
     [theme.breakpoints.down('sm')]: {
       paddingLeft: 0,
       paddingRight: 0,
@@ -180,35 +181,39 @@ const Home: React.FC = () => {
                       <div className={classes.buynow}> Buy Now</div>
                     </a>
                   </div>
-                  <div className="d-flex justify-content-center align-items-center">
-                    <div className={classes.desktop}>
-                      <div className="text-center mt-4">
-                        <div className={classes.tokenTitle}>PBR Price: </div>
-                        <div className={classes.tokenAmount}>
-                          $<TokenPrice />
-                        </div>
+
+                  <div className={classes.desktop}>
+                    <div className="text-center mt-4">
+                      <div className={classes.tokenTitle}>PBR Price: </div>
+                      <div className={classes.tokenAmount}>
+                        $<TokenPrice />
                       </div>
-                      <div className="text-center mt-4">
-                        <div className={classes.tokenTitle}>
-                          Total Value Locked (TVL):{' '}
-                        </div>
-                        <div className={classes.tokenAmount}>
-                          {' '}
-                          $<TotalValueLocked />
-                        </div>
+                    </div>
+                    <div className="text-center mt-4">
+                      <div className={classes.tokenTitle}>
+                        Total Value Locked (TVL):{' '}
                       </div>
-                      <div className="text-center mt-4">
-                        <div className={classes.tokenTitle}>
-                          Total Claimed Rewards:{' '}
-                        </div>
-                        <div className={classes.tokenAmount}>
-                          <TotalClaimReward />
-                          PBR
-                        </div>
+                      <div className={classes.tokenAmount}>
+                        {' '}
+                        $<TotalValueLocked />
+                      </div>
+                    </div>
+                    <div className="text-center mt-4">
+                      <div className={classes.tokenTitle}>
+                        Total Claimed Rewards:{' '}
+                      </div>
+                      <div className={classes.tokenAmount}>
+                        <TotalClaimReward />
+                        PBR
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div>
+                <Balances />
               </div>
             </div>
           </div>
@@ -252,18 +257,30 @@ const Home: React.FC = () => {
       {block >= launchBlock && (
         <>
           <Spacer size="lg" />
-          <Container>
-            <Balances />
-          </Container>
           <Spacer size="md" />
           <div style={{ textAlign: 'center' }}>
-            <ReadMore href="https://t.me/polkabridge" target="__blank">
+            <ReadMore
+              href="https://t.me/polkabridge"
+              target="__blank"
+              style={{
+                textAlign: 'center',
+                marginBottom: 15,
+                borderRadius: 20,
+                height: 40,
+              }}
+            >
               {' '}
               Read The Announcement{' '}
             </ReadMore>
             <ReadMore
               href="https://youtu.be/xBnpTe1qdAc?t=169"
               target="__blank"
+              style={{
+                textAlign: 'center',
+                marginBottom: 15,
+                borderRadius: 20,
+                height: 40,
+              }}
             >
               {' '}
               Video Tutorial
@@ -317,16 +334,21 @@ const StyledParagraph = styled.p`
 `
 
 const ReadMore = styled.a`
-  text-decoration: none;
-  font-weight: bold;
-  color: #ffffff;
-  display: inline-block;
-  padding: 5px 20px;
-  border-radius: 5px;
-  border: 1px solid #e0077d70;
-  background: #ffec0b0d;
-  font-size: 14px;
-  margin-top: 10px;
+  background: linear-gradient(to bottom, #d9047c, #bf1088);
+  color: white;
+  width: 100;
+  height: 80;
+  text-transform: none;
+  font-size: 15;
+  border-radius: 40;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20;
+  margin-right: 30;
+  '&:hover': {
+    background: rgba(224, 7, 125, 0.7);
+  }
 `
 
 const StyledLogo = styled.div`
