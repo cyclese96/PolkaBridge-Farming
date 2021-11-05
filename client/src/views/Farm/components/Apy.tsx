@@ -78,10 +78,9 @@ const Apy: React.FC<ApyProps> = ({ pid, lpTokenAddress, symbolShort, tokenSymbol
 }
 const StyledApy = styled.div`
     display: flex;
-    justify-content: space-between;
-    box-sizing: border-box;
-    padding: ${(props) => props.theme.spacing[3]}px;
-    border: 2px solid ${(props) => props.theme.color.grey[200]};
+    justify-content: space-evenly;
+    padding-top:30px;
+  
     border-radius: 12px;
     @media (max-width: 767px) {
         width: 100%;
@@ -90,15 +89,7 @@ const StyledApy = styled.div`
     }
 `
 const StyledBox = styled.div`
-    &.col-2 {
-        width: 20%;
-    }
-    &.col-4 {
-        width: 40%;
-    }
-    &.col-8 {
-        width: 60%;
-    }
+
 `
 const StyledLabel = styled.span`
     color: ${(props) => props.theme.color.primary.main};

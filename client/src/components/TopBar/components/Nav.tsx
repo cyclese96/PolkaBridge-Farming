@@ -5,6 +5,7 @@ import DotCircle from './DotCircle'
 import { makeStyles } from '@material-ui/core/styles'
 import { white } from '../../../theme/colors'
 import Wallet from './Wallet'
+import AccountButton from './AccountButton'
 
 interface NavProp {
   showMenu: boolean

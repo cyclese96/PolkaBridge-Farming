@@ -68,33 +68,32 @@ const PendingRewards: React.FC = () => {
 }
 const useStyles = makeStyles((theme) => ({
   card: {
-    height: 350,
-    width: '100%',
+    height: 340,
+    width: "100%",
     padding: 20,
     borderRadius: 30,
-    marginLeft: 30,
-    backgroundColor: 'rgba(41, 42, 66, 0.3)',
-    border: '1px solid #212121',
-    filter: 'drop-shadow(0 0 0.5rem #212121)',
-    [theme.breakpoints.down('sm')]: {
+   
+    backgroundColor: "rgba(41, 42, 66, 0.3)",
+    border: "1px solid #212121",
+    filter: "drop-shadow(0 0 0.5rem #212121)",
+    [theme.breakpoints.down("sm")]: {
       minHeight: 200,
-      height: '100%',
+      height: "100%",
     },
   },
   title: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 22,
-    color: 'white',
   },
   logoWrapper: {
     height: 45,
     width: 45,
-    backgroundColor: '#ffffff',
-    border: '1px solid #bdbdbd',
-    borderRadius: '50%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#ffffff",
+    border: "1px solid #bdbdbd",
+    borderRadius: "50%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   logo: {
     height: 30,
@@ -105,26 +104,26 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     paddingLeft: 10,
     fontSize: 18,
-    color: '#e5e5e5',
+    color: "#e5e5e5",
   },
   tokenSubtitle: {
     fontWeight: 300,
     padding: 0,
     paddingLeft: 10,
     fontSize: 12,
-    color: '#bdbdbd',
+    color: "#bdbdbd",
   },
   tokenAmount: {
-    fontWeight: 300,
+    fontWeight: 500,
     padding: 0,
     paddingLeft: 10,
-    fontSize: 10,
-    color: '#f9f9f9',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    fontSize: 16,
+    color: "#f9f9f9",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
-}))
+}));
 
 const Balances = memo(() => {
   const newReward = useNewReward()
@@ -146,54 +145,43 @@ const Balances = memo(() => {
   const classes = useStyles()
 
   return (
-    <StyledWrapper>
+    <StyledWrapper className="ml-4">
       <div className={classes.card}>
         <h6 className={classes.title} style={{ color: 'white' }}>
           Your Balance
         </h6>
-        <div className="mt-5">
-          <div className="d-flex justify-content-between mt-4">
-            <div className="d-flex justify-content-start">
-              <div className={classes.logoWrapper}>
-                <img
-                  src={'https://stake.polkabridge.org/img/symbol.png'}
-                  className={classes.logo}
-                />
+        <div className="mt-4">
+            <div className="d-flex justify-content-between mt-4">
+              <div className="d-flex justify-content-start">
+                <div className={classes.logoWrapper}>
+                  <img src={"http://localhost:3000/img/symbol.png"} className={classes.logo} />
+                </div>
+                <div>
+                  <div className={classes.tokenTitle}>PBR</div>
+                  <div className={classes.tokenSubtitle}>
+                    PolkaBridge
+                  </div>
+                </div>
               </div>
-              <div>
-                <div className={classes.tokenTitle}>PBR</div>
+              <div className={classes.tokenAmount}>Locked</div>
+            </div>
+      </div>
+      <div className="mt-4">
+            <div className="d-flex justify-content-between mt-4">
+              <div className="d-flex justify-content-start">
+                <div className={classes.logoWrapper}>
+                  <img src={"http://localhost:3000/img/symbol.png"} className={classes.logo} />
+                </div>
+                <div>
+                  <div className={classes.tokenTitle}>PBR</div>
+                  <div className={classes.tokenSubtitle}>
+                    Circulating Supply
+                  </div>
+                </div>
               </div>
+              <div className={classes.tokenAmount}>344545546</div>
             </div>
-            <div className={classes.tokenAmount}>
-              <Value
-                value={!!account ? getBalanceNumber(pbrBalance) : 'Locked'}
-              />
-            </div>
-          </div>
-          <div
-            className="d-flex justify-content-start"
-            style={{
-              paddingTop: 20,
-            }}
-          >
-            <div className={classes.logoWrapper}>
-              <img
-                src={'https://stake.polkabridge.org/img/symbol.png'}
-                className={classes.logo}
-              />
-            </div>
-            <div>
-              <div className={classes.tokenTitle}>Supply</div>
-            </div>
-            <div className={classes.tokenAmount}>
-              <Value
-                value={
-                  circulatingSupply ? getBalanceNumber(circulatingSupply) : '~'
-                }
-              />
-            </div>
-          </div>
-        </div>
+      </div>
       </div>
     </StyledWrapper>
   )

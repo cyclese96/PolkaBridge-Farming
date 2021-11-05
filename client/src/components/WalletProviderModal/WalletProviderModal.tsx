@@ -22,7 +22,10 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
   useEffect(() => {
     if (account) {
       onDismiss()
-      if (localStorage.useWalletConnectType && localStorage.useWalletConnectType === 'injected') {
+      if (
+        localStorage.useWalletConnectType &&
+        localStorage.useWalletConnectType === 'injected'
+      ) {
         localStorage.useWalletConnectStatus = 'connected'
       }
     }
@@ -40,7 +43,6 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
   return (
     <Modal>
       <ModalTitle text="Select a wallet provider." />
-
       <ModalContent>
         <StyledWalletsWrapper>
           <StyledWalletCard>
@@ -58,7 +60,6 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
             />
           </StyledWalletCard>
 
-          {/* <Spacer size="sm" /> */}
           <StyledWalletCard>
             <WalletCard
               icon={<img src={trustWalletLogo} style={{ width: 32 }} />}
@@ -73,7 +74,6 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
               title="Coin98 Wallet"
             />
           </StyledWalletCard>
-          
         </StyledWalletsWrapper>
       </ModalContent>
 
