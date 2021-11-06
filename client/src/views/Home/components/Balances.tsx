@@ -69,16 +69,18 @@ const PendingRewards: React.FC = () => {
 const useStyles = makeStyles((theme) => ({
   card: {
     height: 340,
-    width: "100%",
+    width: '100%',
     padding: 20,
     borderRadius: 30,
-   
     backgroundColor: "rgba(41, 42, 66, 0.3)",
     border: "1px solid #212121",
     filter: "drop-shadow(0 0 0.5rem #212121)",
+   
+
     [theme.breakpoints.down("sm")]: {
-      minHeight: 200,
+      width:'100%',
       height: "100%",
+      
     },
   },
   title: {
@@ -145,7 +147,7 @@ const Balances = memo(() => {
   const classes = useStyles()
 
   return (
-    <StyledWrapper className="ml-4">
+    <StyledWrapper className="ml-3">
       <div className={classes.card}>
         <h6 className={classes.title} style={{ color: 'white' }}>
           Your Balance
@@ -157,13 +159,17 @@ const Balances = memo(() => {
                   <img src={"http://localhost:3000/img/symbol.png"} className={classes.logo} />
                 </div>
                 <div>
-                  <div className={classes.tokenTitle}>PBR</div>
+                  <div className={classes.tokenTitle}><div>
+                <Label text="PBR" />
+              </div></div>
                   <div className={classes.tokenSubtitle}>
                     PolkaBridge
                   </div>
                 </div>
               </div>
-              <div className={classes.tokenAmount}>Locked</div>
+              <div className={classes.tokenAmount}><Value
+                value={!!account ? getBalanceNumber(pbrBalance) : 'Locked'}
+                /></div>
             </div>
       </div>
       <div className="mt-4">
@@ -175,11 +181,14 @@ const Balances = memo(() => {
                 <div>
                   <div className={classes.tokenTitle}>PBR</div>
                   <div className={classes.tokenSubtitle}>
-                    Circulating Supply
+                   Supply
                   </div>
                 </div>
               </div>
-              <div className={classes.tokenAmount}>344545546</div>
+              <div className={classes.tokenAmount}>
+              <Value
+                value={circulatingSupply ? getBalanceNumber(circulatingSupply) : '~'}
+              /></div>
             </div>
       </div>
       </div>

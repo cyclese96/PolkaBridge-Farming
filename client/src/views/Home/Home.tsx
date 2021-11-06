@@ -72,8 +72,8 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #212121',
     filter: 'drop-shadow(0 0 0.5rem #212121)',
     [theme.breakpoints.down('sm')]: {
-      minWidth: 240,
-      width: '100%',
+     height:'100%',
+     width:'100%',
     },
   },
   logo: {
