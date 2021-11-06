@@ -12,7 +12,6 @@ import PolkaBridgeIcon from '../../../components/PolkaBridgeIcon'
 import useAllEarnings from '../../../hooks/useAllEarnings'
 import useFarms from '../../../hooks/useFarms'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-
 import useTokenBalanceOf from '../../../hooks/useTokenBalanceOf'
 import useTokenTotalSupply from '../../../hooks/useTokenTotalSupply'
 import usePolkaBridge from '../../../hooks/usePolkaBridge'
@@ -23,6 +22,8 @@ import PolkaBridges from '../../../assets/img/supply.png'
 import useNewReward from '../../../hooks/useNewReward'
 import { makeStyles } from '@material-ui/core/styles'
 import Loader from './Loader'
+
+
 
 const PendingRewards: React.FC = () => {
   const [start, setStart] = useState(0)
@@ -119,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     padding: 0,
     paddingLeft: 10,
-    fontSize: 16,
+    fontSize: 13,
     color: "#f9f9f9",
     display: "flex",
     justifyContent: "center",
@@ -146,6 +147,11 @@ const Balances = memo(() => {
   const { account, ethereum }: { account: any; ethereum: any } = useWallet()
   const classes = useStyles()
 
+
+  const tokenLogo = {
+    PBR: "img/symbol.png",
+  }
+
   return (
     <StyledWrapper className="ml-3">
       <div className={classes.card}>
@@ -156,7 +162,7 @@ const Balances = memo(() => {
             <div className="d-flex justify-content-between mt-4">
               <div className="d-flex justify-content-start">
                 <div className={classes.logoWrapper}>
-                  <img src={"http://localhost:3000/img/symbol.png"} className={classes.logo} />
+                  <img src={"img/symbol.png"} className={classes.logo} />
                 </div>
                 <div>
                   <div className={classes.tokenTitle}><div>
@@ -176,7 +182,7 @@ const Balances = memo(() => {
             <div className="d-flex justify-content-between mt-4">
               <div className="d-flex justify-content-start">
                 <div className={classes.logoWrapper}>
-                  <img src={"http://localhost:3000/img/symbol.png"} className={classes.logo} />
+                  <img src={"img/symbol.png"} className={classes.logo} />
                 </div>
                 <div>
                   <div className={classes.tokenTitle}>PBR</div>
