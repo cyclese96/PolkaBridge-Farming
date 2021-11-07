@@ -21,12 +21,7 @@ import PolkaBridge from '../../../assets/img/balance.png'
 import PolkaBridges from '../../../assets/img/supply.png'
 import useNewReward from '../../../hooks/useNewReward'
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  formatCurrency,
-  formatLargeNumber,
-  fromWei,
-  toWei,
-} from "../../../pbr/lib/helper";
+
 
 const PendingRewards: React.FC = () => {
   const [start, setStart] = useState(0)
