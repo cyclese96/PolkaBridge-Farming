@@ -27,6 +27,8 @@ import TokenPrice from '../Home/components/TokenPrice'
 import TotalValueLocked from '../Home/components/TotalValueLocked'
 import TotalClaimReward from '../Home/components/TotalClaimReward'
 import Balances from '../Home/components/Balances'
+import Footer from '../../components/Footer'
+
 
 const useStyles = makeStyles((theme) => ({
   earn: {
@@ -389,6 +391,7 @@ const Farm: React.FC = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   )
 }
@@ -414,6 +417,7 @@ const StyledCardsWrapper = styled.div`
   align-items:center;
   width: 600px;
   justify-content: center;
+  padding-left:50px;
   @media (max-width: 767px) {
     width: 100%;
     flex-flow: column nowrap;
