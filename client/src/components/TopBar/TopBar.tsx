@@ -20,10 +20,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-
-
-
 interface TopBarProps {
   onPresentMobileMenu: () => void
 }
@@ -48,7 +44,7 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
             </WrapMenuDesktop>
           </div>
           <StyledAccountButtonWrapper>
-            <AccountButton />
+            {/* <AccountButton /> */}
             <WrapIconMenu>
               <img onClick={()=> setShowMenu(!showMenu)} className="d-md-none" src={MenuIcon} width="25" style={{ marginLeft: '10px', marginTop: '5px', cursor: 'pointer' }} />
             </WrapIconMenu>

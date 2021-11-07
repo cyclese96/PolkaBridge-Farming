@@ -14,6 +14,7 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import config from './config'
+import Navbar from './views/Home/components/Navbar'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -29,9 +30,9 @@ const App: React.FC = () => {
   return (
     <Providers>
       {/* <Router> */}
-        <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
-        <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
-       
+        {/* <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
+        <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} /> */}
+       <Navbar/>
         <Switch>
           <Route path="/" exact>
             <Home />

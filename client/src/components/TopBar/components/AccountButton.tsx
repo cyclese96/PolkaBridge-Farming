@@ -5,8 +5,12 @@ import useModal from '../../../hooks/useModal'
 import Button from '../../Button'
 import WalletProviderModal from '../../WalletProviderModal'
 import AccountModal from './AccountModal'
+// import { isMobile } from 'react-device-detect'
 
-interface AccountButtonProps {}
+interface AccountButtonProps {
+  account: string
+  status: boolean
+}
 
 const AccountButton: React.FC<AccountButtonProps> = (props) => {
   const [onPresentAccountModal] = useModal(<AccountModal />)
@@ -18,9 +22,14 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
   const { account, connect } = useWallet()
 
   useEffect(() => {
-    if (localStorage.useWalletConnectStatus === 'connected' && localStorage.useWalletConnectType) {
-      connect(localStorage.useWalletConnectType)
-    }
+    setTimeout(() => {
+      if (
+        localStorage.useWalletConnectStatus === 'connected' &&
+        localStorage.useWalletConnectType
+      ) {
+        connect(localStorage.useWalletConnectType)
+      }
+    }, 500)
   }, [])
 
   const handleUnlockClick = useCallback(() => {
@@ -31,15 +40,20 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
     <StyledAccountButton>
       {!account ? (
         <Button
-        onClick={handleUnlockClick}
-        size="sm"
-        variant="secondary"
-        text="Connect Wallet"
-      />
+          onClick={handleUnlockClick}
+          size="sm"
+          variant="secondary"
+          text="Connect Wallet"
+        />
       ) : (
         <BoxWallet>
-            <div>{account.substr(0, 7)}...</div>
-            <Button onClick={onPresentAccountModal} size="sm" variant="secondary" text="My Wallet" />
+          <div>{account && account.substr(0, 7)}...</div>
+          <Button
+            onClick={onPresentAccountModal}
+            size="sm"
+            variant="secondary"
+            text="My Wallet"
+          />
         </BoxWallet>
       )}
     </StyledAccountButton>
@@ -47,7 +61,6 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 }
 
 const StyledAccountButton = styled.div``
-
 
 const BoxWallet = styled.div`
   display: flex;
