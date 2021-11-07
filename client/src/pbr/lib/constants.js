@@ -73,8 +73,8 @@ export const supportedPools = [
     protocal: 'Uniswap',
     iconProtocal: '/img/tokens/pbr.png',
     pairLink: '/',
-    addLiquidityLink: 'https://app.uniswap.org/#/add/0x298d492e8c1d909d3f63bc4a36c66c64acb3d695/ETH',
-    removeLiquidityLink: 'https://app.uniswap.org/#/remove/0x298d492e8c1d909d3f63bc4a36c66c64acb3d695/ETH',
+    addLiquidityLink: 'https://app.uniswap.org/#/add/v2/ETH/0x298d492e8c1d909D3F63Bc4A36C66c64ACB3d695',
+    removeLiquidityLink: 'https://app.uniswap.org/#/remove/v2/0x298d492e8c1d909d3f63bc4a36c66c64acb3d695/ETH',
     poolWeight: 40
   },
   // {
@@ -139,8 +139,8 @@ export const supportedPools = [
     protocal: 'Uniswap',
     iconProtocal: '/img/tokens/pbr.png',
     pairLink: '/',
-    addLiquidityLink: 'https://app.uniswap.org/#/add/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/0xdAC17F958D2ee523a2206206994597C13D831ec7',
-    removeLiquidityLink: 'https://app.uniswap.org/#//remove/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/0xdAC17F958D2ee523a2206206994597C13D831ec7',
+    addLiquidityLink: 'https://app.uniswap.org/#/add/v2/0xdAC17F958D2ee523a2206206994597C13D831ec7/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    removeLiquidityLink: 'https://app.uniswap.org/#/remove/v2/0xdAC17F958D2ee523a2206206994597C13D831ec7/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
     poolWeight: 2
   }
 ]
