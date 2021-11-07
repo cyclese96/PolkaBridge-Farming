@@ -21,9 +21,12 @@ import PolkaBridge from '../../../assets/img/balance.png'
 import PolkaBridges from '../../../assets/img/supply.png'
 import useNewReward from '../../../hooks/useNewReward'
 import { makeStyles } from '@material-ui/core/styles'
-import Loader from './Loader'
-
-
+import {
+  formatCurrency,
+  formatLargeNumber,
+  fromWei,
+  toWei,
+} from "../../../pbr/lib/helper";
 
 const PendingRewards: React.FC = () => {
   const [start, setStart] = useState(0)
@@ -69,34 +72,32 @@ const PendingRewards: React.FC = () => {
 }
 const useStyles = makeStyles((theme) => ({
   card: {
-    height: 340,
+    height: 140,
     width: '100%',
     padding: 20,
     borderRadius: 30,
-    backgroundColor: "rgba(41, 42, 66, 0.3)",
-    border: "1px solid #212121",
-    filter: "drop-shadow(0 0 0.5rem #212121)",
-   
-
-    [theme.breakpoints.down("sm")]: {
-      width:'100%',
-      height: "100%",
-      
+    backgroundColor: 'rgba(41, 42, 66, 0.3)',
+    border: '1px solid #212121',
+    filter: 'drop-shadow(0 0 0.5rem #212121)',
+    marginBottom:10,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      height: '100%',
     },
   },
   title: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 22,
   },
   logoWrapper: {
     height: 45,
     width: 45,
-    backgroundColor: "#ffffff",
-    border: "1px solid #bdbdbd",
-    borderRadius: "50%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#ffffff',
+    border: '1px solid #bdbdbd',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logo: {
     height: 30,
@@ -107,26 +108,26 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     paddingLeft: 10,
     fontSize: 18,
-    color: "#e5e5e5",
+    color: '#e5e5e5',
   },
   tokenSubtitle: {
     fontWeight: 300,
     padding: 0,
     paddingLeft: 10,
     fontSize: 12,
-    color: "#bdbdbd",
+    color: '#bdbdbd',
   },
   tokenAmount: {
     fontWeight: 500,
     padding: 0,
     paddingLeft: 10,
-    fontSize: 13,
-    color: "#f9f9f9",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    fontSize: 10,
+    color: '#f9f9f9',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-}));
+}))
 
 const Balances = memo(() => {
   const newReward = useNewReward()
@@ -147,57 +148,67 @@ const Balances = memo(() => {
   const { account, ethereum }: { account: any; ethereum: any } = useWallet()
   const classes = useStyles()
 
-
   const tokenLogo = {
-    PBR: "img/symbol.png",
+    PBR: 'img/symbol.png',
   }
 
+
+  
+
   return (
-    <StyledWrapper className="ml-3">
+    <StyledWrapper className=" row ml-3">
       <div className={classes.card}>
         <h6 className={classes.title} style={{ color: 'white' }}>
           Your Balance
         </h6>
         <div className="mt-4">
-            <div className="d-flex justify-content-between mt-4">
-              <div className="d-flex justify-content-start">
-                <div className={classes.logoWrapper}>
-                  <img src={"img/symbol.png"} className={classes.logo} />
-                </div>
-                <div>
-                  <div className={classes.tokenTitle}><div>
-                <Label text="PBR" />
-              </div></div>
-                  <div className={classes.tokenSubtitle}>
-                    PolkaBridge
+          <div className="d-flex justify-content-between mt-4">
+            <div className="d-flex justify-content-start">
+              <div className={classes.logoWrapper}>
+                <img src={'img/symbol.png'} className={classes.logo} />
+              </div>
+              <div>
+                <div className={classes.tokenTitle}>
+                  <div>
+                    <Label text="PBR" />
                   </div>
                 </div>
+                <div className={classes.tokenSubtitle}>PolkaBridge</div>
               </div>
-              <div className={classes.tokenAmount}><Value
-                value={!!account ? getBalanceNumber(pbrBalance) : 'Locked'}
-                /></div>
             </div>
-      </div>
-      <div className="mt-4">
-            <div className="d-flex justify-content-between mt-4">
-              <div className="d-flex justify-content-start">
-                <div className={classes.logoWrapper}>
-                  <img src={"img/symbol.png"} className={classes.logo} />
-                </div>
-                <div>
-                  <div className={classes.tokenTitle}>PBR</div>
-                  <div className={classes.tokenSubtitle}>
-                   Supply
-                  </div>
-                </div>
-              </div>
-              <div className={classes.tokenAmount}>
+            <div className={classes.tokenAmount}>
               <Value
-                value={circulatingSupply ? getBalanceNumber(circulatingSupply) : '~'}
-              /></div>
+                value={!!account ? getBalanceNumber(pbrBalance) : 'Locked'}
+              />
             </div>
+          </div>
+        </div>
       </div>
-      </div>
+      <div className={classes.card}>
+      <h6 className={classes.title} style={{ color: 'white' }}>
+          PBR Supply
+        </h6>
+      <div className="mt-4">
+          <div className="d-flex justify-content-between mt-4">
+            <div className="d-flex justify-content-start">
+              <div className={classes.logoWrapper}>
+                <img src={'img/symbol.png'} className={classes.logo} />
+              </div>
+              <div>
+                <div className={classes.tokenTitle}>PBR</div>
+                <div className={classes.tokenSubtitle}>Supply</div>
+              </div>
+            </div>
+            <div className={classes.tokenAmount}>
+              <Value
+                value={
+                 circulatingSupply ? getBalanceNumber(circulatingSupply) : '~'
+                }
+              />
+            </div>
+          </div>
+        </div>
+        </div>
     </StyledWrapper>
   )
 })
