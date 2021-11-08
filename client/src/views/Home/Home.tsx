@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     height: 350,
-    width: 700,
+    width: 680,
     padding: 20,
     borderRadius: 30,
     backgroundColor: 'rgba(41, 42, 66, 0.3)',
@@ -146,7 +146,7 @@ const Home: React.FC = () => {
           <h1 className={classes.title}>Farm Pools</h1>
           <div className={classes.divider} />
           <div className="row mt-5">
-            <div className="col-md-8 mb-3">
+            <div className="col-md-8 mb-2">
               <div className={classes.card}>
                 <div>
                   <div className={classes.butt}>
@@ -226,10 +226,10 @@ const Home: React.FC = () => {
           <CustomCountDown date={atDate} />
           <Spacer size="md" />
           <div>
-            <ReadMore href="https://t.me/polkabridge" target="__blank">
+            {/* <ReadMore href="https://t.me/polkabridge" target="__blank">
               {' '}
               Read The Announcement
-            </ReadMore>
+            </ReadMore> */}
             <ReadMore
               href="https://youtu.be/xBnpTe1qdAc?t=169"
               target="__blank"
@@ -259,7 +259,7 @@ const Home: React.FC = () => {
           <Spacer size="lg" />
           <Spacer size="md" />
           <div style={{ textAlign: 'center' }}>
-            <ReadMore
+            {/* <ReadMore
               href="https://t.me/polkabridge"
               target="__blank"
               style={{
@@ -271,7 +271,7 @@ const Home: React.FC = () => {
             >
               {' '}
               Read The Announcement{' '}
-            </ReadMore>
+            </ReadMore> */}
             <ReadMore
               href="https://youtu.be/xBnpTe1qdAc?t=169"
               target="__blank"
@@ -287,7 +287,7 @@ const Home: React.FC = () => {
             </ReadMore>
             <div
               style={{
-                color: 'rgb(255,255,255,0.6)',
+                color: 'white',
                 textAlign: 'center',
                 marginTop: 5,
               }}
@@ -334,20 +334,24 @@ const StyledParagraph = styled.p`
 `
 
 const ReadMore = styled.a`
-  background: linear-gradient(to bottom, #d9047c, #bf1088);
+  background: linear-gradient(to right, #C80C81,purple);
   color: white;
-  width: 100;
-  height: 80;
-  text-transform: none;
-  font-size: 15;
-  border-radius: 40;
+  padding: 8;
+  width: 360;
+  height: 120;
+  font-size: 15px;
+  font-weight: 500;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20;
   margin-right: 30;
+  border-radius: 20,
+  letter-spacing: 0.4;
+  text-transform: none;
+  filter: drop-shadow(0 0 0.5rem #414141);
   '&:hover': {
-    background: rgba(224, 7, 125, 0.7);
+    background: #C80C81;
   }
 `
 

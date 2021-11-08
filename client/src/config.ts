@@ -11,7 +11,7 @@
 // }
 
 export default {
-  rpc: 'https://mainnet.infura.io/v3/6f0ba6da417340e6b1511be0f2bc389b',
+  rpc: `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_KEY.split('').reverse().join('')}`,
   chainId: 1,
   chainIdTestnet: 42,
   bscChain: 56,
@@ -23,3 +23,5 @@ export default {
   // bscChain: 97,
 
 }
+
+

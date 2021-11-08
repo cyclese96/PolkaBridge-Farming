@@ -29,7 +29,6 @@ import TotalClaimReward from '../Home/components/TotalClaimReward'
 import Balances from '../Home/components/Balances'
 import Footer from '../../components/Footer'
 
-
 const useStyles = makeStyles((theme) => ({
   earn: {
     textAlign: 'center',
@@ -90,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #212121',
     filter: 'drop-shadow(0 0 0.5rem #212121)',
     [theme.breakpoints.down('sm')]: {
-      height:"100%",
+      height: '100%',
       width: '100%',
     },
   },
@@ -103,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #212121',
     filter: 'drop-shadow(0 0 0.5rem #212121)',
     [theme.breakpoints.down('sm')]: {
-      height:'100%',
+      height: '100%',
       width: '100%',
     },
   },
@@ -325,7 +324,7 @@ const Farm: React.FC = () => {
               </div>
             </div>
             <StyledCardsWrapper>
-              <div >
+              <div>
                 <div
                   style={{
                     color: '#ffffff',
@@ -338,10 +337,7 @@ const Farm: React.FC = () => {
                   MAYBE YOU DON'T KNOW
                 </div>
                 <StyledInfoLP>
-                  <img
-                    src={iconProtocal}
-                    height="50"
-                  />
+                  <img src={iconProtocal} height="50" />
                   <div
                     style={{
                       width: 'calc(100% - 70px',
@@ -391,7 +387,7 @@ const Farm: React.FC = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   )
 }
@@ -413,11 +409,11 @@ const StyledFarm = styled.div`
 
 const StyledCardsWrapper = styled.div`
   display: flex;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
   width: 600px;
   justify-content: center;
-  padding-left:50px;
+  padding-left: 50px;
   @media (max-width: 767px) {
     width: 100%;
     flex-flow: column nowrap;
@@ -441,7 +437,7 @@ const StyledInfo = styled.h3`
   margin: 0;
   padding: 0;
   text-align: center;
-  
+
   @media (max-width: 767px) {
     text-align: left;
     br {
@@ -460,17 +456,17 @@ const StyledHeading = styled.h2`
 
 const StyledInfoLP = styled.div`
   display: flex;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
   padding: 15px 10px;
   background: #00ff5d0f;
   border-radius: 12px;
-  margin-top:20px;
-  margin-bottom:60px;
+  margin-top: 20px;
+  margin-bottom: 60px;
   border-radius: 30;
   background-color: rgba(41, 42, 66, 0.3);
   border: 1px solid #212121;
-  filter: drop-shadow(0 0 0.5rem #212121),
+  filter: drop-shadow(0 0 0.5rem #212121);
 `
 
 export default Farm

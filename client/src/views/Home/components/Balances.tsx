@@ -23,7 +23,6 @@ import useNewReward from '../../../hooks/useNewReward'
 import { makeStyles } from '@material-ui/core/styles'
 import { formatCurrency } from '../../../pbr/helper'
 
-
 const PendingRewards: React.FC = () => {
   const [start, setStart] = useState(0)
   const [end, setEnd] = useState(0)
@@ -68,14 +67,14 @@ const PendingRewards: React.FC = () => {
 }
 const useStyles = makeStyles((theme) => ({
   card: {
-    height: 140,
-    width: '100%',
+    height: 150,
+    width: 250,
     padding: 20,
     borderRadius: 30,
     backgroundColor: 'rgba(41, 42, 66, 0.3)',
     border: '1px solid #212121',
     filter: 'drop-shadow(0 0 0.5rem #212121)',
-    marginBottom:10,
+    marginLeft: 20,
     [theme.breakpoints.down('sm')]: {
       width: '100%',
       height: '100%',
@@ -140,7 +139,7 @@ const Balances = memo(() => {
     ),
   )
   const pbrBalance = useTokenBalance(getPolkaBridgeAddress(pbr))
-  circulatingSupply =circulatingSupply.minus(lockedBalance)
+  circulatingSupply = circulatingSupply.minus(lockedBalance)
   const { account, ethereum }: { account: any; ethereum: any } = useWallet()
   const classes = useStyles()
 
@@ -148,13 +147,13 @@ const Balances = memo(() => {
     PBR: 'img/symbol.png',
   }
 
-
   return (
-    <StyledWrapper className=" row ml-3">
+    <StyledWrapper className="row">
       <div className={classes.card}>
         <h6 className={classes.title} style={{ color: 'white' }}>
           Your Balance
         </h6>
+
         <div className="mt-4">
           <div className="d-flex justify-content-between mt-4">
             <div className="d-flex justify-content-start">
@@ -178,7 +177,7 @@ const Balances = memo(() => {
           </div>
         </div>
       </div>
-      <div className={classes.card}>
+      {/* <div className={classes.card}>
       <h6 className={classes.title} style={{ color: 'white' }}>
           PBR Supply
         </h6>
@@ -202,7 +201,7 @@ const Balances = memo(() => {
             </div>
           </div>
         </div>
-        </div>
+        </div> */}
     </StyledWrapper>
   )
 })
@@ -210,6 +209,7 @@ const Balances = memo(() => {
 const StyledWrapper = styled.div`
   align-items: center;
   display: flex;
+
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;

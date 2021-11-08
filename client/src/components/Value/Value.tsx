@@ -44,7 +44,7 @@ const Value: React.FC<ValueProps> = ({ value, decimals }) => {
 const StyledValue = styled.div`
   font-family: 'Nunito Sans', sans-serif;
   color: ${(props) => props.theme.color.primary.main};
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
 `
 

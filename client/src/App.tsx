@@ -29,15 +29,15 @@ const App: React.FC = () => {
 
   return (
     <Providers>
-       <Navbar/>
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/farms">
-            <Farms />
-          </Route>
-        </Switch>
+      <Navbar />
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/farms">
+          <Farms />
+        </Route>
+      </Switch>
       {/* </Router> */}
       <Disclaimer />
     </Providers>
@@ -57,7 +57,7 @@ const Providers: React.FC = ({ children }) => {
           <TransactionProvider>
             <FarmsProvider>
               <Router>
-              <ModalsProvider>{children}</ModalsProvider>
+                <ModalsProvider>{children}</ModalsProvider>
               </Router>
             </FarmsProvider>
           </TransactionProvider>

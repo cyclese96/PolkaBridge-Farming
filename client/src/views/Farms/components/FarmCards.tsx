@@ -137,8 +137,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
         <CardContent>
           <StyledContent>
             <StyledTopIcon>
-              {farm.isSoon && <StyledNewIcon>SOON</StyledNewIcon>}
-              {farm.isNew && <StyledNewIcon>NEW</StyledNewIcon>}
+              {/* {farm.isSoon && <StyledNewIcon>SOON</StyledNewIcon>}
+              {farm.isNew && <StyledNewIcon>NEW</StyledNewIcon>} */}
             </StyledTopIcon>
             <div style={{ display: 'flex' }}>
               <CardIcon>
@@ -168,7 +168,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             </Button>
             <br />
             <StyledInsight>
-              <span>Total Locked Value</span>
+              <span>TVL</span>
 
               <span>
                 {farm.usdValue && (
@@ -252,7 +252,6 @@ const RainbowLight = keyframes`
 `
 
 const StyledCardAccent = styled.div`
-
   background-size: 300% 300%;
   animation: ${RainbowLight} 2s linear infinite;
   border-radius: 12px;
@@ -364,10 +363,10 @@ const StyledInsight = styled.div`
   box-sizing: border-box;
   border-radius: 8px;
   background: transparent;
-  color: #9e9e9e;
+  color: white;
   width: 100%;
   line-height: 25px;
-  font-size: 13px;
+  font-size: 14px;
   border: 0px solid #e6dcd5;
   text-align: center;
 `
