@@ -179,13 +179,13 @@ const Home: React.FC = () => {
                       target="_blank"
                       href="https://app.uniswap.org/#/swap?inputCurrency=0x298d492e8c1d909d3f63bc4a36c66c64acb3d695&outputCurrency=ETH&use=V2"
                     >
-                      <div className={classes.buynow}> Buy Now</div>
+                      <div className={classes.buynow}>Buy Now</div>
                     </a>
                   </div>
 
                   <div className={classes.desktop}>
                     <div className="text-center mt-4">
-                      <div className={classes.tokenTitle}>PBR Price: </div>
+                      <div className={classes.tokenTitle}>PBR Price:</div>
                       <div className={classes.tokenAmount}>
                         $<TokenPrice />
                       </div>
@@ -205,7 +205,6 @@ const Home: React.FC = () => {
                       </div>
                       <div className={classes.tokenAmount}>
                         <TotalClaimReward />
-                        PBR
                       </div>
                     </div>
                   </div>

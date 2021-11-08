@@ -4,6 +4,7 @@ import CountUp from 'react-countup'
 import useAllStakedValue from '../../../hooks/useAllStakedValue'
 import usePBRPrice from '../../../hooks/usePBRPrice'
 import Web3 from 'web3'
+import { formatCurrency } from '../../../pbr/helper'
 
 const TotalValueLocked = memo(() => {
   const stakedValue = useAllStakedValue()
@@ -31,7 +32,7 @@ const TotalValueLocked = memo(() => {
         display: 'inline-block',
       }}
     >
-      <CountUp
+      {/* <CountUp
         start={start}
         end={end}
         decimals={end < 0 ? 1 : end > 1e5 ? 0 : 1}
@@ -41,7 +42,8 @@ const TotalValueLocked = memo(() => {
           setTimeout(() => setScale(1), 600)
         }}
         separator=","
-      />
+      /> */}
+      <div>{formatCurrency(end)}</div>
     </span>
   )
 })

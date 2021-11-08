@@ -22,6 +22,9 @@ const TokenPrice = memo(() => {
     setEnd(finalPrice)
   }, [finalPrice])
 
+
+  
+
   return (
     <span
       style={{
@@ -42,6 +45,7 @@ const TokenPrice = memo(() => {
         }}
         separator=","
       />
+    
     </span>
   )
 })

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import CountUp from 'react-countup'
 
 import styled from 'styled-components'
+import { formatCurrency } from '../../pbr/helper'
 
 interface ValueProps {
   value: string | number
@@ -24,17 +25,19 @@ const Value: React.FC<ValueProps> = ({ value, decimals }) => {
       {typeof value == 'string' ? (
         value
       ) : (
-        <CountUp
-          start={start}
-          end={end}
-          decimals={
-            decimals !== undefined ? decimals : end < 0 ? 4 : end > 1e5 ? 0 : 3
-          }
-          duration={1}
-          separator=","
-        />
+        // <CountUp
+        //   start={start}
+        //   end={end}
+        //   decimals={
+        //     decimals !== undefined ? decimals : end < 0 ? 4 : end > 1e5 ? 0 : 3
+        //   }
+        //   duration={1}
+        //   separator=","
+        // />
+        <div>{formatCurrency(end)}</div>
       )}
     </StyledValue>
+    // <div>{formatCurrency(end)}</div>
   )
 }
 

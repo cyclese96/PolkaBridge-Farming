@@ -21,6 +21,7 @@ import PolkaBridge from '../../../assets/img/balance.png'
 import PolkaBridges from '../../../assets/img/supply.png'
 import useNewReward from '../../../hooks/useNewReward'
 import { makeStyles } from '@material-ui/core/styles'
+import { formatCurrency } from '../../../pbr/helper'
 
 
 const PendingRewards: React.FC = () => {
@@ -139,7 +140,7 @@ const Balances = memo(() => {
     ),
   )
   const pbrBalance = useTokenBalance(getPolkaBridgeAddress(pbr))
-  circulatingSupply = circulatingSupply.minus(lockedBalance)
+  circulatingSupply =circulatingSupply.minus(lockedBalance)
   const { account, ethereum }: { account: any; ethereum: any } = useWallet()
   const classes = useStyles()
 
@@ -147,8 +148,6 @@ const Balances = memo(() => {
     PBR: 'img/symbol.png',
   }
 
-
-  
 
   return (
     <StyledWrapper className=" row ml-3">

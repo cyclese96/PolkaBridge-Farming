@@ -29,9 +29,6 @@ const App: React.FC = () => {
 
   return (
     <Providers>
-      {/* <Router> */}
-        {/* <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
-        <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} /> */}
        <Navbar/>
         <Switch>
           <Route path="/" exact>
