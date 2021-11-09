@@ -417,7 +417,7 @@ const StyledCardsWrapper = styled.div`
   @media (max-width: 767px) {
     width: 100%;
     flex-flow: column nowrap;
-    align-items: center;
+ 
   }
 `
 
@@ -426,7 +426,7 @@ const StyledCardWrapper = styled.div`
   flex: 1;
   flex-direction: column;
   @media (max-width: 767px) {
-    width: 80%;
+    width: 100%;
   }
 `
 
@@ -458,7 +458,7 @@ const StyledInfoLP = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px 10px;
+  padding-left: 10px;
   background: #00ff5d0f;
   border-radius: 12px;
   margin-top: 20px;
@@ -467,6 +467,9 @@ const StyledInfoLP = styled.div`
   background-color: rgba(41, 42, 66, 0.3);
   border: 1px solid #212121;
   filter: drop-shadow(0 0 0.5rem #212121);
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 export default Farm
