@@ -45,7 +45,7 @@ const Home: React.FC = () => {
             <Spacer size="md" />
             <div>
                 
-                <ReadMore href="https://youtu.be/xBnpTe1qdAc?t=169" target="__blank"> Video Tutorial</ReadMore>
+                <ReadMore href="https://youtu.be/xBnpTe1qdAc" target="__blank"> Video Tutorial</ReadMore>
                 <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Contract was fully audited by CertiK. Check report <a href="https://certik.org/projects/polkabridge" target="_blank">here</a>.</div>
              
             </div>
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
             <Spacer size="md" />
             <div style={{textAlign: 'center'}}>
               
-                <ReadMore href="https://youtu.be/xBnpTe1qdAc?t=169" target="__blank"> Video Tutorial</ReadMore>
+                <ReadMore href="https://youtu.be/xBnpTe1qdAc" target="__blank"> Video Tutorial</ReadMore>
                 <div style={{color: 'rgb(255,255,255,0.6)', textAlign: 'center', marginTop: 5}}>Contract was fully audited by CertiK. Check report <a href="https://certik.org/projects/polkabridge" target="_blank">here</a>.</div>
               
             </div>
