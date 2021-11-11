@@ -4,6 +4,7 @@ import CountUp from 'react-countup'
 import useAllStakedValue from '../../../hooks/useAllStakedValue'
 import usePBRPrice from '../../../hooks/usePBRPrice'
 import Web3 from 'web3'
+import { formatCurrency } from '../../../pbr/helper'
 
 const TotalValueLocked = memo(() => {
   const stakedValue = useAllStakedValue()
@@ -14,14 +15,6 @@ const TotalValueLocked = memo(() => {
   
   let totalLocked = 0
   for (let e of stakedValue) {
-    // try{
-    //   console.log(e.pid,parseFloat(Web3.utils.fromWei(e.usdValue.toNumber().toString(),'ether')))
-    
-    // }
-    // catch(err){
-    //   throw new Error(err)
-    // }
-   
     totalLocked += (parseFloat(Web3.utils.fromWei(e.usdValue.toFixed(0).toString(),'ether')))
   }
 
@@ -39,7 +32,7 @@ const TotalValueLocked = memo(() => {
         display: 'inline-block',
       }}
     >
-      <CountUp
+      {/* <CountUp
         start={start}
         end={end}
         decimals={end < 0 ? 1 : end > 1e5 ? 0 : 1}
@@ -49,7 +42,8 @@ const TotalValueLocked = memo(() => {
           setTimeout(() => setScale(1), 600)
         }}
         separator=","
-      />
+      /> */}
+      <div>{formatCurrency(end)}</div>
     </span>
   )
 })

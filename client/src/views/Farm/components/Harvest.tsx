@@ -29,15 +29,8 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
           <StyledCardHeader>
             <StyledValue>
               <Label text="PBR Reward" />
-              <br/>
-              <Value value={getBalanceNumber(earnings).toFixed(2)}/>
-              {/* <br/>
-              {earnings &&
-                <div style={{marginTop: 0}}>
-                  <span style={{color: '#fff'}}>Available: {avaiableReward && avaiableReward.toFixed(3)} <br /> Locked: {lockReward && lockReward.toFixed(3)}
-                  </span>
-                </div>
-              } */}
+              <br />
+              <Value value={getBalanceNumber(earnings).toFixed(2)} />
             </StyledValue>
           </StyledCardHeader>
           <StyledCardActions>
@@ -64,7 +57,7 @@ const StyledCardHeader = styled.div`
 `
 const StyledValue = styled.div`
   text-align: center;
-  span{
+  span {
     color: ${(props) => props.theme.color.white};
   }
 `
@@ -72,7 +65,6 @@ const StyledCardActions = styled.div`
   display: flex;
   justify-content: center;
   margin-top: ${(props) => props.theme.spacing[2]}px;
-  width: 100%;
 `
 
 const StyledSpacer = styled.div`
@@ -83,9 +75,10 @@ const StyledSpacer = styled.div`
 const StyledCardContentInner = styled.div`
   align-items: center;
   display: flex;
-  flex: 1;
+
   flex-direction: column;
   justify-content: space-between;
+  height: 210px;
 `
 
 export default Harvest

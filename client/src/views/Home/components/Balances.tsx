@@ -12,7 +12,6 @@ import PolkaBridgeIcon from '../../../components/PolkaBridgeIcon'
 import useAllEarnings from '../../../hooks/useAllEarnings'
 import useFarms from '../../../hooks/useFarms'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-
 import useTokenBalanceOf from '../../../hooks/useTokenBalanceOf'
 import useTokenTotalSupply from '../../../hooks/useTokenTotalSupply'
 import usePolkaBridge from '../../../hooks/usePolkaBridge'
@@ -21,6 +20,8 @@ import { getBalanceNumber } from '../../../utils/formatBalance'
 import PolkaBridge from '../../../assets/img/balance.png'
 import PolkaBridges from '../../../assets/img/supply.png'
 import useNewReward from '../../../hooks/useNewReward'
+import { makeStyles } from '@material-ui/core/styles'
+import { formatCurrency } from '../../../pbr/helper'
 
 const PendingRewards: React.FC = () => {
   const [start, setStart] = useState(0)
@@ -64,88 +65,156 @@ const PendingRewards: React.FC = () => {
     </span>
   )
 }
+const useStyles = makeStyles((theme) => ({
+  card: {
+    height: 150,
+    width: 250,
+    padding: 20,
+    borderRadius: 30,
+    backgroundColor: 'rgba(41, 42, 66, 0.3)',
+    border: '1px solid #212121',
+    filter: 'drop-shadow(0 0 0.5rem #212121)',
+    marginLeft: 20,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      height: '100%',
+    },
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 22,
+  },
+  logoWrapper: {
+    height: 45,
+    width: 45,
+    backgroundColor: '#ffffff',
+    border: '1px solid #bdbdbd',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: {
+    height: 30,
+    width: 30,
+  },
+  tokenTitle: {
+    fontWeight: 500,
+    padding: 0,
+    paddingLeft: 10,
+    fontSize: 18,
+    color: '#e5e5e5',
+  },
+  tokenSubtitle: {
+    fontWeight: 300,
+    padding: 0,
+    paddingLeft: 10,
+    fontSize: 12,
+    color: '#bdbdbd',
+  },
+  tokenAmount: {
+    fontWeight: 500,
+    padding: 0,
+    paddingLeft: 10,
+    fontSize: 10,
+    color: '#f9f9f9',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+}))
 
 const Balances = memo(() => {
   const newReward = useNewReward()
   const pbr = usePolkaBridge()
   // const totalSupply = useTokenSupply(getPolkaBridgeAddress(pbr))
   let circulatingSupply = useTokenTotalSupply(getPolkaBridgeAddress(pbr))
-  const lockedBalance = useTokenBalanceOf(getPolkaBridgeAddress(pbr), "0x6a97eedd28becb3590c19dead324e0fc203dd2a6").plus(useTokenBalanceOf(getPolkaBridgeAddress(pbr), "0x624b06b8452c9bdb8d558b591bf1b6825a133937"))
+  const lockedBalance = useTokenBalanceOf(
+    getPolkaBridgeAddress(pbr),
+    '0x6a97eedd28becb3590c19dead324e0fc203dd2a6',
+  ).plus(
+    useTokenBalanceOf(
+      getPolkaBridgeAddress(pbr),
+      '0x624b06b8452c9bdb8d558b591bf1b6825a133937',
+    ),
+  )
   const pbrBalance = useTokenBalance(getPolkaBridgeAddress(pbr))
   circulatingSupply = circulatingSupply.minus(lockedBalance)
   const { account, ethereum }: { account: any; ethereum: any } = useWallet()
+  const classes = useStyles()
+
+  const tokenLogo = {
+    PBR: 'img/symbol.png',
+  }
 
   return (
-    <StyledWrapper>
-      <Card>
-        <CardContent>
-          <StyledBalances>
-            <StyledBalance>
-              {/* <PolkaBridgeIcon /> */}
-              <img src={PolkaBridge} height="50" alt="PBR Balance"/>
-              <Spacer />
-              <div style={{ flex: 1 }}>
-                <Label text="Your Available PBR Balance" />
-                <Value
-                  value={!!account ? getBalanceNumber(pbrBalance) : 'Locked'}
-                />
-              </div>
-            </StyledBalance>
-          </StyledBalances>
-        </CardContent>
-     
-      </Card>
-      <Spacer />
+    <StyledWrapper className="row">
+      <div className={classes.card}>
+        <h6 className={classes.title} style={{ color: 'white' }}>
+          Your Balance
+        </h6>
 
-      <Card>
-        <CardContent>
-          <StyledBalance>
-            <img height="50px" src={PolkaBridges} alt="Total PBR Supply"/>
-            <Spacer />
-            <div style={{ flex: 1 }}>
-              <Label text="PBR Circulating Supply" />
+        <div className="mt-4">
+          <div className="d-flex justify-content-between mt-4">
+            <div className="d-flex justify-content-start">
+              <div className={classes.logoWrapper}>
+                <img src={'img/symbol.png'} className={classes.logo} />
+              </div>
+              <div>
+                <div className={classes.tokenTitle}>
+                  <div>
+                    <Label text="PBR" />
+                  </div>
+                </div>
+                <div className={classes.tokenSubtitle}>PolkaBridge</div>
+              </div>
+            </div>
+            <div className={classes.tokenAmount}>
               <Value
-                value={circulatingSupply ? getBalanceNumber(circulatingSupply) : '~'}
+                value={!!account ? getBalanceNumber(pbrBalance) : 'Locked'}
               />
             </div>
-          </StyledBalance>
-        </CardContent>
-        
-      </Card>
+          </div>
+        </div>
+      </div>
+      {/* <div className={classes.card}>
+      <h6 className={classes.title} style={{ color: 'white' }}>
+          PBR Supply
+        </h6>
+      <div className="mt-4">
+          <div className="d-flex justify-content-between mt-4">
+            <div className="d-flex justify-content-start">
+              <div className={classes.logoWrapper}>
+                <img src={'img/symbol.png'} className={classes.logo} />
+              </div>
+              <div>
+                <div className={classes.tokenTitle}>PBR</div>
+                <div className={classes.tokenSubtitle}>Supply</div>
+              </div>
+            </div>
+            <div className={classes.tokenAmount}>
+              <Value
+                value={
+                 circulatingSupply ? getBalanceNumber(circulatingSupply) : '~'
+                }
+              />
+            </div>
+          </div>
+        </div>
+        </div> */}
     </StyledWrapper>
   )
 })
 
-const Footnote = styled.div`
-  font-size: 14px;
-  padding: 5px 20px;
-  color: ${(props) => props.theme.color.grey[100]};
-  background-color: ${(props) => props.theme.color.grey[300]};
-`
-const FootnoteValue = styled.div`
-  font-family: 'Nunito Sans', sans-serif;
-  float: right;
-  color: ${(props) => props.theme.color.white};
-`
-
 const StyledWrapper = styled.div`
   align-items: center;
   display: flex;
+
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;
     align-items: stretch;
   }
-`
-
-const StyledBalances = styled.div`
-  display: flex;
-`
-
-const StyledBalance = styled.div`
-  align-items: center;
-  display: flex;
-  flex: 1;
 `
 
 export default Balances

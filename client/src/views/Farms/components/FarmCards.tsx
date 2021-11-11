@@ -18,8 +18,15 @@ import usePBRPrice from '../../../hooks/usePBRPrice'
 import usePoolActive from '../../../hooks/usePoolActive'
 import useStakedValue from '../../../hooks/useStakedValue'
 import usePolkaBridge from '../../../hooks/usePolkaBridge'
-import { NUMBER_BLOCKS_PER_YEAR, START_NEW_POOL_AT } from '../../../pbr/lib/constants'
-import { getEarned, getMasterChefContract, getNewRewardPerBlock } from '../../../pbr/utils'
+import {
+  NUMBER_BLOCKS_PER_YEAR,
+  START_NEW_POOL_AT,
+} from '../../../pbr/lib/constants'
+import {
+  getEarned,
+  getMasterChefContract,
+  getNewRewardPerBlock,
+} from '../../../pbr/utils'
 import { bnToDec } from '../../../utils'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 import Web3 from 'web3'
@@ -37,15 +44,14 @@ const FarmCards: React.FC = () => {
   const [farms] = useFarms()
   const stakedValue = useAllStakedValue()
   const pbrPrice = usePBRPrice()
-  
- 
+
   const rows = farms.reduce<FarmWithStakedValue[][]>(
     (farmRows, farm, i) => {
-      var sv = (stakedValue || []).find(e => {
+      var sv = (stakedValue || []).find((e) => {
         return parseInt(e.pid) == farm.pid
       })
-     
-      const farmWithStakedValue : FarmWithStakedValue = {
+
+      const farmWithStakedValue: FarmWithStakedValue = {
         ...farm,
         tokenAmount: (sv || {}).tokenAmount || new BigNumber(0),
         token2Amount: (sv || {}).token2Amount || new BigNumber(0),
@@ -53,7 +59,7 @@ const FarmCards: React.FC = () => {
         tokenPriceInToken2: (sv || {}).tokenPriceInToken2 || new BigNumber(0),
         poolWeight: (sv || {}).poolWeight || new BigNumber(0),
         usdValue: (sv || {}).usdValue || new BigNumber(0),
-        pbrPrice
+        pbrPrice,
       }
       const newFarmRows = [...farmRows]
       if (newFarmRows[newFarmRows.length - 1].length === 3) {
@@ -125,22 +131,23 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const startTime = START_NEW_POOL_AT
 
   return (
-    
     <StyledCardWrapper>
       {farm.tokenSymbol === 'PBR' && <StyledCardAccent />}
       <Card>
-        
         <CardContent>
           <StyledContent>
             <StyledTopIcon>
-              {farm.isSoon && <StyledNewIcon>SOON</StyledNewIcon>}
-              {farm.isNew && <StyledNewIcon>NEW</StyledNewIcon>}
-              {/* {!farm.isHot && <StyledHotIcon>NO REWARD</StyledHotIcon>} */}
+              {/* {farm.isSoon && <StyledNewIcon>SOON</StyledNewIcon>}
+              {farm.isNew && <StyledNewIcon>NEW</StyledNewIcon>} */}
             </StyledTopIcon>
-            <div style={{display: 'flex'}}>
-              <CardIcon><img src={farm.icon} alt="" height="60"/></CardIcon>
+            <div style={{ display: 'flex' }}>
+              <CardIcon>
+                <img src={farm.icon} alt="" height="60" />
+              </CardIcon>
               <span>&nbsp;&nbsp;</span>
-              <CardIcon><img src={farm.icon2} alt=""  height="60"/></CardIcon>
+              <CardIcon>
+                <img src={farm.icon2} alt="" height="60" />
+              </CardIcon>
             </div>
             <StyledTitle>{farm.name}</StyledTitle>
             <StyledDetails>
@@ -159,55 +166,71 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                 />
               )}
             </Button>
-            <br/>
+            <br />
             <StyledInsight>
-              <span>Total Locked Value</span>
-              
-              <span>
-                {farm.usdValue &&
-                  <><b>{parseFloat(Web3.utils.fromWei(farm.usdValue.toFixed(0).toString(),'ether')).toFixed(0).toLocaleString()} USD</b></>
+              <span>TVL</span>
 
-                }
+              <span>
+                {farm.usdValue && (
+                  <>
+                    <b>
+                      {parseFloat(
+                        Web3.utils.fromWei(
+                          farm.usdValue.toFixed(0).toString(),
+                          'ether',
+                        ),
+                      )
+                        .toFixed(0)
+                        .toLocaleString()}{' '}
+                      USD
+                    </b>
+                  </>
+                )}
               </span>
             </StyledInsight>
-            {farm.isHot && <>
-              <StyledInsight>
-                <span>Avg. reward</span>
-                <span>
-                  {newReward &&
-                    <><b>{getBalanceNumber(newReward).toFixed(3)} PBR</b> / block</>
-                  }
-                </span>
-              </StyledInsight>
-              <StyledInsight>
-                <span>Multiplier</span>
-                <span>
-                  {newReward &&
-                    <><b>{farm.poolWeight.toFixed(0)}x</b></>
-                  }
-                </span>
-              </StyledInsight>
-              <StyledInsight>
-              
-                <span>APY</span>
-               
-                <span style={{fontWeight: 'bold', color: '#4caf50'}}>
-                  {
-                   
-                  newReward && farm.pbrPrice && farm.usdValue 
-                  && !farm.usdValue.isZero()?
-                  
-                    `${farm.pbrPrice
-                      .times(new BigNumber(NUMBER_BLOCKS_PER_YEAR))
-                      .times(newReward)
-                      .div(farm.usdValue)
-                      .times(100)
-                      .toFixed(3).toLocaleString()}%` : '+∞'
-                  }
-                </span>
-              </StyledInsight>
-            </>
-            }
+            {farm.isHot && (
+              <>
+                <StyledInsight>
+                  <span>Avg. reward</span>
+                  <span>
+                    {newReward && (
+                      <>
+                        <b>{getBalanceNumber(newReward).toFixed(3)} PBR</b> /
+                        block
+                      </>
+                    )}
+                  </span>
+                </StyledInsight>
+                <StyledInsight>
+                  <span>Multiplier</span>
+                  <span>
+                    {newReward && (
+                      <>
+                        <b>{farm.poolWeight.toFixed(0)}x</b>
+                      </>
+                    )}
+                  </span>
+                </StyledInsight>
+                <StyledInsight>
+                  <span>APY</span>
+
+                  <span style={{ fontWeight: 'bold', color: '#4caf50' }}>
+                    {newReward &&
+                    farm.pbrPrice &&
+                    farm.usdValue &&
+                    !farm.usdValue.isZero()
+                      ? `${farm.pbrPrice
+                          .times(new BigNumber(NUMBER_BLOCKS_PER_YEAR))
+                          .times(newReward)
+                          .div(farm.usdValue)
+                          .times(100)
+                          .toFixed(3)
+                          .toLocaleString()}%`
+                      : '+∞'}
+                  </span>
+                </StyledInsight>
+              </>
+            )}
           </StyledContent>
         </CardContent>
       </Card>
@@ -229,20 +252,6 @@ const RainbowLight = keyframes`
 `
 
 const StyledCardAccent = styled.div`
-  background: linear-gradient(
-    45deg,
-    rgba(255, 0, 0, 1) 0%,
-    rgba(255, 154, 0, 1) 10%,
-    rgba(208, 222, 33, 1) 20%,
-    rgba(79, 220, 74, 1) 30%,
-    rgba(63, 218, 216, 1) 40%,
-    rgba(47, 201, 226, 1) 50%,
-    rgba(28, 127, 238, 1) 60%,
-    rgba(95, 21, 242, 1) 70%,
-    rgba(186, 12, 248, 1) 80%,
-    rgba(251, 7, 217, 1) 90%,
-    rgba(255, 0, 0, 1) 100%
-  );
   background-size: 300% 300%;
   animation: ${RainbowLight} 2s linear infinite;
   border-radius: 12px;
@@ -307,7 +316,7 @@ const StyledTopIcon = styled.div`
 
 const StyledHotIcon = styled.div`
   position: absolute;
-  background-color: gray;
+  background-color: red;
   padding: 8px 40px 8px;
   top: 12px;
   left: -30px;
@@ -354,10 +363,10 @@ const StyledInsight = styled.div`
   box-sizing: border-box;
   border-radius: 8px;
   background: transparent;
-  color: #9E9E9E;
+  color: white;
   width: 100%;
   line-height: 25px;
-  font-size: 13px;
+  font-size: 14px;
   border: 0px solid #e6dcd5;
   text-align: center;
 `

@@ -5,6 +5,8 @@ import config from '../config'
 import { supportedPools, START_NEW_POOL_AT } from './lib/constants'
 import { pbr, pbrAddress, pbrAddressMainnet } from '../constants/tokenAddresses'
 import Web3 from 'web3'
+import { bscNetwork, ethereumNetwork,  currentConnection, ethereumInfuraRpc, ethereumInfuraTestnetRpc, polygonMainnetInfuraRpc, polygonTestnetInfuraRpc, polygonNetwork, harmonyNetwork, harmonyChainIds, HMY_TESTNET_RPC_URL } from './lib/constants'
+
 import { createAwait } from 'typescript'
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
@@ -468,3 +470,45 @@ export const leave = async (contract, amount, account) => {
       return tx.transactionHash
     })
 }
+
+
+const getWeb3Provider = (network, nativeNetwork, pid) => {
+  let rpc;
+  if (network === bscNetwork) {
+    rpc = window.ethereum;
+  } else {  
+    rpc = nativeNetwork === network ? window.ethereum
+      : currentConnection === 'mainnet' ? ethereumInfuraRpc : ethereumInfuraTestnetRpc;
+
+  }
+
+  const web3 = new Web3(rpc);
+  return web3;
+}
+
+export const getCurrentNetworkId = async () => {
+  if (window.ethereum) {
+    const web3 = new Web3(window.ethereum)
+    const id = await web3.eth.getChainId()
+
+    if (id) {
+      return id
+    } else {
+      try {
+        const web3 = getWeb3Provider('ethereum')
+        return await web3.eth.getChainId()
+      } catch (error) {
+
+        return config.chainId
+      }
+    }
+  } else {
+
+    return config.chainId
+  }
+};
+
+
+export const isMetaMaskInstalled = () => {
+  return typeof window.web3 !== "undefined";
+};

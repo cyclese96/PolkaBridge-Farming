@@ -28,12 +28,11 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({
         <div>
           <p>Audits: None.</p>
           <p>
-            While the initial creators of the PBR protocol have made
-            reasonable efforts to attempt to ensure the security of the
-            contracts, including forking much of the codebase from existing
-            well-audited projects and soliciting review from friends, nothing
-            approaching the rigor of a formal audit has been conducted at this
-            time.
+            While the initial creators of the PBR protocol have made reasonable
+            efforts to attempt to ensure the security of the contracts,
+            including forking much of the codebase from existing well-audited
+            projects and soliciting review from friends, nothing approaching the
+            rigor of a formal audit has been conducted at this time.
           </p>
           <p>
             We STRONGLY urge caution to anyone who chooses to engage with these
@@ -42,10 +41,7 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({
         </div>
       )
     } else {
-      return (
-        <div>
-        </div>
-      )
+      return <div></div>
     }
   }, [step])
 
