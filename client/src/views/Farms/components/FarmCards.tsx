@@ -266,6 +266,8 @@ const StyledCardAccent = styled.div`
 
 const StyledCards = styled.div`
   width: 900px;
+  display:flex;
+  justify-content:center;
   @media (max-width: 768px) {
     width: 100%;
   }
