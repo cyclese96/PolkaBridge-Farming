@@ -141,12 +141,12 @@ const Home: React.FC = () => {
 
   return (
     <Page>
-      <div className=" d-flex justify-content-center">
+      <div className="d-flex-justify-content-center">
         <div className={classes.background}>
           <h1 className={classes.title}>Farm Pools</h1>
           <div className={classes.divider} />
-          <div className=" d-flex justify-content-center mt-5">
-            <div className="mb-2">
+          <div className="mt-5">
+            <div className="col-md-8 mb-2">
               <div className={classes.card}>
                 <div>
                   <div className={classes.butt}>
