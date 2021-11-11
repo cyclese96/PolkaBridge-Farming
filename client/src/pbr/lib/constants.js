@@ -26,6 +26,17 @@ export const INTEGERS = {
   INTEREST_RATE_BASE: new BigNumber('1e18'),
 }
 
+export const ethereumInfuraTestnetRpc = `https://kovan.infura.io/v3/${process.env.REACT_APP_INFURA_KEY}`;
+export const ethereumInfuraRpc = `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_KEY}`;
+
+export const ethereumNetwork = 'ethereum'
+export const bscNetwork = 'bsc'
+
+const testing = false;
+
+export const currentConnection = testing ? 'testnet' : 'mainnet';
+
+
 
 // TODO: change the address & set LP pool
 export const contractAddresses = {

@@ -1,12 +1,24 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-
+import { makeStyles } from "@material-ui/core/styles";
 import Container from '../Container'
 import Logo from '../Logo'
 import MenuIcon from '../../assets/img/menu.svg'
-
+import Avatar from "@material-ui/core/Avatar";
 import AccountButton from './components/AccountButton'
 import Nav from './components/Nav'
+
+const useStyles = makeStyles((theme) => ({
+  logo: {
+    height: 38,
+    width: 150,
+    [theme.breakpoints.down("sm")]: {
+      height: 30,
+      width: "fit-content",
+    },
+  }
+}));
+
 
 interface TopBarProps {
   onPresentMobileMenu: () => void
@@ -14,21 +26,25 @@ interface TopBarProps {
 
 const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
   const [showMenu, setShowMenu] = useState(false)
-
+  const classes = useStyles();
   return (
     <StyledTopBar>
       <Container size="lg">
         <StyledTopBarInner>
           <div style={{display: 'flex', alignItems: 'center'}}>
             <StyledLogoWrapper>
-              <Logo />
+            <Avatar
+            variant="square"
+            src="img/logo-white.png"
+            className={classes.logo}
+          />
             </StyledLogoWrapper>
             <WrapMenuDesktop>
               <Nav showMenu={showMenu} />
             </WrapMenuDesktop>
           </div>
           <StyledAccountButtonWrapper>
-            <AccountButton />
+            {/* <AccountButton /> */}
             <WrapIconMenu>
               <img onClick={()=> setShowMenu(!showMenu)} className="d-md-none" src={MenuIcon} width="25" style={{ marginLeft: '10px', marginTop: '5px', cursor: 'pointer' }} />
             </WrapIconMenu>

@@ -14,6 +14,7 @@ import theme from './theme'
 import Farms from './views/Farms'
 import Home from './views/Home'
 import config from './config'
+import Navbar from './views/Home/components/Navbar'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -28,18 +29,15 @@ const App: React.FC = () => {
 
   return (
     <Providers>
-      {/* <Router> */}
-        <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
-        <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
-       
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/farms">
-            <Farms />
-          </Route>
-        </Switch>
+      <Navbar />
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/farms">
+          <Farms />
+        </Route>
+      </Switch>
       {/* </Router> */}
       <Disclaimer />
     </Providers>
@@ -59,7 +57,7 @@ const Providers: React.FC = ({ children }) => {
           <TransactionProvider>
             <FarmsProvider>
               <Router>
-              <ModalsProvider>{children}</ModalsProvider>
+                <ModalsProvider>{children}</ModalsProvider>
               </Router>
             </FarmsProvider>
           </TransactionProvider>
