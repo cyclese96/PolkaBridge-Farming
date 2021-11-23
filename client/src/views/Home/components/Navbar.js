@@ -322,28 +322,28 @@ const Navbar = () => {
 
   return (
     <div style={{ marginBottom: 50 }}>
-      {/* <AccountDialog
-        open={accountDialog}
-        handleClose={() => setAccountDialog(false)}
-      /> */}
       <AppBar
         color="transparent"
         position="fixed"
         className={classes.appBarBackground}
       >
         <Toolbar className={classes.sectionDesktop}>
-          <Link to='/'>
+          <Link to="/">
             <Avatar
               variant="square"
               src="img/logo-white.png"
               className={classes.logo}
-            /></Link>
+            />
+          </Link>
 
           <div className={classes.leftMargin} />
 
           <div className="d-flex justify-content-end">
             <div>
-              <a href="https://stake.polkabridge.org" className={classes.navbarItemsDesktop}>
+              <a
+                href="https://stake.polkabridge.org"
+                className={classes.navbarItemsDesktop}
+              >
                 Stake <DotCircle active={true} />
               </a>
             </div>
@@ -369,7 +369,10 @@ const Navbar = () => {
             </a>
           </div>
           <div>
-            <a href="https://swap.polkabridge.org" className={classes.navbarItemsDesktop}>
+            <a
+              href="https://swap.polkabridge.org"
+              className={classes.navbarItemsDesktop}
+            >
               Swap <DotCircle />
             </a>
           </div>
@@ -396,7 +399,7 @@ const Navbar = () => {
           </div>
 
           <div className={classes.grow} />
-          <div >
+          <div>
             <NetworkSelect selectedNetwork={chainId} />
           </div>
           <div style={{ paddingRight: 10 }}></div>
@@ -405,16 +408,13 @@ const Navbar = () => {
 
         <Toolbar className={classes.sectionMobile}>
           <div className="d-flex justify-content-center align-items-center">
-
-            <Link to='/'>
+            <Link to="/">
               <Avatar
                 variant="square"
                 src="img/logo-white.png"
                 style={{ height: 38, width: 150 }}
-              /></Link>
-            {/* <div >
-              <NetworkSelect selectedNetwork={chainId} />
-            </div> */}
+              />
+            </Link>
           </div>
 
           <div>

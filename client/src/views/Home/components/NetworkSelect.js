@@ -39,17 +39,17 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 10,
   },
 }))
-export default function NetworkSelect({ }) {
+
+
+export default function NetworkSelect({}) {
   const classes = useStyles()
 
-  const { chainId, status, } = useNetwork()
+  const { chainId, status } = useNetwork()
   const { account } = useWallet()
 
+  const testing = false
 
-  
-const testing = false;
-
-const currentConnection = testing ? 'testnet' : 'mainnet';
+  const currentConnection = testing ? 'testnet' : 'mainnet'
 
   useEffect(() => {
     // console.log('selected chain id', selectedNetwork)
@@ -57,21 +57,18 @@ const currentConnection = testing ? 'testnet' : 'mainnet';
       return
     }
     if (status === 'connected') {
-
       handleChange(chainId)
     }
   }, [chainId, status])
 
   const handleChange = (_selected) => {
-
     if ([config.bscChain, config.bscChainTestent].includes(_selected)) {
       setupNetwork(
         currentConnection === 'mainnet'
           ? bscNetworkDetail.mainnet
           : bscNetworkDetail.testnet,
       )
-    } 
-     else {
+    } else {
       setupNetwork(
         currentConnection === 'mainnet'
           ? ethereumNetworkDetail.mainnet
@@ -80,13 +77,15 @@ const currentConnection = testing ? 'testnet' : 'mainnet';
     }
   }
 
-
   const setupNetwork = async (networkObject) => {
     const provider = window.ethereum
     if (provider) {
       // const _chainId = parseInt(networkObject.chainId, 10)
       try {
-        if (networkObject.chainId === `0x${config.chainId.toString(16)}` || networkObject.chainId === `0x${config.chainIdTestnet.toString(16)}`) {
+        if (
+          networkObject.chainId === `0x${config.chainId.toString(16)}` ||
+          networkObject.chainId === `0x${config.chainIdTestnet.toString(16)}`
+        ) {
           await provider.request({
             method: 'wallet_switchEthereumChain',
             params: [{ chainId: networkObject.chainId }],
@@ -94,9 +93,7 @@ const currentConnection = testing ? 'testnet' : 'mainnet';
         }
         await provider.request({
           method: 'wallet_addEthereumChain',
-          params: [
-            networkObject
-          ]
+          params: [networkObject],
         })
         return true
       } catch (error) {
@@ -104,13 +101,15 @@ const currentConnection = testing ? 'testnet' : 'mainnet';
         return false
       }
     } else {
-      console.error("Can't setup the BSC network on metamask because window.ethereum is undefined")
+      console.error(
+        "Can't setup the BSC network on metamask because window.ethereum is undefined",
+      )
       return false
     }
   }
   return (
     <div>
-      <FormControl variant='standard' className={classes.root} >
+      <FormControl variant="standard" className={classes.root}>
         {console.log('testConnect: ', chainId)}
         <Select
           className={classes.main}
@@ -119,16 +118,27 @@ const currentConnection = testing ? 'testnet' : 'mainnet';
           disableUnderline
         >
           <MenuItem
-            value={currentConnection === 'testnet' ? config.chainIdTestnet : config.chainId}
+            value={
+              currentConnection === 'testnet'
+                ? config.chainIdTestnet
+                : config.chainId
+            }
             className={classes.buttonDrop}
           >
             <span>Ethereum</span>
             <img className={classes.imgIcon} src="/img/tokens/eth.png" />
           </MenuItem>
-          {/* <MenuItem value={currentConnection === 'testnet' ? config.bscChainTestent : config.bscChain} className={classes.buttonDrop}>
+          <MenuItem
+            value={
+              currentConnection === 'testnet'
+                ? config.bscChainTestent
+                : config.bscChain
+            }
+            className={classes.buttonDrop}
+          >
             <span>Binance Smart Chain</span>
             <img className={classes.imgIcon} src="/img/tokens/bnb.png" />
-          </MenuItem> */}
+          </MenuItem>
           {/* <MenuItem value={currentConnection === 'testnet' ? config.polygon_chain_testnet : config.polygon_chain_mainnet} className={classes.buttonDrop}>
             <span>Polygon</span>
             <img className={classes.imgIcon} src="/img/tokens/polygon.png" />

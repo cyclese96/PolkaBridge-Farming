@@ -67,7 +67,7 @@ export const supportedPools = [
     },
     token2Addresses: {
       1: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-      4: '0xc778417e063141139fce010982780140aa0cd5ab'
+      4: '0xc778417e063141139fce010982780140aa0cd5ab',
     },
     name: 'PBR - ETH',
     symbol: 'PBR-ETH LP',
@@ -84,9 +84,11 @@ export const supportedPools = [
     protocal: 'Uniswap',
     iconProtocal: '/img/tokens/pbr.png',
     pairLink: '/',
-    addLiquidityLink: 'https://app.uniswap.org/#/add/v2/ETH/0x298d492e8c1d909D3F63Bc4A36C66c64ACB3d695',
-    removeLiquidityLink: 'https://app.uniswap.org/#/remove/v2/0x298d492e8c1d909d3f63bc4a36c66c64acb3d695/ETH',
-    poolWeight: 40
+    addLiquidityLink:
+      'https://app.uniswap.org/#/add/v2/ETH/0x298d492e8c1d909D3F63Bc4A36C66c64ACB3d695',
+    removeLiquidityLink:
+      'https://app.uniswap.org/#/remove/v2/0x298d492e8c1d909d3f63bc4a36c66c64acb3d695/ETH',
+    poolWeight: 40,
   },
   // {
   //   pid: 1,
@@ -121,37 +123,37 @@ export const supportedPools = [
   //   removeLiquidityLink: 'https://app.uniswap.org/#/remove/0x44f262622248027f8E2a8Fb1090c4Cf85072392C/ETH',
   //   poolWeight: 2
   // },
-  {
-    pid: 2,
-    lpAddresses: {
-      1: '0x3041cbd36888becc7bbcbc0045e3b1f144466f5f',
-      4: '0x3041cbd36888becc7bbcbc0045e3b1f144466f5f',
-    },
-    tokenAddresses: {
-      1: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-      4: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-    },
-    token2Addresses: {
-      1: '0xdac17f958d2ee523a2206206994597c13d831ec7',
-      4: '0xdac17f958d2ee523a2206206994597c13d831ec7'
-    },
-    name: 'USDC - USDT',
-    symbol: 'USDC-USDT LP',
-    symbolShort: 'USDC-USDT',
-    description: `Deposit USDC-USDT LP Earn PBR`,
-    tokenSymbol: 'USDC',
-    token2Symbol: 'USDT',
-    icon: '/img/tokens/usdc.png',
-    icon2: '/img/tokens/usdt.png',
-    isHot: true,
-    isNew: true,
-    isSoon: false,
-    isActived: true,
-    protocal: 'Uniswap',
-    iconProtocal: '/img/tokens/pbr.png',
-    pairLink: '/',
-    addLiquidityLink: 'https://app.uniswap.org/#/add/v2/0xdAC17F958D2ee523a2206206994597C13D831ec7/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-    removeLiquidityLink: 'https://app.uniswap.org/#/remove/v2/0xdAC17F958D2ee523a2206206994597C13D831ec7/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-    poolWeight: 2
-  }
+  // {
+  //   pid: 2,
+  //   lpAddresses: {
+  //     1: '0x3041cbd36888becc7bbcbc0045e3b1f144466f5f',
+  //     4: '0x3041cbd36888becc7bbcbc0045e3b1f144466f5f',
+  //   },
+  //   tokenAddresses: {
+  //     1: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+  //     4: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+  //   },
+  //   token2Addresses: {
+  //     1: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+  //     4: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+  //   },
+  //   name: 'USDC - USDT',
+  //   symbol: 'USDC-USDT LP',
+  //   symbolShort: 'USDC-USDT',
+  //   description: `Deposit USDC-USDT LP Earn PBR`,
+  //   tokenSymbol: 'USDC',
+  //   token2Symbol: 'USDT',
+  //   icon: '/img/tokens/usdc.png',
+  //   icon2: '/img/tokens/usdt.png',
+  //   isHot: true,
+  //   isNew: true,
+  //   isSoon: false,
+  //   isActived: true,
+  //   protocal: 'Uniswap',
+  //   iconProtocal: '/img/tokens/pbr.png',
+  //   pairLink: '/',
+  //   addLiquidityLink: 'https://app.uniswap.org/#/add/v2/0xdAC17F958D2ee523a2206206994597C13D831ec7/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+  //   removeLiquidityLink: 'https://app.uniswap.org/#/remove/v2/0xdAC17F958D2ee523a2206206994597C13D831ec7/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+  //   poolWeight: 2
+  // }
 ]
