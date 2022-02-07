@@ -5,6 +5,8 @@ import { Account } from './lib/accounts.js'
 import { EVM } from './lib/evm.js'
 
 import { contractAddresses } from './lib/constants'
+import { isMetaMaskInstalled } from './utils.js'
+import config from '../config'
 
 export class PolkaBridge {
   constructor(provider, networkId, testing, options) {
@@ -25,6 +27,11 @@ export class PolkaBridge {
       realProvider = provider
     }
 
+    if (!isMetaMaskInstalled()) {
+      // add ankr rpc provider if metamask not found
+      realProvider = new Web3.providers.HttpProvider(config.ankrEthereumRpc)
+    }
+
     this.web3 = new Web3(realProvider)
 
     if (testing) {
@@ -39,8 +46,6 @@ export class PolkaBridge {
     this.pbrAddress = contractAddresses.pbr[networkId]
     // this.masterChefAddress = contractAddresses.masterChef[networkId]
     this.wethAddress = contractAddresses.weth[networkId]
-
-
   }
 
   async resetEVM() {
@@ -75,8 +80,9 @@ export class PolkaBridge {
         account.address.toLowerCase() !== newAccount.address.toLowerCase())
     ) {
       throw new Error(`Loaded account address mismatch.
-        Expected ${account.address}, got ${newAccount ? newAccount.address : null
-        }`)
+        Expected ${account.address}, got ${
+        newAccount ? newAccount.address : null
+      }`)
     }
   }
 

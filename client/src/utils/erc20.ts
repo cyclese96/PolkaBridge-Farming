@@ -5,11 +5,14 @@ import { Contract } from 'web3-eth-contract'
 import { AbiItem } from 'web3-utils'
 import ERC20ABI from '../constants/abi/ERC20.json'
 import config from '../config'
+import { isMetaMaskInstalled } from '../pbr/utils'
 
 export const getContract = (provider: any, address: string) => {
-  const web3 = new Web3(provider as any || config.rpc)
+  const web3 = isMetaMaskInstalled()
+    ? new Web3((provider as any) || config.rpc)
+    : new Web3(new Web3.providers.HttpProvider(config.ankrEthereumRpc))
   const contract = new web3.eth.Contract(
-    (ERC20ABI.abi as unknown) as AbiItem,
+    ERC20ABI.abi as unknown as AbiItem,
     address,
   )
   return contract
@@ -63,13 +66,11 @@ export const getBalance = async (
 
 export const getTotalSupply = async (
   provider: provider,
-  tokenAddress: string
+  tokenAddress: string,
 ): Promise<string> => {
   const lpContract = getContract(provider, tokenAddress)
   try {
-    const totalSupply: string = await lpContract.methods
-      .totalSupply()
-      .call()
+    const totalSupply: string = await lpContract.methods.totalSupply().call()
     return totalSupply
   } catch (e) {
     return '0'
