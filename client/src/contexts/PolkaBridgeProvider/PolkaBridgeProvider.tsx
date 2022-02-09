@@ -43,10 +43,9 @@ const PolkaBridgeProvider: React.FC = ({ children }) => {
       })
       setPolkaBridge(pbrLib)
       window.pbrsauce = pbrLib
-    }
-    else {
+    } else {
       const chainId = config.chainId
-      const pbrLib = new PolkaBridge(config.rpc, chainId, false, {
+      const pbrLib = new PolkaBridge(config.ankrEthereumRpc, chainId, false, {
         defaultAccount: '0x0000000000000000000000000000000000000000',
         defaultConfirmations: 1,
         autoGasMultiplier: 1.5,

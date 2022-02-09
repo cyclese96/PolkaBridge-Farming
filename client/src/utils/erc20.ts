@@ -9,7 +9,7 @@ import { isMetaMaskInstalled } from '../pbr/utils'
 
 export const getContract = (provider: any, address: string) => {
   const web3 = isMetaMaskInstalled()
-    ? new Web3((provider as any) || config.rpc)
+    ? new Web3((provider as any) || config.ankrEthereumRpc)
     : new Web3(new Web3.providers.HttpProvider(config.ankrEthereumRpc))
   const contract = new web3.eth.Contract(
     ERC20ABI.abi as unknown as AbiItem,
